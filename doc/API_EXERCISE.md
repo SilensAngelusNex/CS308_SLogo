@@ -1,5 +1,4 @@
 # Model/Back End API
-====
 
 ### External
 
@@ -20,11 +19,9 @@ void parse(String command)
 void addLine(Line newLine)
 * Adds the Line newLine tho the collection of lines to be drawn.
 
-===
+------
 
 # View/Front End API
-
-===
 
 ### External
 
