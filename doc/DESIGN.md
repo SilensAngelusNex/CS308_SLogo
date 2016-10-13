@@ -2,6 +2,9 @@
 
 ## Introduction
 
+Our project will create an environment in which users can run SLogo commands and view how those commands affect the turtles. Separation between front and back ends
+should give the project a large degree of flexibility, especially in the ability to add more commands, and more objects to manipulate. The only open things should be
+the command string coming from the user, and the information that needs to be displayed, coming from the Model and going to the View. 
 
 
 ## Design Overview
@@ -25,6 +28,26 @@ is then passed to the backend.
 
 ## User Interface 
 
+- Turtle Enclosure: Portion of the screen that the turtle/lines are displayed
+- Command Entry Box
+- Comsole/Previous Commands Log
+- List of Commands/Info Pane
+
+```
+    ----------------------------
+    |                   |      |
+    |                   | Info |
+    |    Turtle         | Pane |
+    |    Enclosure      |      |
+    |                   --------
+    |                   |      |
+    |                   |      |
+    |                   | Log  |
+    |-------------------|      |
+    | Command Entry     |      |
+    ----------------------------
+    
+```
 
 
 ## API Details
@@ -33,7 +56,7 @@ is then passed to the backend.
 
 #### External
 
-void exec(expression tree)
+String exec(expression tree)
 * Runs the SLogo command given the expression tree.
 Model_Observable that front end listens to. If model changes, the front end will change based on the changes: PathModel, TurtleModel
 
@@ -86,6 +109,61 @@ Model_listener that listens the back end changes: PathView, TurtleView.
 
 ## API Example Code
 
+View calls:
+```java
+ExpressionTree inputTree = createExpressionTree(input);
+model.exec(inputTree);
+```
+
+The exec call will in turn call:
+```java
+updateTurtleState();
+updatePath();
+```
+
+Then, the next time the view calls updateEnclosure(), the changes will be shown.
+
+**Use Cases:**
+
+* **Undefined Function**
+View calls:
+```java
+try{
+ExpressionTree inputTree = createExpressionTree(input);
+} catch InvalidFunctionException e{
+display(e.message);
+}
+```
+
+* **Incorrect Arguments** - Exception message should be different.
+View calls:
+```java
+try{
+ExpressionTree inputTree = createExpressionTree(input);
+} catch InvalidFunctionException e{
+display(e.message);
+}
+```
+
+* **Nested Functions** - Completely handled by the expression tree
+View calls:
+```java
+ExpressionTree inputTree = createExpressionTree(input);
+model.exec(inputTree);
+```
+The exec call will in turn call:
+```java
+updateTurtleState();
+updatePath();
+```
+Then, the next time the view calls updateEnclosure(), the changes will be shown.
+
+* **Turtle moves off-screen**
+
+    Runs the same as a normal input, but when the turtle moves off screen,
+    it will be placed back at the bottom. updatePath will be called multiple
+    times so that the line the turtle leaves doesn't just go from its start
+    to end point.
 
 
 ## Design Considerations
