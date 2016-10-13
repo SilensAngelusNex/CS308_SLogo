@@ -31,7 +31,7 @@ wac12 and sy105
 	3. Turtle moves off screen
 	4. Multiple commands on the same line
 	5. Incomplete command on a line, followed by the rest on the next line.
-2. ***Advanced Techniques**
+2. **Advanced Techniques**
 	* Reflection will be useful to actually execute the parsed command
 3. **Exciting Feature**
 	* I'm most excited to try to implement overloading commands.
