@@ -13,11 +13,11 @@ of indirection.
 ## Part 2
 
 1. Use cases
-- User enters "FORWARD 50" and the turtle moves forward 50 pixels
-- User enters "PENDOWN" and the turtle starts leaving a trail
-- User enters "HIDE TURTLE" and the turtle becomes invisible
-- User enters FORWARD with too many pixels and an exception is thrown becaues the turtle cannot go out of bounds
-- User enters gibberish and an exception is thrown
+    - User enters "FORWARD 50" and the turtle moves forward 50 pixels
+    - User enters "PENDOWN" and the turtle starts leaving a trail
+    - User enters "HIDE TURTLE" and the turtle becomes invisible
+    - User enters FORWARD with too many pixels and an exception is thrown becaues the turtle cannot go out of bounds
+    - User enters gibberish and an exception is thrown
 2. Observables will be used when entering the commands in the front-end. 
 3. I am most excited on working on parsing the data and updating the states correctly.
 4. I am worried about integrating the front-end and the back-end.
