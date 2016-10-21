@@ -5,15 +5,18 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
@@ -24,18 +27,18 @@ public class SlogoView {
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources/UILabels";
 	private final String LAUGUAGE_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myLanguageResources;
-	private ResourceBundle myResources;
+	private ResourceBundle myUILabel;
 	private Scene myScene;
 	 private WebView myHelpPage;
 	
     public SlogoView(String language){
-    	myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+    	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
     	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
     	BorderPane root = new BorderPane();
     	
     	root.setBottom(makeTerminalPanel());
     	//root.setCenter(makeModelPanel());
-    	//root.setTop(makeSettingPanel());
+    	root.setTop(makeSettingPanel());
     	root.setLeft(makeHTMLManualPanel());
     	//root.setRight(makeInputPanel());
     	
@@ -48,8 +51,32 @@ public class SlogoView {
 	}
 
 	private Node makeSettingPanel() {
+		HBox functionHBox = new HBox();
+		ChoiceBox languageCBox = new ChoiceBox(FXCollections.observableArrayList(
+				"Chinese", "English", "French", "German", "Italian", "Portuguese",
+				"Russian", "Spanish"));
+		ChoiceBox colorCBox = new ChoiceBox(FXCollections.observableArrayList(
+				"Black", "Blue", "White"));
+		languageCBox.getSelectionModel().select(1);
+		colorCBox.getSelectionModel().select(0);
+		Button BackgroundButton = makeButton("BackgroundLabel", event -> setBackground());
+		Button TurtleDisplyButton = makeButton("TurtleLabel", event -> displayTurtle());
+		Button HelpButton = makeButton("HelpLabel", event -> promptHelpPage());
+		functionHBox.getChildren().addAll(languageCBox, colorCBox, BackgroundButton, TurtleDisplyButton, HelpButton);
+		
 		// TODO Auto-generated method stub
-		return null;
+		return functionHBox;
+	}
+
+	private void promptHelpPage() {
+	}
+
+	private void displayTurtle() {
+		
+	}
+
+	private void setBackground() {
+
 	}
 
 	private Node makeHTMLManualPanel() {
@@ -73,18 +100,16 @@ public class SlogoView {
 		return node;
 	}
 	private void parseCommand() {
+		
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         Button result = new Button();
-        String label = myResources.getString(property);
+        String label = myUILabel.getString(property);
         result.setText(label);
         result.setOnAction(handler);
         return result;
     }
-	
-	
-
     
 	public Scene getScene() {
 
