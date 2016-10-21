@@ -1,7 +1,6 @@
+import View.SlogoView;
 import javafx.application.Application;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import user_interface.SlogoView;
 
 public class Main extends Application {
 	 public static final String TITLE = "SLOGO - Group 14";
@@ -12,8 +11,6 @@ public class Main extends Application {
 		SlogoView display = new SlogoView("English");
 		primaryStage.setScene(display.getScene());
 		primaryStage.show();
-		
-		//display.showPage(DEFAULT_START_PAGE);
 
 	}
 	
