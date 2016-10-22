@@ -6,6 +6,15 @@ package parser;
  * @author Daniel Chai
  */
 public class ExpressionNode {
+	
+	/*
+	 *Daniel, I think the Expression nodes should have a list of children instead of a set number; even if none of the
+	 *commands now use more that 2 arguments, it'll make it easier to extend functionality later.
+	 *
+	 *Also, if I understand what you're using it for, the value for a node isn't something the expression tree needs
+	 *know, we should calculate the value when we execute the tree.
+	 */
+	
 	private String command;
 	private Double value;
 	private ExpressionNode child1;
