@@ -1,9 +1,12 @@
 package Model;
 
+import parser.CommandParser;
+
 public class SLOGOModel {
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
+	private CommandParser myParser;
 	
 	public SLOGOModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
@@ -11,6 +14,7 @@ public class SLOGOModel {
 		
 		myCalculator = new Calculator();
 		myVariables = new VariableContainer();
+		myParser = new CommandParser();
 	}
 	
 	public double forward(double distance){
