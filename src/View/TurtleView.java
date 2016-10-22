@@ -1,6 +1,6 @@
 package View;
 
-import java.awt.Point;
+import Model.Point;
 
 public interface TurtleView {
 
@@ -13,4 +13,6 @@ public interface TurtleView {
 	abstract public double getPreviousHeading();
 	
 	abstract public String getImagePath();
+	
+	abstract public boolean isVisible();
 }

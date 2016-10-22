@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.Color;
-import java.awt.Point;
 
 import View.TurtleView;
 
@@ -14,12 +13,17 @@ public class Turtle implements TurtleModel, TurtleView{
 	
 	Color myPenColor;
 	boolean myPenDown;
+	boolean myVisibility;
 	
 	public Turtle(){
 		myPosition = new Point(0, 0);
 		myHeading = Math.toRadians(90);
+		myLastPosition = myPosition;
+		myLastHeading = myHeading;
+		
 		myPenDown = true;
 		myPenColor = new Color(255, 255, 255);
+		myVisibility = true;
 	}
 	
 	@Override
@@ -28,7 +32,8 @@ public class Turtle implements TurtleModel, TurtleView{
 	}
 	
 	@Override
-	public double setHeading(double radians){
+	public double setHeading(double radians) {
+		myLastHeading = myHeading;
 		double result = radians - myHeading ;
 		
 		radians = radians % (2 * Math.PI);
@@ -56,7 +61,8 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public void setLocation(double newX, double newY) {
-		myPosition.setLocation(newX, newY);
+		myLastPosition = myPosition;
+		myPosition = new Point(newX, newY);
 	}
 
 	@Override
@@ -64,6 +70,9 @@ public class Turtle implements TurtleModel, TurtleView{
 		return myPenColor;
 	}
 
+	public void setPenColor(Color c) {
+		myPenColor = c;
+	}
 
 	@Override
 	public Point getCurrentLocation() {
@@ -98,5 +107,29 @@ public class Turtle implements TurtleModel, TurtleView{
 	public TurtleView toTurtleView(){
 		return this;
 	}
+	
+	@Override
+	public boolean isVisible(){
+		return myVisibility;
+	}
+	
+	@Override
+	public void setVisibility(boolean b){
+		myVisibility = b;
+	}
 
+	@Override
+	public void setPen(boolean b) {
+		myPenDown = b;
+	}
+
+	@Override
+	public boolean getPenDown() {
+		return myPenDown;
+	}
+
+	@Override
+	public boolean getVisibility() {
+		return myVisibility;
+	}
 }

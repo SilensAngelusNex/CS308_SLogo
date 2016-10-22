@@ -26,13 +26,16 @@ public class Enclosure implements Observable{
 		myActiveTurtle = 0;
 	}
 	
-	public void clearScreen(){
-		removeAllLines();
-		removeAllTurtles();
-		
-		addTurtle(new Turtle());
-		myActiveTurtle = 0;
-
+	public double forward(double dist){
+		return move(dist, getActiveTurtle().getHeading());
+	}
+	
+	public double back(double dist){
+		return move(dist, -getActiveTurtle().getHeading());
+	}
+	
+	public double right(double degrees){
+		return -left(-degrees);
 	}
 	
 	public double left(double degrees){
@@ -42,19 +45,79 @@ public class Enclosure implements Observable{
 		return degrees;
 	}
 	
-	public double right(double degrees){
-		return left(-degrees);
-	}
-	
 	public double setHeading(double degrees){
 		return getActiveTurtle().setHeading(Math.toRadians(degrees));
-
 	}
 	
 	public double towards(double x, double y){
-		throw new UnsupportedOperationException();
+		Point destination = new Point(x, y);
+		
+		return setHeading(getActiveTurtle().getCurrentLocation().headingTo(destination));
 	}
 	
+	public double goTo(double x, double y){
+		TurtleModel t = getActiveTurtle();
+		towards(x, y);
+		
+		t.setLocation(x, y);
+
+		notifyListeners(e -> e.moveTurtle(getActiveTurtle().toTurtleView()));
+		return t.getCurrentLocation().euclideanDistance(t.getPreviousLocation());
+	}
+	
+	public double penDown(){
+		getActiveTurtle().setPen(true);
+		return 1;
+	}
+	public double penUp(){
+		getActiveTurtle().setPen(false);
+		return 0;
+	}
+	public double showTurtle(){
+		getActiveTurtle().setVisibility(true);
+		notifyListeners(e -> e.moveTurtle(getActiveTurtle().toTurtleView()));
+
+		return 1;
+	}
+	public double hideTurtle(){
+		getActiveTurtle().setVisibility(false);
+		notifyListeners(e -> e.moveTurtle(getActiveTurtle().toTurtleView()));
+		return 0;
+	}
+	public double home(){
+		return goTo(0, 0);
+	}
+	
+	public double clearScreen(){
+		TurtleModel t = getActiveTurtle();
+		
+		removeAllLines();
+		removeAllTurtles();
+		
+		addTurtle(t);
+		myActiveTurtle = 0;
+		
+		return home();
+
+	}
+	
+	public double xCor(){
+		return getActiveTurtle().getX();
+	}
+	public double yCor(){
+		return getActiveTurtle().getY();
+	}
+	public double heading(){
+		return getActiveTurtle().getHeading();
+	}
+	public double isPenDown(){
+		return getActiveTurtle().getPenDown() ? 1: 0;
+	}
+	public double isShowing(){
+		return getActiveTurtle().getVisibility() ? 1 : 0;
+	}
+	
+
 	private double move(double dist, double heading){
 		double result = dist;
 		
@@ -71,21 +134,11 @@ public class Enclosure implements Observable{
 		return result;
 	}
 	
-	public double forward(double dist){
-		return move(dist, getActiveTurtle().getHeading());
-	}
+
 	
-	public double back(double dist){
-		return move(dist, -getActiveTurtle().getHeading());
-	}
+
 	
-	public double goTo(double x, double y){
-		TurtleModel t = getActiveTurtle();
-		double dist = Math.sqrt(Math.pow(t.getX() - x, 2) + Math.pow(t.getY() - y, 2));
-		
-		towards(x, y);
-		return forward(dist);
-	}
+
 	
 	private TurtleModel getActiveTurtle(){
 		return myTurtles.get(myActiveTurtle);
@@ -160,6 +213,11 @@ public class Enclosure implements Observable{
 	}
 	
 	private void addTurtle(Turtle t){
+		myTurtles.add(t);
+		notifyListeners(e -> e.addTurtle(t.toTurtleView()));
+	}
+	
+	private void addTurtle(TurtleModel t){
 		myTurtles.add(t);
 		notifyListeners(e -> e.addTurtle(t.toTurtleView()));
 	}

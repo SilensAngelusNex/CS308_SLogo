@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.Color;
-import java.awt.Point;
 
 import View.TurtleView;
 
@@ -19,12 +18,22 @@ public interface TurtleModel {
 	
 	abstract public boolean isDrawing();
 	
+	abstract public void setPen(boolean b);
+	
+	abstract public boolean getPenDown();
+	
 	abstract public Color getPenColor();
+	
+	abstract public void setPenColor(Color c);
 	
 	abstract public Point getCurrentLocation();
 	
 	abstract public Point getPreviousLocation();
 	
 	abstract public TurtleView toTurtleView();
+
+	abstract public void setVisibility(boolean b);
+	
+	abstract public boolean getVisibility();
 	
 }
