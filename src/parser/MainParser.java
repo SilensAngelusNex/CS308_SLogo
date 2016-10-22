@@ -62,7 +62,6 @@ public class MainParser {
         catch (FileNotFoundException e) {
             System.err.println(String.format("Could not load pattern file %s", e.getMessage()));
         }
-         
     }
     
     public static void main(String[] args) {
