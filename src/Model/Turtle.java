@@ -22,11 +22,12 @@ public class Turtle implements TurtleModel, TurtleView{
 		myPenColor = new Color(255, 255, 255);
 	}
 	
-	
+	@Override
 	public double getHeading(){
 		return myHeading;
 	}
 	
+	@Override
 	public double setHeading(double radians){
 		double result = radians - myHeading ;
 		
@@ -39,30 +40,26 @@ public class Turtle implements TurtleModel, TurtleView{
 		
 		return result;
 	}
-	
+	@Override
 	public double getX(){
 		return myPosition.getX();
 	}
+	@Override
 	public double getY(){
 		return myPosition.getY();
 	}
 
-
-	public Point getLocation() {
-		return myPosition;
-	}
-
-
+	@Override
 	public boolean isDrawing() {
 		return myPenDown;
 	}
 
-
+	@Override
 	public void setLocation(double newX, double newY) {
 		myPosition.setLocation(newX, newY);
 	}
 
-
+	@Override
 	public Color getPenColor() {
 		return myPenColor;
 	}
@@ -96,4 +93,10 @@ public class Turtle implements TurtleModel, TurtleView{
 	public String getImagePath() {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public TurtleView toTurtleView(){
+		return this;
+	}
+
 }
