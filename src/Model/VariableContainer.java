@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VariableContainer {
-	Map<String, Double> myVars;
+	private Map<String, Double> myVars;
 	
 	public VariableContainer(){
 		myVars = new HashMap<String, Double>();

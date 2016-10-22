@@ -1,8 +1,8 @@
 package Model;
 
 public class Point {
-	double myX;
-	double myY;
+	private double myX;
+	private double myY;
 	
 	public Point(Number x, Number y){
 		myX = x.doubleValue();

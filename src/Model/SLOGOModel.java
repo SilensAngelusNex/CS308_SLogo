@@ -1,9 +1,9 @@
 package Model;
 
 public class SLOGOModel {
-	Calculator myCalculator;
-	Enclosure myTurtleEnclosure;
-	VariableContainer myVariables;
+	private Calculator myCalculator;
+	private Enclosure myTurtleEnclosure;
+	private VariableContainer myVariables;
 	
 	public SLOGOModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);

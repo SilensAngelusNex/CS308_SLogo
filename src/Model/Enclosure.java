@@ -6,15 +6,15 @@ import java.util.function.Consumer;
 
 
 public class Enclosure implements Observable{
-	List<EnclosureObserver> myObservers;
+	private List<EnclosureObserver> myObservers;
 
-	List<TurtleModel> myTurtles;
-	List<Line> myLines;
+	private List<TurtleModel> myTurtles;
+	private List<Line> myLines;
 	
-	int myActiveTurtle;
+	private int myActiveTurtle;
 	
-	double myMaximumX;
-	double myMaximumY;
+	private double myMaximumX;
+	private double myMaximumY;
 	
 	public Enclosure(double maxX, double maxY){
 		myMaximumX = maxX;
@@ -22,6 +22,8 @@ public class Enclosure implements Observable{
 		myObservers = new ArrayList<EnclosureObserver>();
 		myLines = new ArrayList<Line>();
 		myTurtles = new ArrayList<TurtleModel>();
+		
+		addTurtle(new Turtle());
 
 		myActiveTurtle = 0;
 	}
