@@ -4,11 +4,8 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import Model.EnclosureObserver;
-import Model.Line;
-import Model.Observable;
+import Model.LineModel;
 import Model.SLOGOModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,7 +26,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 
@@ -68,13 +63,12 @@ public class SlogoView implements EnclosureObserver{
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	private Node makeSettingPanel() {
 		HBox functionHBox = new HBox();
-		ChoiceBox languageCBox = new ChoiceBox(FXCollections.observableArrayList(
+		ChoiceBox<String> languageCBox = new ChoiceBox<String>(FXCollections.observableArrayList(
 				"Chinese", "English", "French", "German", "Italian", "Portuguese",
 				"Russian", "Spanish"));
-		ChoiceBox colorCBox = new ChoiceBox(FXCollections.observableArrayList(
+		ChoiceBox<String> colorCBox = new ChoiceBox<String>(FXCollections.observableArrayList(
 				"Black", "Blue", "White"));
 		languageCBox.getSelectionModel().select(1);
 		languageCBox.setTooltip(new Tooltip("Select the language"));
@@ -131,7 +125,6 @@ public class SlogoView implements EnclosureObserver{
 		inputPanel.setPromptText("Enter your command here");
 		Text text1 = new Text("Console");
 		TextFlow console = new TextFlow(text1);
-		//System.out.println(console.getChildren().toString());
 		Button enterbutton = makeButton("EnterLabel", event -> parseCommand(inputPanel.getText()));
 		node.setLeft(inputPanel);
 		node.setCenter(enterbutton);
@@ -179,13 +172,14 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	@Override
-	public void addLine(Line l) {
-		//turtlePane.getChildren().add(l);
+	public void addLine(LineModel l) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void removeLine(Line l) {
-		turtlePane.getChildren().remove(l);
+	public void removeLine(LineModel l) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -2,6 +2,8 @@ package Model;
 
 import parser.CommandParser;
 
+import parser.MainParser;
+
 public class SLOGOModel {
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
@@ -15,9 +17,12 @@ public class SLOGOModel {
 		myCalculator = new Calculator();
 		myVariables = new VariableContainer();
 		myParser = new CommandParser();
+
 	}
 	
-	
+	public String parseAndExecute(String command){
+		throw new UnsupportedOperationException();
+	}
 	//Turtle Cammands
 	public double forward(double distance){
 		return myTurtleEnclosure.forward(distance);
