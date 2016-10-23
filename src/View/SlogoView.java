@@ -9,6 +9,8 @@ import Model.EnclosureObserver;
 import Model.Line;
 import Model.Observable;
 import Model.SLOGOModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -69,6 +71,7 @@ public class SlogoView implements EnclosureObserver{
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	private Node makeSettingPanel() {
 		HBox functionHBox = new HBox();
 		ChoiceBox languageCBox = new ChoiceBox(FXCollections.observableArrayList(
@@ -78,6 +81,23 @@ public class SlogoView implements EnclosureObserver{
 				"Black", "Blue", "White"));
 		languageCBox.getSelectionModel().select(1);
 		colorCBox.getSelectionModel().select(0);
+		languageCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> arg0,
+					String arg1, String arg2) {
+				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
+			}
+			
+		});
+		colorCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> arg0,
+					String arg1, String arg2) {
+				turtlePane.setStyle("-fx-background-color: " + arg2);
+			}
+		
+		});
 		Button BackgroundButton = makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = makeButton("TurtleLabel", event -> displayTurtle());
 		Button HelpButton = makeButton("HelpLabel", event -> promptHelpPage());
@@ -100,7 +120,6 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void setBackground() {
-		
 	}
 
 	private Node makeTerminalPanel() {
