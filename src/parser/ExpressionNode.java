@@ -13,16 +13,22 @@ public class ExpressionNode {
 	private Double value;
 	private List<ExpressionNode> children;
 	
+	public ExpressionNode() {
+		this.command = null;
+		this.value = null;
+		this.children = new ArrayList<ExpressionNode>();
+	}
+	
 	public ExpressionNode(String command) {
 		this.command = command;
 		this.value = null;
-		children = new ArrayList<ExpressionNode>();
+		this.children = new ArrayList<ExpressionNode>();
 	}
 	
 	public ExpressionNode(Double value) {
 		this.command = null;
 		this.value = value;
-		children = new ArrayList<ExpressionNode>();
+		this.children = new ArrayList<ExpressionNode>();
 	}
 	
 	public String getCommand() {
@@ -41,8 +47,8 @@ public class ExpressionNode {
 		this.value = value;
 	}
 	
-	public void addChild(ExpressionNode child) {
-		children.add(child);
+	public List<ExpressionNode> getChildren() {
+		return children;
 	}
 	
 	public ExpressionNode getChild(int index) {
@@ -52,7 +58,15 @@ public class ExpressionNode {
 		return children.get(index);
 	}
 	
+	public void addChild(ExpressionNode child) {
+		children.add(child);
+	}
+	
 	public void setChild(int index, ExpressionNode child) {
 		children.set(index, child);
+	}
+	
+	public int getNumOfChildren() {
+		return children.size();
 	}
 }
