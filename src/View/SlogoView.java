@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -120,6 +121,10 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void setBackground() {
+		ChooseFile fileChooser = new ChooseFile();
+		File myImage = fileChooser.chooseFile();
+		System.out.println(myImage.getName());
+		turtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
 	}
 
 	private Node makeTerminalPanel() {
@@ -177,7 +182,7 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addLine(Line l) {
-		turtlePane.getChildren().add(l);
+		//turtlePane.getChildren().add(l);
 	}
 
 	@Override
