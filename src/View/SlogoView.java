@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -47,11 +48,9 @@ public class SlogoView implements EnclosureObserver{
     public SlogoView(String language){
     	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
     	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
-    
     	BorderPane root = new BorderPane();
     	myHelpPage = new UserManualPopup();
     	root.setBottom(makeTerminalPanel());
-    	//root.setCenter(makeModelPanel());
     	root.setTop(makeSettingPanel());
     	turtlePane = new Pane();
     	turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
@@ -61,9 +60,6 @@ public class SlogoView implements EnclosureObserver{
     	myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
     	root.setLeft(turtlePane);
     	turtlePane.setStyle("-fx-background-color: red");
-    	//root.setLeft(makeHTMLManualPanel());
-    	//root.setRight(makeInputPanel());
-    	
     	myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
     
@@ -81,9 +77,9 @@ public class SlogoView implements EnclosureObserver{
 		ChoiceBox colorCBox = new ChoiceBox(FXCollections.observableArrayList(
 				"Black", "Blue", "White"));
 		languageCBox.getSelectionModel().select(1);
-		colorCBox.getSelectionModel().select(0);
+		languageCBox.setTooltip(new Tooltip("Select the language"));
 		languageCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
+		
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
@@ -91,6 +87,7 @@ public class SlogoView implements EnclosureObserver{
 			}
 			
 		});
+		colorCBox.getSelectionModel().selectFirst();
 		colorCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
@@ -123,8 +120,11 @@ public class SlogoView implements EnclosureObserver{
 	private void setBackground() {
 		ChooseFile fileChooser = new ChooseFile();
 		File myImage = fileChooser.chooseFile();
-		System.out.println(myImage.getName());
-		turtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
+		if(myImage !=null){
+			System.out.println(myImage.getName());
+			turtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
+		}
+		
 	}
 
 	private Node makeTerminalPanel() {
