@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import Model.EnclosureObserver;
+import Model.Line;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,26 +22,27 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 
-public class SlogoView {
+public class SlogoView implements EnclosureObserver{
 	private final Dimension DEFAULT_SIZE = new Dimension(800, 600);
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources/UILabels";
 	private final String LAUGUAGE_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle myUILabel;
 	private Scene myScene;
-	 private WebView myHelpPage;
+	private UserManualPopup myHelpPage;
 	
     public SlogoView(String language){
     	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
     	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
     	BorderPane root = new BorderPane();
-    	
+    	myHelpPage = new UserManualPopup();
     	root.setBottom(makeTerminalPanel());
     	//root.setCenter(makeModelPanel());
     	root.setTop(makeSettingPanel());
-    	root.setLeft(makeHTMLManualPanel());
+    	//root.setLeft(makeHTMLManualPanel());
     	//root.setRight(makeInputPanel());
     	
     	myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
@@ -69,6 +72,8 @@ public class SlogoView {
 	}
 
 	private void promptHelpPage() {
+		Stage newstage = new Stage();
+		myHelpPage.start(newstage);
 	}
 
 	private void displayTurtle() {
@@ -77,12 +82,6 @@ public class SlogoView {
 
 	private void setBackground() {
 
-	}
-
-	private Node makeHTMLManualPanel() {
-		myHelpPage = new WebView();
-		myHelpPage.getEngine().load("http://www.cs.duke.edu/courses/compsci308/fall16/assign/03_slogo/commands.php");
-		return myHelpPage;
 	}
 
 	private Node makeTerminalPanel() {
@@ -114,5 +113,35 @@ public class SlogoView {
 	public Scene getScene() {
 
 		return myScene;
+	}
+
+	@Override
+	public void addTurtle(TurtleView t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeTurtle(TurtleView t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void moveTurtle(TurtleView t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLine(Line l) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeLine(Line l) {
+		// TODO Auto-generated method stub
+		
 	}
 }
