@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 
 import Model.EnclosureObserver;
 import Model.Line;
+import Model.Observable;
+import Model.SLOGOModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +21,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
@@ -33,15 +38,26 @@ public class SlogoView implements EnclosureObserver{
 	private ResourceBundle myUILabel;
 	private Scene myScene;
 	private UserManualPopup myHelpPage;
+	private Pane turtlePane;
+	private SLOGOModel myModel;
 	
     public SlogoView(String language){
     	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
     	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
+    
     	BorderPane root = new BorderPane();
     	myHelpPage = new UserManualPopup();
     	root.setBottom(makeTerminalPanel());
     	//root.setCenter(makeModelPanel());
     	root.setTop(makeSettingPanel());
+    	turtlePane = new Pane();
+    	turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
+    	Rectangle r = new Rectangle(100, 100, Color.BLACK);
+    	r.relocate(50, 50);
+    	turtlePane.getChildren().add(r);
+    	myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
+    	root.setLeft(turtlePane);
+    	turtlePane.setStyle("-fx-background-color: red");
     	//root.setLeft(makeHTMLManualPanel());
     	//root.setRight(makeInputPanel());
     	
@@ -77,11 +93,14 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void displayTurtle() {
+		Rectangle r = new Rectangle();
+		r.setFill(Color.BLACK);
+		turtlePane.getChildren().add(r);
 		
 	}
 
 	private void setBackground() {
-
+		
 	}
 
 	private Node makeTerminalPanel() {
@@ -90,15 +109,15 @@ public class SlogoView implements EnclosureObserver{
 		inputPanel.setPromptText("Enter your command here");
 		Text text1 = new Text("Console");
 		TextFlow console = new TextFlow(text1);
-		Button enterbutton = makeButton("EnterLabel", event -> parseCommand());
+		//System.out.println(console.getChildren().toString());
+		Button enterbutton = makeButton("EnterLabel", event -> parseCommand(inputPanel.getText()));
 		node.setLeft(inputPanel);
 		node.setCenter(enterbutton);
 		node.setRight(console);
-		
-		
 		return node;
 	}
-	private void parseCommand() {
+	private void parseCommand(String command) {
+		
 		
 	}
 
@@ -111,20 +130,24 @@ public class SlogoView implements EnclosureObserver{
     }
     
 	public Scene getScene() {
-
 		return myScene;
 	}
 
 	@Override
 	public void addTurtle(TurtleView t) {
-		// TODO Auto-generated method stub
 		
+		Rectangle r = new Rectangle(100, 100, Color.BLACK);
+    	turtlePane.getChildren().add(r);
+//		ImageView turtle = new ImageView(t.getImagePath());
+//		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
+//		turtlePane.getChildren().add(turtle);
 	}
 
 	@Override
 	public void removeTurtle(TurtleView t) {
 		// TODO Auto-generated method stub
-		
+		ImageView turtle = new ImageView(t.getImagePath());
+		turtlePane.getChildren().remove(turtle);
 	}
 
 	@Override
@@ -135,13 +158,12 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addLine(Line l) {
-		// TODO Auto-generated method stub
-		
+		turtlePane.getChildren().add(l);
 	}
 
 	@Override
 	public void removeLine(Line l) {
-		// TODO Auto-generated method stub
+		turtlePane.getChildren().remove(l);
 		
 	}
 }

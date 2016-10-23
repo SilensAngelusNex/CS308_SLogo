@@ -3,7 +3,7 @@ package Model;
 import java.util.Random;
 
 public class Calculator {
-	Random myRandom = new Random();
+	private Random myRandom = new Random();
 
 	public double sum(double a, double b) {
 		return a + b;

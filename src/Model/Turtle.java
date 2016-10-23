@@ -5,15 +5,15 @@ import java.awt.Color;
 import View.TurtleView;
 
 public class Turtle implements TurtleModel, TurtleView{
-	Point myPosition;
-	Point myLastPosition;
+	private Point myPosition;
+	private Point myLastPosition;
 	
-	double myHeading;
-	double myLastHeading;
+	private double myHeading;
+	private double myLastHeading;
 	
-	Color myPenColor;
-	boolean myPenDown;
-	boolean myVisibility;
+	private Color myPenColor;
+	private boolean myPenDown;
+	private boolean myVisibility;
 	
 	public Turtle(){
 		myPosition = new Point(0, 0);
