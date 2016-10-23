@@ -103,8 +103,6 @@ public class SlogoView implements EnclosureObserver{
 		Button TurtleDisplyButton = makeButton("TurtleLabel", event -> displayTurtle());
 		Button HelpButton = makeButton("HelpLabel", event -> promptHelpPage());
 		functionHBox.getChildren().addAll(languageCBox, colorCBox, BackgroundButton, TurtleDisplyButton, HelpButton);
-		
-		// TODO Auto-generated method stub
 		return functionHBox;
 	}
 

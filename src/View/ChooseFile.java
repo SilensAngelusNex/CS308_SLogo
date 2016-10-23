@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 
 /* 
- * based of code used in my groups cell Society
+ * based of code used in team12's cell Society
  */
 public class ChooseFile {
 
@@ -24,7 +24,6 @@ public class ChooseFile {
 			myStage.close();
 			return null;
 		}
-		//myStage.close();
 		return chosenFile;
 	}
 
