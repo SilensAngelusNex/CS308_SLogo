@@ -268,4 +268,10 @@ public class Enclosure implements Observable{
 			e.removeLine(l);
 		}
 	}
+
+	public void setTurtleImage(String image) {
+		for (TurtleModel turtle: myTurtles){
+			turtle.toTurtleView().setTurtleImage(image);
+		}
+	}
 }

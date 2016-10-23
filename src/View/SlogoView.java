@@ -18,11 +18,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -39,26 +41,28 @@ public class SlogoView implements EnclosureObserver{
 	private UserManualPopup myHelpPage;
 	private Pane turtlePane;
 	private SLOGOModel myModel;
-	
-    public SlogoView(String language){
-    	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
-    	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
-    	BorderPane root = new BorderPane();
-    	myHelpPage = new UserManualPopup();
-    	root.setBottom(makeTerminalPanel());
-    	root.setTop(makeSettingPanel());
-    	turtlePane = new Pane();
-    	turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
-    	Rectangle r = new Rectangle(100, 100, Color.BLACK);
-    	r.relocate(50, 50);
-    	turtlePane.getChildren().add(r);
-    	myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
-    	root.setLeft(turtlePane);
-    	turtlePane.setStyle("-fx-background-color: red");
-    	myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
-    }
-    
-    private Node makeModelPanel() {
+
+	public SlogoView(String language){
+		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
+		BorderPane root = new BorderPane();
+		myHelpPage = new UserManualPopup();
+		root.setBottom(makeTerminalPanel());
+		root.setTop(makeSettingPanel());
+		turtlePane = new Pane();
+		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
+		myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
+		root.setLeft(turtlePane);
+		turtlePane.setStyle("-fx-background-color: white");
+		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
+		turtle.setFitHeight(50);
+		turtle.setFitWidth(50);
+		turtle.relocate(200, 200);
+		turtlePane.getChildren().add(turtle);
+		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+	}
+
+	private Node makeModelPanel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -78,16 +82,16 @@ public class SlogoView implements EnclosureObserver{
 					String arg1, String arg2) {
 				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
 			}
-			
+
 		});
-		colorCBox.getSelectionModel().selectFirst();
+		colorCBox.getSelectionModel().select(2);
 		colorCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				turtlePane.setStyle("-fx-background-color: " + arg2);
 			}
-		
+
 		});
 		Button BackgroundButton = makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = makeButton("TurtleLabel", event -> displayTurtle());
@@ -102,9 +106,11 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void displayTurtle() {
-		Rectangle r = new Rectangle(100, 100, Color.BLACK);
-    	r.relocate(100, 100);
-    	turtlePane.getChildren().add(r);
+		ChooseFile fileChooser = new ChooseFile();
+		File myImage = fileChooser.chooseFile();
+		if (myImage != null){
+			myModel.setTurtleImage(myImage.getName());
+		}
 	}
 
 	private void setBackground() {
@@ -114,7 +120,7 @@ public class SlogoView implements EnclosureObserver{
 			System.out.println(myImage.getName());
 			turtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
 		}
-		
+
 	}
 
 	private Node makeTerminalPanel() {
@@ -130,48 +136,48 @@ public class SlogoView implements EnclosureObserver{
 		return node;
 	}
 	private void parseCommand(String command) {
-		
-		
+
+
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
-        Button result = new Button();
-        String label = myUILabel.getString(property);
-        result.setText(label);
-        result.setOnAction(handler);
-        return result;
-    }
-    
+		Button result = new Button();
+		String label = myUILabel.getString(property);
+		result.setText(label);
+		result.setOnAction(handler);
+		return result;
+	}
+
 	public Scene getScene() {
 		return myScene;
 	}
 
 	@Override
 	public void addTurtle(TurtleView t) {
-		ImageView turtle = new ImageView(t.getImagePath());
+		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
 		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
 	@Override
 	public void removeTurtle(TurtleView t) {
-		ImageView turtle = new ImageView(t.getImagePath());
+		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
 		turtlePane.getChildren().remove(turtle);
 	}
 
 	@Override
 	public void moveTurtle(TurtleView t) {	
+		
 	}
 
 	@Override
 	public void addLine(LineModel l) {
-		// TODO Auto-generated method stub
-		
+		turtlePane.getChildren().add(new Line(l.getStart().getX(), l.getStart().getY(), l.getEnd().getX(), l.getEnd().getY()));
+
 	}
 
 	@Override
-	public void removeLine(LineModel l) {
-		// TODO Auto-generated method stub
-		
+	public void removeLine(LineModel l) {	
+		turtlePane.getChildren().remove(new Line(l.getStart().getX(), l.getStart().getY(), l.getEnd().getX(), l.getEnd().getY()));
 	}
 }
