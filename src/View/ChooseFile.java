@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 
 
 /* 
- * based of code used in my groups cell Society
- * 
+ * based of code used in my groups cell Society (Blake)
+ * edited by Owen
  */
 public class ChooseFile {
 
@@ -29,7 +29,6 @@ public class ChooseFile {
 			myStage.close();
 			return null;
 		}
-		//myStage.close();
 		return chosenFile;
 	}
 
