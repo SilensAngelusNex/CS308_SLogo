@@ -1,6 +1,7 @@
 package Model;
 
 import parser.CommandParser;
+import parser.MainParser;
 
 public class SLOGOModel {
 	private Calculator myCalculator;
@@ -17,6 +18,11 @@ public class SLOGOModel {
 		myParser = new CommandParser();
 	}
 	
+	public String parseAndExecute(String command){
+		throw new UnsupportedOperationException();
+	}
+	
+	//Turtle Cammands
 	public double forward(double distance){
 		return myTurtleEnclosure.forward(distance);
 	}
@@ -57,6 +63,7 @@ public class SLOGOModel {
 		return myTurtleEnclosure.clearScreen();
 	}
 	
+	//Turtle Queries
 	public double xCor(){
 		return myTurtleEnclosure.xCor();
 	}
@@ -73,6 +80,7 @@ public class SLOGOModel {
 		return myTurtleEnclosure.isShowing();
 	}
 	
+	//Math Commands
 	public double sum(double a, double b){
 		return myCalculator.sum(a, b);
 	}
@@ -116,6 +124,7 @@ public class SLOGOModel {
 		return myCalculator.pi();
 	}
 	
+	//Boolean Commands
 	public double less(double a, double b){
 		return myCalculator.less(a, b);
 	}
@@ -138,6 +147,7 @@ public class SLOGOModel {
 		return myCalculator.not(a);
 	}
 	
+	//Variable Commands
 	public double set(String name, double val){
 		return myVariables.set(name, val);
 	}
