@@ -73,7 +73,6 @@ public class SlogoView implements EnclosureObserver{
 		languageCBox.getSelectionModel().select(1);
 		languageCBox.setTooltip(new Tooltip("Select the language"));
 		languageCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
@@ -103,10 +102,9 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void displayTurtle() {
-		Rectangle r = new Rectangle();
-		r.setFill(Color.BLACK);
-		turtlePane.getChildren().add(r);
-		
+		Rectangle r = new Rectangle(100, 100, Color.BLACK);
+    	r.relocate(100, 100);
+    	turtlePane.getChildren().add(r);
 	}
 
 	private void setBackground() {
@@ -150,25 +148,19 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addTurtle(TurtleView t) {
-		
-		Rectangle r = new Rectangle(100, 100, Color.BLACK);
-    	turtlePane.getChildren().add(r);
-//		ImageView turtle = new ImageView(t.getImagePath());
-//		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
-//		turtlePane.getChildren().add(turtle);
+		ImageView turtle = new ImageView(t.getImagePath());
+		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
+		turtlePane.getChildren().add(turtle);
 	}
 
 	@Override
 	public void removeTurtle(TurtleView t) {
-		// TODO Auto-generated method stub
 		ImageView turtle = new ImageView(t.getImagePath());
 		turtlePane.getChildren().remove(turtle);
 	}
 
 	@Override
-	public void moveTurtle(TurtleView t) {
-		// TODO Auto-generated method stub
-		
+	public void moveTurtle(TurtleView t) {	
 	}
 
 	@Override
