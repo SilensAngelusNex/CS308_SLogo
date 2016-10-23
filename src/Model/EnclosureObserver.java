@@ -10,7 +10,7 @@ public interface EnclosureObserver {
 	
 	abstract public void moveTurtle(TurtleView t);
 	
-	abstract public void addLine(Line l);
+	abstract public void addLine(LineModel l);
 	
-	abstract public void removeLine(Line l);
+	abstract public void removeLine(LineModel l);
 }

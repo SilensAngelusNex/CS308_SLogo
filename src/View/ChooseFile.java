@@ -6,11 +6,16 @@ import javafx.stage.Stage;
 
 
 /* 
- * based of code used in team12's cell Society
+ * based of code used in my groups cell Society (Blake)
+ * edited by Owen
  */
 public class ChooseFile {
 
 	private Stage myStage;
+	
+	public ChooseFile(){
+		myStage = new Stage();
+	}
 
 	public File chooseFile() {
 		FileChooser fileChooser = new FileChooser();
