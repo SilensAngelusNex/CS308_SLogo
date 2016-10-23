@@ -47,11 +47,9 @@ public class SlogoView implements EnclosureObserver{
     public SlogoView(String language){
     	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
     	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
-    
     	BorderPane root = new BorderPane();
     	myHelpPage = new UserManualPopup();
     	root.setBottom(makeTerminalPanel());
-    	//root.setCenter(makeModelPanel());
     	root.setTop(makeSettingPanel());
     	turtlePane = new Pane();
     	turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
@@ -61,9 +59,6 @@ public class SlogoView implements EnclosureObserver{
     	myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
     	root.setLeft(turtlePane);
     	turtlePane.setStyle("-fx-background-color: red");
-    	//root.setLeft(makeHTMLManualPanel());
-    	//root.setRight(makeInputPanel());
-    	
     	myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
     
@@ -83,7 +78,6 @@ public class SlogoView implements EnclosureObserver{
 		languageCBox.getSelectionModel().select(1);
 		colorCBox.getSelectionModel().select(0);
 		languageCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
@@ -112,10 +106,9 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void displayTurtle() {
-		Rectangle r = new Rectangle();
-		r.setFill(Color.BLACK);
-		turtlePane.getChildren().add(r);
-		
+		Rectangle r = new Rectangle(100, 100, Color.BLACK);
+    	r.relocate(100, 100);
+    	turtlePane.getChildren().add(r);
 	}
 
 	private void setBackground() {
@@ -157,25 +150,19 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addTurtle(TurtleView t) {
-		
-		Rectangle r = new Rectangle(100, 100, Color.BLACK);
-    	turtlePane.getChildren().add(r);
-//		ImageView turtle = new ImageView(t.getImagePath());
-//		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
-//		turtlePane.getChildren().add(turtle);
+		ImageView turtle = new ImageView(t.getImagePath());
+		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
+		turtlePane.getChildren().add(turtle);
 	}
 
 	@Override
 	public void removeTurtle(TurtleView t) {
-		// TODO Auto-generated method stub
 		ImageView turtle = new ImageView(t.getImagePath());
 		turtlePane.getChildren().remove(turtle);
 	}
 
 	@Override
-	public void moveTurtle(TurtleView t) {
-		// TODO Auto-generated method stub
-		
+	public void moveTurtle(TurtleView t) {	
 	}
 
 	@Override
@@ -186,6 +173,5 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void removeLine(Line l) {
 		turtlePane.getChildren().remove(l);
-		
 	}
 }

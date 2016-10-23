@@ -7,7 +7,7 @@ import View.TurtleView;
 public class Turtle implements TurtleModel, TurtleView{
 	private Point myPosition;
 	private Point myLastPosition;
-	
+	private String myTurtleImage;
 	private double myHeading;
 	private double myLastHeading;
 	
@@ -20,7 +20,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		myHeading = Math.toRadians(90);
 		myLastPosition = myPosition;
 		myLastHeading = myHeading;
-		
+		myTurtleImage = "turtle.png";
 		myPenDown = true;
 		myPenColor = new Color(255, 255, 255);
 		myVisibility = true;
@@ -45,6 +45,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		
 		return result;
 	}
+	
 	@Override
 	public double getX(){
 		return myPosition.getX();
@@ -100,7 +101,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public String getImagePath() {
-		throw new UnsupportedOperationException();
+		return myTurtleImage;
 	}
 
 	@Override
