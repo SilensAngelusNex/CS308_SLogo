@@ -2,14 +2,13 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 
 public class Enclosure implements Observable{
 	private List<EnclosureObserver> myObservers;
 
 	private List<TurtleModel> myTurtles;
-	private List<Line> myLines;
+	private List<LineModel> myLines;
 	
 	private int myActiveTurtle;
 	
@@ -20,7 +19,7 @@ public class Enclosure implements Observable{
 		myMaximumX = maxX;
 		myMaximumY = maxY;
 		myObservers = new ArrayList<EnclosureObserver>();
-		myLines = new ArrayList<Line>();
+		myLines = new ArrayList<LineModel>();
 		myTurtles = new ArrayList<TurtleModel>();
 		
 		addTurtle(new Turtle());
@@ -63,7 +62,7 @@ public class Enclosure implements Observable{
 		
 		t.setLocation(x, y);
 
-		notifyListeners(e -> e.moveTurtle(getActiveTurtle().toTurtleView()));
+		notifyListenersMoveTurtle(t);
 		return t.getCurrentLocation().euclideanDistance(t.getPreviousLocation());
 	}
 	
@@ -76,14 +75,18 @@ public class Enclosure implements Observable{
 		return 0;
 	}
 	public double showTurtle(){
-		getActiveTurtle().setVisibility(true);
-		notifyListeners(e -> e.moveTurtle(getActiveTurtle().toTurtleView()));
+		if (!getActiveTurtle().getVisibility()){
+			getActiveTurtle().setVisibility(true);
+			notifyListenersAddTurtle(getActiveTurtle());
+		}
 
 		return 1;
 	}
 	public double hideTurtle(){
-		getActiveTurtle().setVisibility(false);
-		notifyListeners(e -> e.moveTurtle(getActiveTurtle().toTurtleView()));
+		if (getActiveTurtle().getVisibility()){
+			getActiveTurtle().setVisibility(false);
+			notifyListenersRemoveTurtle(getActiveTurtle());
+		}
 		return 0;
 	}
 	public double home(){
@@ -167,12 +170,12 @@ public class Enclosure implements Observable{
 		
 		t.setLocation(newX, newY);
 		
-		notifyListeners(e -> e.moveTurtle(t.toTurtleView()));
+		notifyListenersMoveTurtle(t);
 		
 		if (t.isDrawing()){
-			Line toAdd = new Line(t.getPreviousLocation(), t.getCurrentLocation(), t.getPenColor());
+			LineModel toAdd = new LineModel(t.getPreviousLocation(), t.getCurrentLocation(), t.getPenColor());
 			myLines.add(toAdd);
-			notifyListeners(e -> e.addLine(toAdd));
+			notifyListenersAddLine(toAdd);
 		}
 		
 	}
@@ -216,30 +219,52 @@ public class Enclosure implements Observable{
 	
 	private void addTurtle(Turtle t){
 		myTurtles.add(t);
-		notifyListeners(e -> e.addTurtle(t.toTurtleView()));
+		notifyListenersAddTurtle(t);
 	}
 	
 	private void addTurtle(TurtleModel t){
 		myTurtles.add(t);
-		notifyListeners(e -> e.addTurtle(t.toTurtleView()));
+		notifyListenersAddTurtle(t);
 	}
 	
 	private void removeAllTurtles(){
 		for (TurtleModel t: myTurtles){
-			notifyListeners(e -> e.removeTurtle(t.toTurtleView()));
+			notifyListenersRemoveTurtle(t);
 		}
 		myTurtles = new ArrayList<TurtleModel>();
 	}
 	
 	private void removeAllLines(){
-		for (Line l: myLines){
-			notifyListeners(e -> e.removeLine(l));
+		for (LineModel l: myLines){
+			notifyListenersRemoveLine(l);
 		}
-		myLines = new ArrayList<Line>();
+		myLines = new ArrayList<LineModel>();
 	}
-	private void notifyListeners(Consumer<EnclosureObserver> m){
+
+	
+	private void notifyListenersAddTurtle(TurtleModel t){
 		for (EnclosureObserver e: myObservers){
-			m.accept(e);
+			e.addTurtle(t.toTurtleView());
+		}
+	}
+	private void notifyListenersRemoveTurtle(TurtleModel t){
+		for (EnclosureObserver e: myObservers){
+			e.removeTurtle(t.toTurtleView());
+		}
+	}
+	private void notifyListenersMoveTurtle(TurtleModel t){
+		for (EnclosureObserver e: myObservers){
+			e.addTurtle(t.toTurtleView());
+		}
+	}
+	private void notifyListenersAddLine(LineModel l){
+		for (EnclosureObserver e: myObservers){
+			e.addLine(l);
+		}
+	}
+	private void notifyListenersRemoveLine(LineModel l){
+		for (EnclosureObserver e: myObservers){
+			e.removeLine(l);
 		}
 	}
 }

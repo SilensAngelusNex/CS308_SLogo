@@ -2,14 +2,14 @@ package Model;
 
 import java.awt.Color;
 
-public class Line {
+public class LineModel {
 	
 	private Point myStart;
 	private Point myEnd;
 	private Color myLineColor;
 	
 	
-	public Line(Point start, Point end, Color color){
+	public LineModel(Point start, Point end, Color color){
 		myStart = start;
 		myEnd = end;
 		myLineColor = color;

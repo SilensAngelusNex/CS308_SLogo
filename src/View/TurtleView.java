@@ -14,5 +14,10 @@ public interface TurtleView {
 	
 	abstract public String getImagePath();
 	
+	/**
+	 * @deprecated
+	 * @return true
+	 * Model is taking care of this now.
+	 */
 	abstract public boolean isVisible();
 }
