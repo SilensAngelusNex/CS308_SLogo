@@ -20,6 +20,10 @@ public class SLOGOModel {
 
 	}
 	
+	public void setTurtleImage(String image){
+		myTurtleEnclosure.setTurtleImage(image);
+	}
+	
 	public String parseAndExecute(String command){
 		throw new UnsupportedOperationException();
 	}
