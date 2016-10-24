@@ -62,7 +62,7 @@ public class SlogoView implements EnclosureObserver{
 		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMinHeight(DEFAULT_SIZE.getHeight() / 1.5);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
-		myModel = new SLOGOModel(this, turtlePane.getMaxWidth(), turtlePane.getMaxHeight());
+		myModel = new SLOGOModel(this, turtlePane.getMaxWidth() / 2, turtlePane.getMaxHeight() / 2);
 		root.setLeft(turtlePane);
 		turtlePane.setStyle("-fx-background-color: white");
 //		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
@@ -165,7 +165,7 @@ public class SlogoView implements EnclosureObserver{
 		try{
 			String result = myModel.parseAndExecute(command);
 			myConsole.getPanel().getChildren().add(new Text(result));
-			myCommandHistory.getItems().add(result);
+			myCommandHistory.getItems().add(command);
 			
 		}catch(Exception e){
 			promptAlert("Command Error", e);
