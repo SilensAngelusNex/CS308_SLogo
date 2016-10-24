@@ -212,10 +212,10 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addLine(LineModel l) {
-		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth()/2 + l.getStart().getX(), 
-											turtlePane.getMaxHeight()/2 - l.getStart().getY(), 
-											turtlePane.getMaxWidth() + l.getEnd().getX(), 
-											turtlePane.getMaxHeight() - l.getEnd().getY()));
+		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth() / 2 + l.getStart().getX(), 
+											turtlePane.getMaxHeight() / 2 - l.getStart().getY(), 
+											turtlePane.getMaxWidth() / 2 + l.getEnd().getX(), 
+											turtlePane.getMaxHeight() /2 - l.getEnd().getY()));
 	}
 
 	@Override
