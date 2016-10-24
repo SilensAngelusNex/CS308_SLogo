@@ -62,7 +62,7 @@ public class SlogoView implements EnclosureObserver{
 		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMinHeight(DEFAULT_SIZE.getHeight() / 1.5);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
-		myModel = new SLOGOModel(this, turtlePane.getWidth(), turtlePane.getHeight());
+		myModel = new SLOGOModel(this, turtlePane.getMaxWidth(), turtlePane.getMaxHeight());
 		root.setLeft(turtlePane);
 		turtlePane.setStyle("-fx-background-color: white");
 //		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
