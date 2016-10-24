@@ -141,7 +141,7 @@ public class MainParser {
    
     // used for testing purposes
     public static void main(String[] args) {
-    	MainParser mainParser = new MainParser("resources/languages/English");
+    	MainParser mainParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
     	
         String filePath = "data/examples/simple/forward.logo";
         ExpressionTree tree1 = mainParser.getExpressionTreeFromFile(filePath);
