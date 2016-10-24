@@ -18,7 +18,7 @@ public class SLOGOModel {
 		myCalculator = new Calculator();
 		myVariables = new VariableContainer();
 		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
-
+		myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
 	}
 	
 	public void setTurtleImage(String image){

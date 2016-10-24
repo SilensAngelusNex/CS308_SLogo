@@ -13,7 +13,7 @@ public class ExpressionNode {
 	private List<ExpressionNode> children;
 	
 	public ExpressionNode() {
-		this.command = null;
+		this.command = "";
 		this.children = new ArrayList<ExpressionNode>();
 	}
 	

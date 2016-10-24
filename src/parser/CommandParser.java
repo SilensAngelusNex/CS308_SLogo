@@ -24,9 +24,7 @@ public class CommandParser {
         
         addPatterns(mySymbols, ParserUtils.SYNTAX_FILE_PATH);
         addPatterns(myCommands, commandsFilePath);
-        
     }
-
     
     /**
      * Returns the language's type associated with the given text if one exists 

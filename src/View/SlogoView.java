@@ -60,10 +60,20 @@ public class SlogoView implements EnclosureObserver{
 		turtlePane = new Pane();
 		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
+		turtlePane.setMinHeight(DEFAULT_SIZE.getHeight() / 1.5);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
-		myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
+		myModel = new SLOGOModel(this, turtlePane.getWidth(), turtlePane.getHeight());
 		root.setLeft(turtlePane);
-		turtlePane.setStyle("-fx-background-color: red");
+		turtlePane.setStyle("-fx-background-color: white");
+//		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
+//		turtle.setFitHeight(50);
+//		turtle.setFitWidth(50);
+		//turtle.setY(DEFAULT_SIZE.getHeight()/1.5);
+		//turtlePane.setMinHeight(DEFAULT_SIZE.getHeight());
+		//System.out.println(turtlePane.getMinHeight());
+		//System.out.println(turtlePane.getMinHeight());
+//		turtle.relocate(turtlePane.getMaxWidth()/2 - turtle.getFitWidth()/2, turtlePane.getMaxHeight()/2 - turtle.getFitHeight()/2);
+//		turtlePane.getChildren().add(turtle);
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 
 	}
@@ -183,9 +193,10 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(turtlePane.getMaxWidth() + t.getCurrentLocation().getX(), 
-						turtlePane.getMaxHeight() + t.getCurrentLocation().getY());
-						turtlePane.getChildren().add(turtle);
+
+		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
+						turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
+		turtlePane.getChildren().add(turtle);
 	}
 
 	@Override
@@ -197,8 +208,9 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void moveTurtle(TurtleView t) {	
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(turtlePane.getMaxWidth() + t.getCurrentLocation().getX(), 
-				turtlePane.getMaxHeight() + t.getCurrentLocation().getY());
+
+		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
+				turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
