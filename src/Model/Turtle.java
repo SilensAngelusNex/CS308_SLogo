@@ -110,11 +110,6 @@ public class Turtle implements TurtleModel, TurtleView{
 	}
 	
 	@Override
-	public boolean isVisible(){
-		return myVisibility;
-	}
-	
-	@Override
 	public void setVisibility(boolean b){
 		myVisibility = b;
 	}
@@ -131,7 +126,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public boolean getVisibility() {
-		return true;
+		return myVisibility;
 	}
 
 	@Override

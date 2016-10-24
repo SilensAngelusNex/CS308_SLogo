@@ -34,7 +34,7 @@ public class Enclosure implements Observable{
 	}
 	
 	public double back(double dist){
-		return move(dist, -getActiveTurtle().getHeading());
+		return move(dist, Math.PI + getActiveTurtle().getHeading());
 	}
 	
 	public double right(double degrees){
@@ -106,6 +106,7 @@ public class Enclosure implements Observable{
 		
 		addTurtle(t);
 		myActiveTurtle = 0;
+		t.setHeading(Math.toRadians(90));
 		
 		return home();
 
