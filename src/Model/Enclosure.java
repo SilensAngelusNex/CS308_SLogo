@@ -25,7 +25,6 @@ public class Enclosure implements Observable{
 		
 		TurtleModel toAdd = new Turtle();
 		addTurtle(toAdd);
-		notifyListenersAddTurtle(toAdd);
 
 		myActiveTurtle = 0;
 	}
@@ -212,6 +211,14 @@ public class Enclosure implements Observable{
 	@Override
 	public void addListener(EnclosureObserver v) {
 		myObservers.add(v);
+		
+		for (TurtleModel t: myTurtles){
+			if (t.getVisibility())
+				v.addTurtle(t.toTurtleView());
+		}
+		
+		for (LineModel l: myLines)
+				v.addLine(l);
 	}
 
 
