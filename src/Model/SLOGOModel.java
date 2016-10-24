@@ -27,7 +27,14 @@ public class SLOGOModel {
 	
 	public String parseAndExecute(String command){
 		ExpressionTree toExec = myParser.getExpressionTreeFromCommand(command);
-		return myExecutor.exec(toExec, this).toString();
+		double[] result = myExecutor.exec(toExec, this);
+		
+		StringBuilder s = new StringBuilder();
+		for (double d : result) { 
+			s.append(d).append(" ");
+		}
+		s.append("\n");
+		return s.toString();
 	}
 	//Turtle Cammands
 	public double forward(double distance){
