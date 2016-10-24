@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -55,6 +56,7 @@ public class SlogoView implements EnclosureObserver{
 		BorderPane root = new BorderPane();
 		myHelpPage = new UserManualPopup();
 		myConsole = new Console();
+		myTurtleImages = new HashMap<TurtleView, ImageView>();
 		root.setBottom(makeTerminalPanel());
 		root.setTop(makeSettingPanel());
 		root.setRight(makeHistoryPanel());
@@ -189,7 +191,7 @@ public class SlogoView implements EnclosureObserver{
 		myTurtleImages.put(t, turtle);
 		turtle.setRotate(t.getCurrentHeading());
 		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
-						turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
+						turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 - t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
@@ -204,16 +206,15 @@ public class SlogoView implements EnclosureObserver{
 		ImageView turtle = myTurtleImages.get(t);
 		turtle.setRotate(t.getCurrentHeading());
 		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
-				turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
-		turtlePane.getChildren().add(turtle);
+				turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 - t.getCurrentLocation().getY());
 	}
 
 	@Override
 	public void addLine(LineModel l) {
-		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth()/2 + l.getStart().getX(), 
-											turtlePane.getMaxHeight()/2 - l.getStart().getY(), 
-											turtlePane.getMaxWidth() + l.getEnd().getX(), 
-											turtlePane.getMaxHeight() - l.getEnd().getY()));
+		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth() / 2 + l.getStart().getX(), 
+											turtlePane.getMaxHeight() / 2 - l.getStart().getY(), 
+											turtlePane.getMaxWidth() / 2 + l.getEnd().getX(), 
+											turtlePane.getMaxHeight() /2 - l.getEnd().getY()));
 	}
 
 	@Override
