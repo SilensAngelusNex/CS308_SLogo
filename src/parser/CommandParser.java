@@ -15,41 +15,45 @@ import java.util.regex.Pattern;
  * @author Daniel Chai
  */
 public class CommandParser {
-	// "types" and the regular expression patterns that recognize those types
-    // note, it is a list because order matters (some patterns may be more generic)
     private List<Entry<String, Pattern>> mySymbols;
+    private List<Entry<String, Pattern>> myCommands;
     
-    public CommandParser() {
-        mySymbols = new ArrayList<>();
-    }
-    
-    /**
-     * Adds the given resource file to this language's recognized types
-     */
-    public void addPatterns(String syntax) {
-        ResourceBundle resources = ResourceBundle.getBundle(syntax);
-        Enumeration<String> iter = resources.getKeys();
+    public CommandParser(String commandsFilePath) {
+        mySymbols = new ArrayList<Entry<String, Pattern>>();
+        myCommands = new ArrayList<Entry<String, Pattern>>();
         
-        while (iter.hasMoreElements()) {
-            String key = iter.nextElement();
-            String regex = resources.getString(key);
-            mySymbols.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-        }
+        addPatterns(mySymbols, ParserUtils.SYNTAX_FILE_PATH);
+        addPatterns(myCommands, commandsFilePath);
+        
     }
+
     
     /**
      * Returns the language's type associated with the given text if one exists 
      */
     public String getSymbol(String text) {
-        final String ERROR = "NO MATCH";
-        
         for (Entry<String, Pattern> e : mySymbols) {
             if (match(text, e.getValue())) {
-                return e.getKey();
+            	if (e.getKey().equals("Command")) {
+            		return getCommand(text);
+            	}
+            	else {
+            		return e.getKey();
+            	}	
             }
         }
         
-        return ERROR;
+        return ParserUtils.ERROR_CODE;
+    }
+    
+    private String getCommand(String text) {
+        for (Entry<String, Pattern> e : myCommands) {
+            if (match(text, e.getValue())) {
+            	return e.getKey();
+            }
+        }
+        
+        return ParserUtils.UNKNOWN_COMMAND_CODE;
     }
     
     /**
@@ -58,4 +62,19 @@ public class CommandParser {
     private boolean match(String text, Pattern regex) {
         return regex.matcher(text).matches();
     }
+    
+    /**
+     * Use the Constructor that takes in a resource file name instead of using the default then addPatterns()
+     * Adds the given resource file to this language's recognized types
+     */
+    private void addPatterns(List<Entry<String, Pattern>> patterns, String syntax) {
+        ResourceBundle resources = ResourceBundle.getBundle(syntax);
+        Enumeration<String> iter = resources.getKeys();
+        
+        while (iter.hasMoreElements()) {
+            String key = iter.nextElement();
+            String regex = resources.getString(key);
+            patterns.add(new SimpleEntry<>(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+        }
+    }   
 }

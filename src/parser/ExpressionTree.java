@@ -35,13 +35,7 @@ public class ExpressionTree {
 			
 			for (int i = 0; i < numInLevel; i++) {
 				ExpressionNode curr = q.poll();
-				
-				if (curr.getCommand() != null) {
-					System.out.print(curr.getCommand() + " ");
-				}
-				else {
-					System.out.print(curr.getValue() + " ");
-				}
+				System.out.print(curr.getCommand() + " ");
 				
 				for (ExpressionNode child : curr.getChildren()) {
 					q.add(child);
