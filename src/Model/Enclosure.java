@@ -266,7 +266,7 @@ public class Enclosure implements Observable{
 	}
 	private void notifyListenersMoveTurtle(TurtleModel t){
 		for (EnclosureObserver e: myObservers){
-			e.addTurtle(t.toTurtleView());
+			e.moveTurtle(t.toTurtleView());
 		}
 	}
 	private void notifyListenersAddLine(LineModel l){
