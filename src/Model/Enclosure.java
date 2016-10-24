@@ -34,7 +34,7 @@ public class Enclosure implements Observable{
 	}
 	
 	public double back(double dist){
-		return move(dist, -getActiveTurtle().getHeading());
+		return move(dist, Math.PI + getActiveTurtle().getHeading());
 	}
 	
 	public double right(double degrees){
@@ -45,26 +45,29 @@ public class Enclosure implements Observable{
 		TurtleModel t = getActiveTurtle();
 		
 		t.setHeading(t.getHeading() + Math.toRadians(degrees));
+		notifyListenersMoveTurtle(t);
 		return degrees;
 	}
 	
 	public double setHeading(double degrees){
-		return getActiveTurtle().setHeading(Math.toRadians(degrees));
+		double result = getActiveTurtle().setHeading(Math.toRadians(degrees));
+		notifyListenersMoveTurtle(getActiveTurtle());
+		return result;
+		
 	}
 	
 	public double towards(double x, double y){
 		Point destination = new Point(x, y);
 		
-		return setHeading(getActiveTurtle().getCurrentLocation().headingTo(destination));
+		return setHeading(Math.toDegrees(getActiveTurtle().getCurrentLocation().headingTo(destination)));
 	}
 	
 	public double goTo(double x, double y){
 		TurtleModel t = getActiveTurtle();
-		towards(x, y);
 		
 		t.setLocation(x, y);
-
 		notifyListenersMoveTurtle(t);
+		
 		return t.getCurrentLocation().euclideanDistance(t.getPreviousLocation());
 	}
 	
@@ -103,6 +106,7 @@ public class Enclosure implements Observable{
 		
 		addTurtle(t);
 		myActiveTurtle = 0;
+		t.setHeading(Math.toRadians(90));
 		
 		return home();
 
@@ -145,11 +149,6 @@ public class Enclosure implements Observable{
 	}
 	
 
-	
-
-	
-
-	
 	private TurtleModel getActiveTurtle(){
 		return myTurtles.get(myActiveTurtle);
 	}
@@ -162,6 +161,8 @@ public class Enclosure implements Observable{
 			newX *= -1;
 		if (Math.abs(newY) >= myMaximumY)
 			newY *= -1;
+		
+		myTurtles.get(turtleNumber).setLocation(newX, newY);
 	}
 	
 	private void moveNoEdgeChecking(double dist, double heading){
@@ -169,9 +170,6 @@ public class Enclosure implements Observable{
 	
 		double newX = t.getX() + dist * Math.cos(heading);
 		double newY = t.getY() + dist * Math.sin(heading);
-		
-		newX = newX % myMaximumX;
-		newY = newY % myMaximumY;
 		
 		t.setLocation(newX, newY);
 		
@@ -190,29 +188,32 @@ public class Enclosure implements Observable{
 	 * @return distance the turtle needs to travel along it's heading to hit an edge
 	 */
 	private double distToEdge(int turtleNumber, double heading){
+		if (heading < 0)
+			heading = (heading % (2 * Math.PI)) + 2 * Math.PI;
+		
 		TurtleModel t = myTurtles.get(turtleNumber);
 		
 		double xDist = Double.POSITIVE_INFINITY;
 		double yDist = Double.POSITIVE_INFINITY;
 		
 		//Right half of circle
-		if ((heading < 90 && heading >= 0) || (heading > 270 && heading <= 360))
+		if ((heading < Math.toRadians(90) && heading >= Math.toRadians(0)) || (heading > Math.toRadians(270) && heading <= Math.toRadians(360)))
 			xDist = myMaximumX - t.getX();
 		//Left half of circle
-		if (heading > 90 && heading < 270)
-			xDist = t.getX() - myMaximumX;
+		if (heading > Math.toRadians(90) && heading < Math.toRadians(270))
+			xDist = t.getX() + myMaximumX;
 		
 		//Upper half of circle
-		if (heading > 0 || heading < 180)
+		if (heading > Math.toRadians(0) && heading < Math.toRadians(180))
 			yDist = myMaximumY - t.getY();
 		//Lower half of circle
-		if (heading > 180 && heading < 360)
-			yDist = t.getY() - myMaximumY;
+		if (heading > Math.toRadians(180) && heading < Math.toRadians(360))
+			yDist = t.getY() + myMaximumY;
 		
 		xDist /= Math.cos(heading);
 		yDist /= Math.sin(heading);
 		
-		return Math.min(xDist, yDist);
+		return Math.min(Math.abs(xDist), Math.abs(yDist));
 	}
 
 	@Override

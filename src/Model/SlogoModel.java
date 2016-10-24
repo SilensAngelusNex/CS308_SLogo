@@ -1,17 +1,18 @@
 package Model;
 
+import Controller.ModelInViewInterface;
 import parser.ExpressionTree;
 import parser.MainParser;
 import parser.ParserUtils;
 
-public class SLOGOModel {
+public class SlogoModel implements ModelInViewInterface{
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
 	private MainParser myParser;
 	private TreeExecutor myExecutor;
 	
-	public SLOGOModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
+	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
 		myTurtleEnclosure.addListener(e);
 		
@@ -27,7 +28,14 @@ public class SLOGOModel {
 	
 	public String parseAndExecute(String command){
 		ExpressionTree toExec = myParser.getExpressionTreeFromCommand(command);
-		return myExecutor.exec(toExec, this).toString();
+		double[] result = myExecutor.exec(toExec, this);
+		
+		StringBuilder s = new StringBuilder();
+		for (double d : result) { 
+			s.append(d).append(" ");
+		}
+		s.append("\n");
+		return s.toString();
 	}
 	//Turtle Cammands
 	public double forward(double distance){

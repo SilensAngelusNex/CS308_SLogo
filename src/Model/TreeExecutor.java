@@ -19,7 +19,7 @@ public class TreeExecutor {
 		mySyntax = ResourceBundle.getBundle(syntax);
 	}
 	
-	public double[] exec(ExpressionTree e, SLOGOModel model) {
+	public double[] exec(ExpressionTree e, SlogoModel model) {
 		int children = e.getRoot().getChildren().size();
 		double[] result = new double[children];
 		
@@ -30,7 +30,7 @@ public class TreeExecutor {
 		return result;
 	}
 	
-	private double exec(ExpressionNode node, SLOGOModel model) {
+	private double exec(ExpressionNode node, SlogoModel model) {
 		String cmd = node.getCommand();
 		
 		if (isA(cmd, "Constant")){
@@ -51,7 +51,7 @@ public class TreeExecutor {
 			
 	}
 	
-	private double execCommand(ExpressionNode node, SLOGOModel model){
+	private double execCommand(ExpressionNode node, SlogoModel model){
 		try {
 	
 			switch (node.getCommand()){
@@ -100,7 +100,7 @@ public class TreeExecutor {
 			case "Product":
 				return model.product(exec(node.getChild(0), model), exec(node.getChild(1), model));
 			case "Quotient":
-				return model.sum(exec(node.getChild(0), model), exec(node.getChild(1), model));
+				return model.quotient(exec(node.getChild(0), model), exec(node.getChild(1), model));
 			case "Remainder":
 				return model.remainder(exec(node.getChild(0), model), exec(node.getChild(1), model));
 			case "Minus":
@@ -174,7 +174,7 @@ public class TreeExecutor {
 	}
 	
 	
-	private double repeat(ExpressionNode node, SLOGOModel model) {
+	private double repeat(ExpressionNode node, SlogoModel model) {
 		double result = 0;
 		
 		int repeatTimes = (int) exec(node.getChild(0), model); 
@@ -185,7 +185,7 @@ public class TreeExecutor {
 		return result;
 	}
 	
-	private double doTimes(ExpressionNode node, SLOGOModel model) {
+	private double doTimes(ExpressionNode node, SlogoModel model) {
 
 		String varName = node.getChild(0).getChild(0).getCommand().replaceAll(":", "");
 		int times = (int) exec(node.getChild(0).getChild(1), model);
@@ -201,7 +201,7 @@ public class TreeExecutor {
 		return result;
 	}
 	
-	private double forLoop(ExpressionNode node, SLOGOModel model) {
+	private double forLoop(ExpressionNode node, SlogoModel model) {
 		String varName = node.getChild(0).getChild(0).getCommand().replaceAll(":", "");
 		int start = (int) exec(node.getChild(0).getChild(1), model);
 		int end = (int) exec(node.getChild(0).getChild(2), model);
@@ -220,7 +220,7 @@ public class TreeExecutor {
 		return result;
 	}
 	
-	private double ifStatement(ExpressionNode node, SLOGOModel model){
+	private double ifStatement(ExpressionNode node, SlogoModel model){
 		if (exec(node.getChild(0), model) != 0){
 			return exec(node.getChild(1), model);
 		} else {
@@ -229,7 +229,7 @@ public class TreeExecutor {
 	}
 
 
-	private double ifElse(ExpressionNode node, SLOGOModel model) {
+	private double ifElse(ExpressionNode node, SlogoModel model) {
 		if (exec(node.getChild(0), model) != 0){
 			return exec(node.getChild(1), model);
 		} else {
@@ -238,12 +238,12 @@ public class TreeExecutor {
 		
 	}
 	
-	private double makeVariable(ExpressionNode node, SLOGOModel model) {
+	private double makeVariable(ExpressionNode node, SlogoModel model) {
 		String varName = node.getChild(0).getCommand().replaceAll(":", "");
 		return model.set(varName, exec(node.getChild(1), model));
 	}
 	
-	private double makeUserInstruction(ExpressionNode node, SLOGOModel model) {
+	private double makeUserInstruction(ExpressionNode node, SlogoModel model) {
 		throw new UnsupportedOperationException("Stop making instructions. Just stop.");
 		
 	}

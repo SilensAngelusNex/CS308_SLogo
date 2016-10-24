@@ -35,7 +35,7 @@ public class ExpressionTree {
 			
 			for (int i = 0; i < numInLevel; i++) {
 				ExpressionNode curr = q.poll();
-				System.out.print(curr.getCommand() + curr.getNumOfChildren() + " ");
+				System.out.print(curr.getCommand() + "(" + curr.getNumOfChildren() + ") ");
 				
 				for (ExpressionNode child : curr.getChildren()) {
 					q.add(child);

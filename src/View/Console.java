@@ -8,7 +8,7 @@ import javafx.scene.text.TextFlow;
 
 public class Console {
 	private TextFlow myPanel;
-	
+	private int linelimit = 11;
 	public Console(){
 		Text consolelabel = new Text("Console\n");
 		consolelabel.setFont(Font.font("Helvetica", FontWeight.BOLD, 14));
@@ -19,5 +19,12 @@ public class Console {
 
 	protected TextFlow getPanel() {
 		return myPanel;
+	}
+	
+	protected void addTexttoConsole(Text t){
+		if (myPanel.getChildren().size() == linelimit){
+			myPanel.getChildren().remove(1);
+		}
+		myPanel.getChildren().add(t);
 	}
 }

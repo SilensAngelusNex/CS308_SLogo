@@ -83,7 +83,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public double getCurrentHeading() {
-		return myHeading;
+		return 90 - Math.toDegrees(myHeading);
 	}
 
 
@@ -95,7 +95,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public double getPreviousHeading() {
-		return myLastHeading;
+		return 90 - Math.toDegrees(myLastHeading);
 	}
 
 
@@ -107,11 +107,6 @@ public class Turtle implements TurtleModel, TurtleView{
 	@Override
 	public TurtleView toTurtleView(){
 		return this;
-	}
-	
-	@Override
-	public boolean isVisible(){
-		return myVisibility;
 	}
 	
 	@Override
@@ -131,7 +126,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public boolean getVisibility() {
-		return true;
+		return myVisibility;
 	}
 
 	@Override

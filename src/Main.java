@@ -1,15 +1,21 @@
+import java.awt.Dimension;
+
+import Controller.SlogoController;
 import View.SlogoView;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 	public static final String TITLE = "SLOGO - Group 14";
+	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle(TITLE);
-		SlogoView display = new SlogoView("English");
-		primaryStage.setScene(display.getScene());
+		SlogoController myController = new SlogoController();
+		Scene primaryscene = new Scene(myController.getView(), DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+		primaryStage.setScene(primaryscene);
 		primaryStage.show();
 
 	}
