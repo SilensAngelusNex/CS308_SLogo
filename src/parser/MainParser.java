@@ -101,7 +101,7 @@ public class MainParser {
     }
     
     private boolean isChildrenFull(ExpressionNode curr) {
-    	return curr.getCommand() == null || curr.getNumOfChildren() == numParams.get(curr.getCommand());
+    	return curr.getCommand() == "" || curr.getNumOfChildren() == numParams.get(curr.getCommand());
     }
     
     private boolean isInteger(String s) {
