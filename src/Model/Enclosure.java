@@ -192,13 +192,17 @@ public class Enclosure implements Observable{
 		double xDist = Double.POSITIVE_INFINITY;
 		double yDist = Double.POSITIVE_INFINITY;
 		
+		//Right half of circle
 		if ((heading < 90 && heading >= 0) || (heading > 270 && heading <= 360))
 			xDist = myMaximumX - t.getX();
-		if (heading > 180 && heading < 360)
+		//Left half of circle
+		if (heading > 90 && heading < 270)
 			xDist = t.getX() - myMaximumX;
 		
+		//Upper half of circle
 		if (heading > 0 || heading < 180)
 			yDist = myMaximumY - t.getY();
+		//Lower half of circle
 		if (heading > 180 && heading < 360)
 			yDist = t.getY() - myMaximumY;
 		

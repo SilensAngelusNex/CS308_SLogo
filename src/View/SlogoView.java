@@ -26,13 +26,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 
@@ -47,8 +42,13 @@ public class SlogoView implements EnclosureObserver{
 	private Pane turtlePane;
 	private SLOGOModel myModel;
 	private Console myConsole;
+	private ListView<String> myCommandHistory;
+	private ListView<String> myAvailableVariables;
+	private ListView<String> myUserCommands;
+	
+	
+    public SlogoView(String language){
 
-	public SlogoView(String language){
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		BorderPane root = new BorderPane();
@@ -81,15 +81,15 @@ public class SlogoView implements EnclosureObserver{
 
 	private Node makeHistoryPanel() {
 		BorderPane infopane = new BorderPane();
-		ListView commandHistory = new ListView();
-		commandHistory.setMaxSize(300, 150);
-		ListView availableVariables = new ListView();
-		availableVariables.setMaxSize(300, 150);
-		ListView UserCommands = new ListView();
-		UserCommands.setMaxSize(300, 150);
-		infopane.setTop(commandHistory);
-		infopane.setCenter(availableVariables);
-		infopane.setBottom(UserCommands);
+		myCommandHistory = new ListView<String>();
+		myCommandHistory.setMaxSize(300, 150);
+		myAvailableVariables = new ListView<String>();
+		myAvailableVariables.setMaxSize(300, 150);
+		myUserCommands = new ListView<String>();
+		myUserCommands.setMaxSize(300, 150);
+		infopane.setTop(myCommandHistory);
+		infopane.setCenter(myAvailableVariables);
+		infopane.setBottom(myUserCommands);
 		return infopane;
 	}
 
@@ -165,6 +165,8 @@ public class SlogoView implements EnclosureObserver{
 		try{
 			String result = myModel.parseAndExecute(command);
 			myConsole.getPanel().getChildren().add(new Text(result));
+			myCommandHistory.getItems().add(result);
+			
 		}catch(Exception e){
 			promptAlert("Command Error", e);
 		}
