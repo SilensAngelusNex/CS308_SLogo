@@ -50,22 +50,24 @@ public class Enclosure implements Observable{
 	}
 	
 	public double setHeading(double degrees){
-		return getActiveTurtle().setHeading(Math.toRadians(degrees));
+		double result = getActiveTurtle().setHeading(Math.toRadians(degrees));
+		notifyListenersMoveTurtle(getActiveTurtle());
+		return result;
+		
 	}
 	
 	public double towards(double x, double y){
 		Point destination = new Point(x, y);
 		
-		return setHeading(getActiveTurtle().getCurrentLocation().headingTo(destination));
+		return setHeading(Math.toDegrees(getActiveTurtle().getCurrentLocation().headingTo(destination)));
 	}
 	
 	public double goTo(double x, double y){
 		TurtleModel t = getActiveTurtle();
-		towards(x, y);
 		
 		t.setLocation(x, y);
-
 		notifyListenersMoveTurtle(t);
+		
 		return t.getCurrentLocation().euclideanDistance(t.getPreviousLocation());
 	}
 	
