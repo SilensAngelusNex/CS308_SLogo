@@ -20,6 +20,10 @@ public class SLOGOModel {
 
 	}
 	
+	public void setTurtleImage(String image){
+		myTurtleEnclosure.setTurtleImage(image);
+	}
+	
 	public String parseAndExecute(String command){
 		ExpressionTree toExec = new ExpressionTree(new ExpressionNode());//= myParser.parse(command);
 		return myExecutor.exec(toExec, this).toString();

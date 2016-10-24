@@ -133,4 +133,9 @@ public class Turtle implements TurtleModel, TurtleView{
 	public boolean getVisibility() {
 		return true;
 	}
+
+	@Override
+	public void setTurtleImage(String image) {
+		myTurtleImage = image;
+	}
 }
