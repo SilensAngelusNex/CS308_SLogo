@@ -24,9 +24,13 @@ public class MainParser {
 	
 	private static final String COMMENT_CODE = "Comment";
 	private static final String CONSTANT_CODE = "Constant";
+	private static final String LIST_START_CODE = "ListStart";
+	private static final String LIST_END_CODE = "ListEnd";
 	
 	private CommandParser commandParser;
 	private Map<String, Integer> numParams;
+	
+	private boolean onList = false;
 	
 	public MainParser(String commandResourcePath) {
 		commandParser = new CommandParser(commandResourcePath);
@@ -78,10 +82,17 @@ public class MainParser {
 	                addNodeToTree(curr, s, symbol);
 	                
 	                if (isChildrenFull(curr)) {
+	                	boolean allChildrenConstants = true;
+	                	
 	                	for (ExpressionNode child : curr.getChildren()) {
 	                		if (!isInteger(child.getCommand())) {
+	                			allChildrenConstants = false;
 	                			curr = child;
 	                		}
+	                	}
+	                	
+	                	if (onList && allChildrenConstants) {
+	                		curr = root;
 	                	}
 	                }
 	            }
@@ -92,7 +103,13 @@ public class MainParser {
     }
     
     private void addNodeToTree(ExpressionNode curr, String s, String symbol) {
-    	if (symbol.equals(CONSTANT_CODE)) {
+    	if (symbol.equals(LIST_START_CODE)) {
+    		onList = true;
+    	}
+    	else if (symbol.equals(LIST_END_CODE)) {
+    		return;
+    	}
+    	else if (symbol.equals(CONSTANT_CODE)) {
         	curr.addChild(new ExpressionNode(s));
         }
         else {
@@ -149,7 +166,7 @@ public class MainParser {
         
         System.out.println();
         
-    	String command = "fd sum sum 100 100 sum 100 100";
+    	String command = "[ fd sum 50 50 bk 50 ]";
         ExpressionTree tree2 = mainParser.getExpressionTreeFromCommand(command);
         tree2.printTree();
     }
