@@ -131,10 +131,13 @@ public class Enclosure implements Observable{
 		while (dist > 0){
 			double toEdge = distToEdge(myActiveTurtle, heading);
 			
-			if (dist > toEdge){
+			if (dist >= toEdge){
 				moveNoEdgeChecking(toEdge, heading);
 				wrapTurtle(myActiveTurtle);
 				dist -= toEdge; 
+			} else {
+				moveNoEdgeChecking(dist, heading);
+				dist = 0;
 			}
 		}
 
@@ -206,8 +209,8 @@ public class Enclosure implements Observable{
 		if (heading > 180 && heading < 360)
 			yDist = t.getY() - myMaximumY;
 		
-		xDist *= Math.cos(heading);
-		yDist *= Math.sin(heading);
+		xDist /= Math.cos(heading);
+		yDist /= Math.sin(heading);
 		
 		return Math.min(xDist, yDist);
 	}
