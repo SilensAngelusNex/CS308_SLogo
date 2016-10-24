@@ -48,7 +48,7 @@ public class SlogoView implements EnclosureObserver{
 	private ListView<String> myAvailableVariables;
 	private ListView<String> myUserCommands;
 	private Map<TurtleView, ImageView> myTurtleImages;
-	
+	private Map<LineModel, Line> myLines;
 	
     public SlogoView(String language){
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
@@ -57,6 +57,7 @@ public class SlogoView implements EnclosureObserver{
 		myHelpPage = new UserManualPopup();
 		myConsole = new Console();
 		myTurtleImages = new HashMap<TurtleView, ImageView>();
+		myLines = new HashMap<LineModel, Line>();
 		root.setBottom(makeTerminalPanel());
 		root.setTop(makeSettingPanel());
 		root.setRight(makeHistoryPanel());
@@ -69,7 +70,6 @@ public class SlogoView implements EnclosureObserver{
 		root.setLeft(turtlePane);
 		turtlePane.setStyle("-fx-background-color: white");
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
-
 	}
 
 
@@ -214,14 +214,16 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addLine(LineModel l) {
-		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth() / 2 + l.getStart().getX(), 
-											turtlePane.getMaxHeight() / 2 - l.getStart().getY(), 
-											turtlePane.getMaxWidth() / 2 + l.getEnd().getX(), 
-											turtlePane.getMaxHeight() /2 - l.getEnd().getY()));
+		Line lineToAdd = new Line(turtlePane.getMaxWidth() / 2 + l.getStart().getX(), 
+				turtlePane.getMaxHeight() / 2 - l.getStart().getY(), 
+				turtlePane.getMaxWidth() / 2 + l.getEnd().getX(), 
+				turtlePane.getMaxHeight() /2 - l.getEnd().getY());
+		myLines.put(l, lineToAdd);
+		turtlePane.getChildren().add(lineToAdd);
 	}
 
 	@Override
 	public void removeLine(LineModel l) {	
-		turtlePane.getChildren().remove(new Line(l.getStart().getX(), l.getStart().getY(), l.getEnd().getX(), l.getEnd().getY()));
+		turtlePane.getChildren().remove(myLines.get(l));
 	}
 }
