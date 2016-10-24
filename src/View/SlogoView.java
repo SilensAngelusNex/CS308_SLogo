@@ -26,13 +26,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 
@@ -47,6 +42,10 @@ public class SlogoView implements EnclosureObserver{
 	private Pane turtlePane;
 	private SLOGOModel myModel;
 	private Console myConsole;
+	private ListView<String> myCommandHistory;
+	private ListView<String> myAvailableVariables;
+	private ListView<String> myUserCommands;
+	
 	
     public SlogoView(String language){
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
@@ -60,10 +59,11 @@ public class SlogoView implements EnclosureObserver{
 		turtlePane = new Pane();
 		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
+		turtlePane.setMinHeight(DEFAULT_SIZE.getHeight() / 1.5);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
 		myModel = new SLOGOModel(this, turtlePane.getWidth(), turtlePane.getHeight());
 		root.setLeft(turtlePane);
-		turtlePane.setStyle("-fx-background-color: red");
+		turtlePane.setStyle("-fx-background-color: white");
 //		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
 //		turtle.setFitHeight(50);
 //		turtle.setFitWidth(50);
@@ -81,15 +81,15 @@ public class SlogoView implements EnclosureObserver{
 
 	private Node makeHistoryPanel() {
 		BorderPane infopane = new BorderPane();
-		ListView commandHistory = new ListView();
-		commandHistory.setMaxSize(300, 150);
-		ListView availableVariables = new ListView();
-		availableVariables.setMaxSize(300, 150);
-		ListView UserCommands = new ListView();
-		UserCommands.setMaxSize(300, 150);
-		infopane.setTop(commandHistory);
-		infopane.setCenter(availableVariables);
-		infopane.setBottom(UserCommands);
+		myCommandHistory = new ListView<String>();
+		myCommandHistory.setMaxSize(300, 150);
+		myAvailableVariables = new ListView<String>();
+		myAvailableVariables.setMaxSize(300, 150);
+		myUserCommands = new ListView<String>();
+		myUserCommands.setMaxSize(300, 150);
+		infopane.setTop(myCommandHistory);
+		infopane.setCenter(myAvailableVariables);
+		infopane.setBottom(myUserCommands);
 		return infopane;
 	}
 
@@ -166,6 +166,8 @@ public class SlogoView implements EnclosureObserver{
 		try{
 			String result = myModel.parseAndExecute(command);
 			myConsole.getPanel().getChildren().add(new Text(result));
+			myCommandHistory.getItems().add(result);
+			
 		}catch(Exception e){
 			promptAlert("Command Error", e);
 		}
@@ -195,8 +197,8 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(turtlePane.getMaxWidth() + t.getCurrentLocation().getX(), 
-						turtlePane.getMaxHeight() + t.getCurrentLocation().getY());
+		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
+						turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
@@ -209,8 +211,8 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void moveTurtle(TurtleView t) {	
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(turtlePane.getMaxWidth() + t.getCurrentLocation().getX(), 
-						turtlePane.getMaxHeight() + t.getCurrentLocation().getY());
+		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
+				turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
