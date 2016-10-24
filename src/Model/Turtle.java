@@ -83,7 +83,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public double getCurrentHeading() {
-		return Math.toDegrees(myHeading) - 90;
+		return 90 - Math.toDegrees(myHeading);
 	}
 
 
@@ -95,7 +95,7 @@ public class Turtle implements TurtleModel, TurtleView{
 
 	@Override
 	public double getPreviousHeading() {
-		return Math.toDegrees(myLastHeading) - 90;
+		return 90 - Math.toDegrees(myLastHeading);
 	}
 
 
