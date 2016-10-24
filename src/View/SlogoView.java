@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import Model.EnclosureObserver;
@@ -45,10 +46,10 @@ public class SlogoView implements EnclosureObserver{
 	private ListView<String> myCommandHistory;
 	private ListView<String> myAvailableVariables;
 	private ListView<String> myUserCommands;
+	private Map<TurtleView, ImageView> myTurtleImages;
 	
 	
     public SlogoView(String language){
-
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		BorderPane root = new BorderPane();
@@ -65,15 +66,6 @@ public class SlogoView implements EnclosureObserver{
 		myModel = new SLOGOModel(this, turtlePane.getMaxWidth(), turtlePane.getMaxHeight());
 		root.setLeft(turtlePane);
 		turtlePane.setStyle("-fx-background-color: white");
-//		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
-//		turtle.setFitHeight(50);
-//		turtle.setFitWidth(50);
-		//turtle.setY(DEFAULT_SIZE.getHeight()/1.5);
-		//turtlePane.setMinHeight(DEFAULT_SIZE.getHeight());
-		//System.out.println(turtlePane.getMinHeight());
-		//System.out.println(turtlePane.getMinHeight());
-//		turtle.relocate(turtlePane.getMaxWidth()/2 - turtle.getFitWidth()/2, turtlePane.getMaxHeight()/2 - turtle.getFitHeight()/2);
-//		turtlePane.getChildren().add(turtle);
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 
 	}
@@ -165,7 +157,7 @@ public class SlogoView implements EnclosureObserver{
 		try{
 			String result = myModel.parseAndExecute(command);
 			myConsole.getPanel().getChildren().add(new Text(result));
-			myCommandHistory.getItems().add(result);
+			myCommandHistory.getItems().add(command);
 			
 		}catch(Exception e){
 			promptAlert("Command Error", e);
@@ -195,7 +187,8 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-
+		myTurtleImages.put(t, turtle);
+		turtle.setRotate(t.getCurrentHeading());
 		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
 						turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
@@ -203,14 +196,14 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void removeTurtle(TurtleView t) {
-		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
+		ImageView turtle = myTurtleImages.get(t);
 		turtlePane.getChildren().remove(turtle);
 	}
 
 	@Override
 	public void moveTurtle(TurtleView t) {	
-		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-
+		ImageView turtle = myTurtleImages.get(t);
+		turtle.setRotate(t.getCurrentHeading());
 		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
 				turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
