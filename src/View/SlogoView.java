@@ -14,8 +14,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -24,6 +27,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -31,7 +37,7 @@ import javafx.stage.Stage;
 
 
 public class SlogoView implements EnclosureObserver{
-	private final Dimension DEFAULT_SIZE = new Dimension(800, 600);
+	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	private final String DEFAULT_RESOURCE_PACKAGE = "resources/UILabels";
 	private final String LAUGUAGE_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myLanguageResources;
@@ -40,17 +46,20 @@ public class SlogoView implements EnclosureObserver{
 	private UserManualPopup myHelpPage;
 	private Pane turtlePane;
 	private SLOGOModel myModel;
-
-	public SlogoView(String language){
+	private Console myConsole;
+	
+    public SlogoView(String language){
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		BorderPane root = new BorderPane();
 		myHelpPage = new UserManualPopup();
+		myConsole = new Console();
 		root.setBottom(makeTerminalPanel());
 		root.setTop(makeSettingPanel());
+		root.setRight(makeHistoryPanel());
 		turtlePane = new Pane();
-		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
-		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth());
+		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
+		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
 		System.out.println(turtlePane.getWidth());
 		myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
@@ -65,13 +74,26 @@ public class SlogoView implements EnclosureObserver{
 		//System.out.println(turtlePane.getMinHeight());
 //		turtle.relocate(turtlePane.getMaxWidth()/2 - turtle.getFitWidth()/2, turtlePane.getMaxHeight()/2 - turtle.getFitHeight()/2);
 //		turtlePane.getChildren().add(turtle);
+
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+    
+    }
+
+
+	private Node makeHistoryPanel() {
+		BorderPane infopane = new BorderPane();
+		ListView commandHistory = new ListView();
+		commandHistory.setMaxSize(300, 150);
+		ListView availableVariables = new ListView();
+		availableVariables.setMaxSize(300, 150);
+		ListView UserCommands = new ListView();
+		UserCommands.setMaxSize(300, 150);
+		infopane.setTop(commandHistory);
+		infopane.setCenter(availableVariables);
+		infopane.setBottom(UserCommands);
+		return infopane;
 	}
 
-	private Node makeModelPanel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private Node makeSettingPanel() {
 		HBox functionHBox = new HBox();
@@ -131,19 +153,32 @@ public class SlogoView implements EnclosureObserver{
 
 	private Node makeTerminalPanel() {
 		BorderPane node = new BorderPane();
-		TextArea inputPanel = new TextArea();
-		inputPanel.setPromptText("Enter your command here");
-		Text text1 = new Text("Console");
-		TextFlow console = new TextFlow(text1);
-		Button enterbutton = makeButton("EnterLabel", event -> parseCommand(inputPanel.getText()));
+		TextArea inputTexts = new TextArea();
+		inputTexts.setPromptText("Enter your command here");
+		Button enterbutton = makeButton("EnterLabel", event -> parseCommand(inputTexts.getText()));
+		HBox inputPanel = new HBox(inputTexts, enterbutton);
 		node.setLeft(inputPanel);
 		node.setCenter(enterbutton);
-		node.setRight(console);
+		node.setRight(myConsole.getPanel());
 		return node;
 	}
 	private void parseCommand(String command) {
-		System.out.println(command);
-		myModel.parseAndExecute(command);
+
+		try{
+			String result = myModel.parseAndExecute(command);
+			myConsole.getPanel().getChildren().add(new Text(result));
+		}catch(Exception e){
+			promptAlert("Command Error", e);
+		}
+		
+	}
+	
+	private void promptAlert(String s, Exception e){
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(s);
+		alert.setHeaderText(s);
+		alert.setContentText(e.toString());
+		alert.show();
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
