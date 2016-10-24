@@ -53,11 +53,13 @@ public class SlogoView implements EnclosureObserver{
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		BorderPane root = new BorderPane();
 		myHelpPage = new UserManualPopup();
+		myConsole = new Console();
 		root.setBottom(makeTerminalPanel());
 		root.setTop(makeSettingPanel());
+		root.setRight(makeHistoryPanel());
 		turtlePane = new Pane();
-		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
-		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth());
+		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
+		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
 		System.out.println(turtlePane.getWidth());
 		myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
@@ -66,10 +68,6 @@ public class SlogoView implements EnclosureObserver{
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
 		turtle.setFitHeight(50);
 		turtle.setFitWidth(50);
-		//turtle.setY(DEFAULT_SIZE.getHeight()/1.5);
-		//turtlePane.setMinHeight(DEFAULT_SIZE.getHeight());
-		//System.out.println(turtlePane.getMinHeight());
-		//System.out.println(turtlePane.getMinHeight());
 		turtle.relocate(turtlePane.getMaxWidth()/2 - turtle.getFitWidth()/2, turtlePane.getMaxHeight()/2 - turtle.getFitHeight()/2);
 		turtlePane.getChildren().add(turtle);
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
