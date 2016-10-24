@@ -25,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -51,13 +50,20 @@ public class SlogoView implements EnclosureObserver{
 		root.setTop(makeSettingPanel());
 		turtlePane = new Pane();
 		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
+		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth());
+		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
+		System.out.println(turtlePane.getWidth());
 		myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
 		root.setLeft(turtlePane);
-		turtlePane.setStyle("-fx-background-color: white");
+		turtlePane.setStyle("-fx-background-color: red");
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
 		turtle.setFitHeight(50);
 		turtle.setFitWidth(50);
-		turtle.relocate(200, 200);
+		//turtle.setY(DEFAULT_SIZE.getHeight()/1.5);
+		//turtlePane.setMinHeight(DEFAULT_SIZE.getHeight());
+		//System.out.println(turtlePane.getMinHeight());
+		//System.out.println(turtlePane.getMinHeight());
+		turtle.relocate(turtlePane.getMaxWidth()/2 - turtle.getFitWidth()/2, turtlePane.getMaxHeight()/2 - turtle.getFitHeight()/2);
 		turtlePane.getChildren().add(turtle);
 		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 	}
@@ -136,8 +142,6 @@ public class SlogoView implements EnclosureObserver{
 		return node;
 	}
 	private void parseCommand(String command) {
-
-
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -155,7 +159,8 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
+		turtle.relocate(turtlePane.getMaxWidth() + t.getCurrentLocation().getX(), 
+						turtlePane.getMaxHeight() + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
@@ -172,7 +177,10 @@ public class SlogoView implements EnclosureObserver{
 
 	@Override
 	public void addLine(LineModel l) {
-		turtlePane.getChildren().add(new Line(l.getStart().getX(), l.getStart().getY(), l.getEnd().getX(), l.getEnd().getY()));
+		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth()/2 + l.getStart().getX(), 
+											turtlePane.getMaxHeight()/2 - l.getStart().getY(), 
+											turtlePane.getMaxWidth() + l.getEnd().getX(), 
+											turtlePane.getMaxHeight() - l.getEnd().getY()));
 
 	}
 
