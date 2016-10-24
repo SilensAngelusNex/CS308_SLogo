@@ -38,7 +38,6 @@ public class CommandParser {
         addPatterns(mySymbols, SYNTAX_FILE_PATH);
         addPatterns(myCommands, commandsFilePath);
         
-        
     }
     
     /**

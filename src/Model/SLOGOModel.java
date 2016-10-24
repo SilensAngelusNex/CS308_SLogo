@@ -1,14 +1,14 @@
 package Model;
 
-import parser.CommandParser;
-
-import parser.MainParser;
+import parser.ExpressionNode;
+import parser.ExpressionTree;
 
 public class SLOGOModel {
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
-	private CommandParser myParser;
+	//private CommandParser myParser;
+	private TreeExecutor myExecutor;
 	
 	public SLOGOModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
@@ -16,12 +16,13 @@ public class SLOGOModel {
 		
 		myCalculator = new Calculator();
 		myVariables = new VariableContainer();
-		myParser = new CommandParser();
+		//myParser = new CommandParser();
 
 	}
 	
 	public String parseAndExecute(String command){
-		throw new UnsupportedOperationException();
+		ExpressionTree toExec = new ExpressionTree(new ExpressionNode());//= myParser.parse(command);
+		return myExecutor.exec(toExec, this).toString();
 	}
 	//Turtle Cammands
 	public double forward(double distance){

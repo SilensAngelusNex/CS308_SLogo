@@ -39,7 +39,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		radians = radians % (2 * Math.PI);
 
 		if (radians < 0)
-			radians *= -1;
+			radians += 2 * Math.PI;
 		
 		myHeading = radians;
 		
