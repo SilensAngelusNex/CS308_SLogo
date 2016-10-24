@@ -5,7 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-
+/**
+ * @author Owen Chung
+ */
 public class UserManualPopup extends Application {
 
     public static void main(String[] args) {

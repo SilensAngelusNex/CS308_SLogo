@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 /* 
  * based of code used in my groups cell Society (Blake)
- * edited by Owen
+ * edited by Owen Chung (tc153)
  */
 public class ChooseFile {
 

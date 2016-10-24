@@ -5,10 +5,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
+/**
+ * @author Owen Chung
+ */
 public class Console {
 	private TextFlow myPanel;
-	private int linelimit = 11;
+	private int myLineLimit = 11;
 	public Console(){
 		Text consolelabel = new Text("Console\n");
 		consolelabel.setFont(Font.font("Helvetica", FontWeight.BOLD, 14));
@@ -22,7 +24,7 @@ public class Console {
 	}
 	
 	protected void addTexttoConsole(Text t){
-		if (myPanel.getChildren().size() == linelimit){
+		if (myPanel.getChildren().size() == myLineLimit){
 			myPanel.getChildren().remove(1);
 		}
 		myPanel.getChildren().add(t);

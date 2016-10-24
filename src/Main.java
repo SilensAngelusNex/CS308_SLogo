@@ -1,10 +1,11 @@
 import java.awt.Dimension;
 
 import Controller.SlogoController;
-import View.SlogoView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+
 
 public class Main extends Application {
 	public static final String TITLE = "SLOGO - Group 14";

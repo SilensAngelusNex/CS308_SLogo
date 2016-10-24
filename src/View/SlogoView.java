@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import Controller.ModelInViewInterface;
 import Model.EnclosureObserver;
 import Model.LineModel;
@@ -15,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -31,6 +29,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+/**
+ * @author Owen Chung, Blake Becerra
+ */
 
 
 public class SlogoView extends BorderPane implements EnclosureObserver{

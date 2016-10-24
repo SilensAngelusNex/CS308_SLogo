@@ -4,7 +4,9 @@ import java.awt.Dimension;
 
 import Model.SlogoModel;
 import View.SlogoView;
-
+/**
+ * @author Owen Chung
+ */
 public class SlogoController {
 	private SlogoModel myModel;
 	private SlogoView myView;
