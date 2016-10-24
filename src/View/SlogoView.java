@@ -159,6 +159,8 @@ public class SlogoView implements EnclosureObserver{
 		try{
 			String result = myModel.parseAndExecute(String.format("[ %s ]", command));
 			myConsole.getPanel().getChildren().add(new Text(result));
+
+			myConsole.addTexttoConsole(new Text(myModel.parseAndExecute(String.format("[ %s ]", command))));
 			myCommandHistory.getItems().add(command);
 			
 		}catch(Exception e){

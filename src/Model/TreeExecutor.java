@@ -100,7 +100,7 @@ public class TreeExecutor {
 			case "Product":
 				return model.product(exec(node.getChild(0), model), exec(node.getChild(1), model));
 			case "Quotient":
-				return model.sum(exec(node.getChild(0), model), exec(node.getChild(1), model));
+				return model.quotient(exec(node.getChild(0), model), exec(node.getChild(1), model));
 			case "Remainder":
 				return model.remainder(exec(node.getChild(0), model), exec(node.getChild(1), model));
 			case "Minus":
