@@ -196,8 +196,8 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(turtlePane.getMaxWidth() / 2  + t.getCurrentLocation().getX(), 
-						turtlePane.getMaxHeight() /2 + t.getCurrentLocation().getY());
+		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
+						turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
@@ -210,8 +210,8 @@ public class SlogoView implements EnclosureObserver{
 	@Override
 	public void moveTurtle(TurtleView t) {	
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
-		turtle.relocate(turtlePane.getMaxWidth() / 2+ t.getCurrentLocation().getX(), 
-						turtlePane.getMaxHeight() / 2 + t.getCurrentLocation().getY());
+		turtle.relocate(turtlePane.getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
+				turtlePane.getMaxHeight() /2  - turtle.getBoundsInLocal().getHeight() / 2 + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
