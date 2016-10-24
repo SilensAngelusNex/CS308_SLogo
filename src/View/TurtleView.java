@@ -14,6 +14,8 @@ public interface TurtleView {
 	
 	abstract public String getImagePath();
 	
+	abstract public void setTurtleImage(String image);
+	
 	/**
 	 * @deprecated
 	 * @return true

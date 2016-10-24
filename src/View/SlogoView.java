@@ -21,6 +21,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -29,6 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -47,24 +49,30 @@ public class SlogoView implements EnclosureObserver{
 	private Console myConsole;
 	
     public SlogoView(String language){
-    	myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
-    	myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
-    	myConsole = new Console();
-    	myHelpPage = new UserManualPopup();
-    	BorderPane root = new BorderPane();
-    	root.setBottom(makeTerminalPanel());
-    	root.setTop(makeSettingPanel());
-    	turtlePane = new Pane();
-    	turtlePane.setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
-//    	turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/2);
-    	Rectangle r = new Rectangle(100, 100, Color.BLACK);
-    	r.relocate(50, 50);
-    	turtlePane.getChildren().add(r);
-    	myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
-    	root.setLeft(turtlePane);
-    	turtlePane.setStyle("-fx-background-color: red");
-    	root.setRight(makeHistoryPanel());
-    	myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
+		BorderPane root = new BorderPane();
+		myHelpPage = new UserManualPopup();
+		root.setBottom(makeTerminalPanel());
+		root.setTop(makeSettingPanel());
+		turtlePane = new Pane();
+		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth());
+		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth());
+		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
+		System.out.println(turtlePane.getWidth());
+		myModel = new SLOGOModel(null, turtlePane.getWidth(), turtlePane.getHeight());
+		root.setLeft(turtlePane);
+		turtlePane.setStyle("-fx-background-color: red");
+		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream("turtle.png")));
+		turtle.setFitHeight(50);
+		turtle.setFitWidth(50);
+		//turtle.setY(DEFAULT_SIZE.getHeight()/1.5);
+		//turtlePane.setMinHeight(DEFAULT_SIZE.getHeight());
+		//System.out.println(turtlePane.getMinHeight());
+		//System.out.println(turtlePane.getMinHeight());
+		turtle.relocate(turtlePane.getMaxWidth()/2 - turtle.getFitWidth()/2, turtlePane.getMaxHeight()/2 - turtle.getFitHeight()/2);
+		turtlePane.getChildren().add(turtle);
+		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     
     }
 
@@ -99,16 +107,16 @@ public class SlogoView implements EnclosureObserver{
 					String arg1, String arg2) {
 				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
 			}
-			
+
 		});
-		colorCBox.getSelectionModel().selectFirst();
+		colorCBox.getSelectionModel().select(2);
 		colorCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				turtlePane.setStyle("-fx-background-color: " + arg2);
 			}
-		
+
 		});
 		Button BackgroundButton = makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = makeButton("TurtleLabel", event -> displayTurtle());
@@ -123,9 +131,11 @@ public class SlogoView implements EnclosureObserver{
 	}
 
 	private void displayTurtle() {
-		Rectangle r = new Rectangle(100, 100, Color.BLACK);
-    	r.relocate(100, 100);
-    	turtlePane.getChildren().add(r);
+		ChooseFile fileChooser = new ChooseFile();
+		File myImage = fileChooser.chooseFile();
+		if (myImage != null){
+			myModel.setTurtleImage(myImage.getName());
+		}
 	}
 
 	private void setBackground() {
@@ -135,7 +145,7 @@ public class SlogoView implements EnclosureObserver{
 			System.out.println(myImage.getName());
 			turtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
 		}
-		
+
 	}
 
 	private Node makeTerminalPanel() {
@@ -164,46 +174,51 @@ public class SlogoView implements EnclosureObserver{
 		alert.setHeaderText(s);
 		alert.setContentText(e.toString());
 		alert.show();
+
 	}
 
 	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
-        Button result = new Button();
-        String label = myUILabel.getString(property);
-        result.setText(label);
-        result.setOnAction(handler);
-        return result;
-    }
-    
+		Button result = new Button();
+		String label = myUILabel.getString(property);
+		result.setText(label);
+		result.setOnAction(handler);
+		return result;
+	}
+
 	public Scene getScene() {
 		return myScene;
 	}
 
 	@Override
 	public void addTurtle(TurtleView t) {
-		ImageView turtle = new ImageView(t.getImagePath());
-		turtle.relocate(t.getCurrentLocation().getX(), t.getCurrentLocation().getY());
+		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
+		turtle.relocate(turtlePane.getMaxWidth() + t.getCurrentLocation().getX(), 
+						turtlePane.getMaxHeight() + t.getCurrentLocation().getY());
 		turtlePane.getChildren().add(turtle);
 	}
 
 	@Override
 	public void removeTurtle(TurtleView t) {
-		ImageView turtle = new ImageView(t.getImagePath());
+		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
 		turtlePane.getChildren().remove(turtle);
 	}
 
 	@Override
 	public void moveTurtle(TurtleView t) {	
+		
 	}
 
 	@Override
 	public void addLine(LineModel l) {
-		// TODO Auto-generated method stub
-		
+		turtlePane.getChildren().add(new Line(turtlePane.getMaxWidth()/2 + l.getStart().getX(), 
+											turtlePane.getMaxHeight()/2 - l.getStart().getY(), 
+											turtlePane.getMaxWidth() + l.getEnd().getX(), 
+											turtlePane.getMaxHeight() - l.getEnd().getY()));
+
 	}
 
 	@Override
-	public void removeLine(LineModel l) {
-		// TODO Auto-generated method stub
-		
+	public void removeLine(LineModel l) {	
+		turtlePane.getChildren().remove(new Line(l.getStart().getX(), l.getStart().getY(), l.getEnd().getX(), l.getEnd().getY()));
 	}
 }
