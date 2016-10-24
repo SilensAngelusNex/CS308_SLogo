@@ -1,13 +1,14 @@
 package Model;
 
-import parser.ExpressionNode;
 import parser.ExpressionTree;
+import parser.MainParser;
+import parser.ParserUtils;
 
 public class SLOGOModel {
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
-	//private CommandParser myParser;
+	private MainParser myParser;
 	private TreeExecutor myExecutor;
 	
 	public SLOGOModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
@@ -16,7 +17,7 @@ public class SLOGOModel {
 		
 		myCalculator = new Calculator();
 		myVariables = new VariableContainer();
-		//myParser = new CommandParser();
+		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
 
 	}
 	
@@ -25,7 +26,7 @@ public class SLOGOModel {
 	}
 	
 	public String parseAndExecute(String command){
-		ExpressionTree toExec = new ExpressionTree(new ExpressionNode());//= myParser.parse(command);
+		ExpressionTree toExec = myParser.getExpressionTreeFromCommand(command);
 		return myExecutor.exec(toExec, this).toString();
 	}
 	//Turtle Cammands

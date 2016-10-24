@@ -2,7 +2,13 @@ package parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.regex.Pattern;
 
 /**
  * This class is the entry point for parsing a command into an expression tree.
@@ -20,9 +26,12 @@ public class MainParser {
 	private static final String CONSTANT_CODE = "Constant";
 	
 	private CommandParser commandParser;
+	private Map<String, Integer> numParams;
 	
 	public MainParser(String commandResourcePath) {
 		commandParser = new CommandParser(commandResourcePath);
+		numParams = new HashMap<String, Integer>();
+		initNumParams();
 	}
 	
     /**
@@ -58,7 +67,7 @@ public class MainParser {
         		continue;
         	}
         	
-        	for (String s : line.split(WHITESPACE)){
+        	for (String s : line.split(WHITESPACE)) {
 	            if (s.trim().length() > 0) {
 	            	String symbol = lang.getSymbol(s);
 	            	
@@ -66,13 +75,14 @@ public class MainParser {
 	                	continue;
 	                }
 	                
-	                if (symbol.equals(CONSTANT_CODE)) {
-	                	curr.addChild(new ExpressionNode(s));
-	                }
+	                addNodeToTree(curr, s, symbol);
 	                
-	                else {	// symbol is a real command
-	                	curr.addChild(new ExpressionNode(symbol));
-	                	curr = curr.getChild(curr.getNumOfChildren() - 1);
+	                if (isChildrenFull(curr)) {
+	                	for (ExpressionNode child : curr.getChildren()) {
+	                		if (!isInteger(child.getCommand())) {
+	                			curr = child;
+	                		}
+	                	}
 	                }
 	            }
         	}
@@ -81,8 +91,30 @@ public class MainParser {
         return new ExpressionTree(root);
     }
     
+    private void addNodeToTree(ExpressionNode curr, String s, String symbol) {
+    	if (symbol.equals(CONSTANT_CODE)) {
+        	curr.addChild(new ExpressionNode(s));
+        }
+        else {
+        	curr.addChild(new ExpressionNode(symbol));
+        }
+    }
+    
+    private boolean isChildrenFull(ExpressionNode curr) {
+    	return curr.getCommand() == null || curr.getNumOfChildren() == numParams.get(curr.getCommand());
+    }
+    
+    private boolean isInteger(String s) {
+        try { 
+            Integer.parseInt(s); 
+        } catch (Exception e) { 
+            return false; 
+        } 
+        return true;
+    }
+    
 	/**
-	 * Utility function that reads given file and returns its entire contents as a single string
+	 * Reads given file and returns its entire contents as a single string
 	 */
     private String readFileToString(String filename) throws FileNotFoundException {
         Scanner input = new Scanner(new File(filename));
@@ -92,19 +124,33 @@ public class MainParser {
         
         return result;
     }
+    
+    /**
+     * Initializes the numParams map based on resource file
+     */
+    private void initNumParams() {
+    	ResourceBundle resources = ResourceBundle.getBundle(ParserUtils.NUM_PARAMS_PATH);
+        Enumeration<String> iter = resources.getKeys();
+        
+        while (iter.hasMoreElements()) {
+            String command = iter.nextElement();
+            Integer n = Integer.parseInt(resources.getString(command));
+            numParams.put(command, n);
+        }
+    }
    
     // used for testing purposes
     public static void main(String[] args) {
-    	MainParser mainParser = new MainParser("resources/languages/English");
+    	MainParser mainParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
     	
         String filePath = "data/examples/simple/forward.logo";
-        ExpressionTree tree2 = mainParser.getExpressionTreeFromFile(filePath);
-        tree2.printTree();
+        ExpressionTree tree1 = mainParser.getExpressionTreeFromFile(filePath);
+        tree1.printTree();
         
         System.out.println();
         
-    	String command = "fd sum 10 sum 10 sum 10 sum 20 20";
-        ExpressionTree tree1 = mainParser.getExpressionTreeFromCommand(command);
-        tree1.printTree();
+    	String command = "fd sum sum 100 100 sum 100 100";
+        ExpressionTree tree2 = mainParser.getExpressionTreeFromCommand(command);
+        tree2.printTree();
     }
 }
