@@ -14,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,11 +37,9 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 	private ModelInViewInterface myModelInViewInterface;
 	private UserManualPopup myHelpPage;
 	private UIFactory myUIFactory;
+	private SidePane mySidePane;
 	private Pane turtlePane;
 	private ConsolePane myConsolePane;
-	private ListView<String> myCommandHistory;
-	private ListView<String> myAvailableVariables;
-	private ListView<String> myUserCommands;
 	private Map<TurtleView, ImageView> myTurtleImages;
 	private Map<LineModel, Line> myLines;
 	
@@ -52,18 +49,22 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		myHelpPage = new UserManualPopup();
 		myUIFactory = new UIFactory(myUILabel);
+		mySidePane = new SidePane();
 		myTurtleImages = new HashMap<TurtleView, ImageView>();
 		myLines = new HashMap<LineModel, Line>();
+		setTurtlePane();
+		setTop(makeSettingPane());
+		setRight(mySidePane);
+	}
+
+	private void setTurtlePane() {
 		turtlePane = new Pane();
 		turtlePane.setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMaxWidth(DEFAULT_SIZE.getWidth() * 0.7);
 		turtlePane.setMinHeight(DEFAULT_SIZE.getHeight() / 1.5);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
 		turtlePane.setStyle("-fx-background-color: white");
-		setTop(makeSettingPane());
-		setRight(makeHistoryPane());
 		setLeft(turtlePane);
-		
 	}
     
     public void setModelInViewInterface(ModelInViewInterface vm){
@@ -71,44 +72,28 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
     }
     
     public void setConsolePane(){
-    	myConsolePane = new ConsolePane(myCommandHistory, myModelInViewInterface, myUILabel);
+    	myConsolePane = new ConsolePane(mySidePane.getCommandHistory(), myModelInViewInterface, myUILabel);
 		setBottom(myConsolePane);
     }
-    
-
-	private Node makeHistoryPane() {
-		BorderPane infopane = new BorderPane();
-		myCommandHistory = new ListView<String>();
-		myCommandHistory.setMaxSize(300, 150);
-		myAvailableVariables = new ListView<String>();
-		myAvailableVariables.setMaxSize(300, 150);
-		myUserCommands = new ListView<String>();
-		myUserCommands.setMaxSize(300, 150);
-		infopane.setTop(myCommandHistory);
-		infopane.setCenter(myAvailableVariables);
-		infopane.setBottom(myUserCommands);
-		return infopane;
-	}
-
 
 	private Node makeSettingPane() {
 		HBox functionHBox = new HBox();
-		ChoiceBox<String> languageCBox = new ChoiceBox<String>(FXCollections.observableArrayList(
-				"Chinese", "English", "French", "German", "Italian", "Portuguese",
-				"Russian", "Spanish"));
-		ChoiceBox<String> colorCBox = new ChoiceBox<String>(FXCollections.observableArrayList(
-				"Black", "Blue", "White"));
-		languageCBox.getSelectionModel().select(1);
-		languageCBox.setTooltip(new Tooltip("Select the language"));
-		languageCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> arg0,
-					String arg1, String arg2) {
-				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
-			}
+		ChoiceBox<String> languageCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
+				"English", "Chinese", "French", "German", "Italian", "Portuguese",
+				"Russian", "Spanish"), "Language");
+		
+		ChoiceBox<String> colorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
+				"Black", "Blue", "White"), "Color");
+		setLanguageChangeListener(languageCBox);
+		setColorChangeListener(colorCBox);
+		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
+		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
+		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
+		functionHBox.getChildren().addAll(languageCBox, colorCBox, BackgroundButton, TurtleDisplyButton, HelpButton);
+		return functionHBox;
+	}
 
-		});
-		colorCBox.getSelectionModel().select(2);
+	private void setColorChangeListener(ChoiceBox<String> colorCBox) {
 		colorCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
@@ -117,11 +102,17 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 			}
 
 		});
-		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
-		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
-		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
-		functionHBox.getChildren().addAll(languageCBox, colorCBox, BackgroundButton, TurtleDisplyButton, HelpButton);
-		return functionHBox;
+	}
+
+	private void setLanguageChangeListener(ChoiceBox<String> languageCBox) {
+		languageCBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> arg0,
+					String arg1, String arg2) {
+				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
+			}
+
+		});
 	}
 
 	private void promptHelpPage() {

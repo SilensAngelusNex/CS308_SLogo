@@ -5,7 +5,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+/**
+ * @author Owen Chung
+ */
 
 public class Main extends Application {
 	public static final String TITLE = "SLOGO - Group 14";
