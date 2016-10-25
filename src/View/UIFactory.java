@@ -8,6 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * @author Owen Chung
+ */
+
 public class UIFactory {
 	private ResourceBundle myUILabel;
 	public UIFactory(ResourceBundle uilabel){
