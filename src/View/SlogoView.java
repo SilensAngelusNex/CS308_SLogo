@@ -2,25 +2,16 @@ package View;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import Controller.ModelInViewInterface;
-import Model.EnclosureObserver;
-import Model.LineModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 /**
@@ -39,8 +30,6 @@ public class SlogoView extends BorderPane {
 	private UIFactory myUIFactory;
 	private SidePane mySidePane;
 	private TurtlePane myTurtlePane;
-
-
 	private ConsolePane myConsolePane;
 	
 	
