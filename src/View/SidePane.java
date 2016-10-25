@@ -4,6 +4,6 @@ import javafx.scene.layout.BorderPane;
 /**
  * @author Owen Chung
  */
-public class SidePanel extends BorderPane {
+public class SidePane extends BorderPane {
 
 }

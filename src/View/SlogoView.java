@@ -11,15 +11,10 @@ import Model.LineModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +22,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -37,14 +31,15 @@ import javafx.stage.Stage;
 
 public class SlogoView extends BorderPane implements EnclosureObserver{
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
-	private final String DEFAULT_RESOURCE_PACKAGE = "resources/UILabels";
+	private final String DEFAULT_RESOURCE_PACKAGE = "resources/UIElements";
 	private final String LAUGUAGE_RESOURCE_PACKAGE = "resources.languages/";
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle myUILabel;
-	private ModelInViewInterface myModelInViewInterface = null;
+	private ModelInViewInterface myModelInViewInterface;
 	private UserManualPopup myHelpPage;
+	private UIFactory myUIFactory;
 	private Pane turtlePane;
-	private Console myConsole;
+	private ConsolePane myConsolePane;
 	private ListView<String> myCommandHistory;
 	private ListView<String> myAvailableVariables;
 	private ListView<String> myUserCommands;
@@ -56,7 +51,7 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		myHelpPage = new UserManualPopup();
-		myConsole = new Console();
+		myUIFactory = new UIFactory(myUILabel);
 		myTurtleImages = new HashMap<TurtleView, ImageView>();
 		myLines = new HashMap<LineModel, Line>();
 		turtlePane = new Pane();
@@ -65,18 +60,23 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 		turtlePane.setMinHeight(DEFAULT_SIZE.getHeight() / 1.5);
 		turtlePane.setMaxHeight(DEFAULT_SIZE.getHeight()/1.5);
 		turtlePane.setStyle("-fx-background-color: white");
-		this.setBottom(makeTerminalPanel());
-		this.setTop(makeSettingPanel());
-		this.setRight(makeHistoryPanel());
-		this.setLeft(turtlePane);
+		setTop(makeSettingPane());
+		setRight(makeHistoryPane());
+		setLeft(turtlePane);
 		
 	}
+    
     public void setModelInViewInterface(ModelInViewInterface vm){
     	myModelInViewInterface = vm;
     }
     
+    public void setConsolePane(){
+    	myConsolePane = new ConsolePane(myCommandHistory, myModelInViewInterface, myUILabel);
+		setBottom(myConsolePane);
+    }
+    
 
-	private Node makeHistoryPanel() {
+	private Node makeHistoryPane() {
 		BorderPane infopane = new BorderPane();
 		myCommandHistory = new ListView<String>();
 		myCommandHistory.setMaxSize(300, 150);
@@ -91,7 +91,7 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 	}
 
 
-	private Node makeSettingPanel() {
+	private Node makeSettingPane() {
 		HBox functionHBox = new HBox();
 		ChoiceBox<String> languageCBox = new ChoiceBox<String>(FXCollections.observableArrayList(
 				"Chinese", "English", "French", "German", "Italian", "Portuguese",
@@ -117,9 +117,9 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 			}
 
 		});
-		Button BackgroundButton = makeButton("BackgroundLabel", event -> setBackground());
-		Button TurtleDisplyButton = makeButton("TurtleLabel", event -> displayTurtle());
-		Button HelpButton = makeButton("HelpLabel", event -> promptHelpPage());
+		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
+		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
+		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
 		functionHBox.getChildren().addAll(languageCBox, colorCBox, BackgroundButton, TurtleDisplyButton, HelpButton);
 		return functionHBox;
 	}
@@ -147,42 +147,6 @@ public class SlogoView extends BorderPane implements EnclosureObserver{
 
 	}
 
-	private Node makeTerminalPanel() {
-		BorderPane node = new BorderPane();
-		TextArea inputTexts = new TextArea();
-		inputTexts.setPromptText("Enter your command here");
-		Button enterbutton = makeButton("EnterLabel", event -> parseCommand(inputTexts.getText()));
-		HBox inputPanel = new HBox(inputTexts, enterbutton);
-		node.setLeft(inputPanel);
-		node.setCenter(enterbutton);
-		node.setRight(myConsole.getPanel());
-		return node;
-	}
-	private void parseCommand(String command) {
-		try{
-			myConsole.addTexttoConsole(new Text(myModelInViewInterface.parseAndExecute(String.format("[ %s ]", command))));
-			myCommandHistory.getItems().add(command);
-			
-		}catch(Exception e){
-			promptAlert("Command Error", e);
-		}
-	}
-
-	private void promptAlert(String s, Exception e){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(s);
-		alert.setHeaderText(s);
-		alert.setContentText(e.toString());
-		alert.show();
-	}
-
-	private Button makeButton (String property, EventHandler<ActionEvent> handler) {
-		Button result = new Button();
-		String label = myUILabel.getString(property);
-		result.setText(label);
-		result.setOnAction(handler);
-		return result;
-	}
 
 	@Override
 	public void addTurtle(TurtleView t) {

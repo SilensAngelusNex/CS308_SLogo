@@ -17,7 +17,9 @@ public class SlogoController {
 		myView = new SlogoView("english");
 		myModel = new SlogoModel(myView, DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		myView.setModelInViewInterface((ModelInViewInterface) myModel);
+		myView.setConsolePane();
 	}
+	
 	public SlogoView getView() {
 		return myView;
 	}
