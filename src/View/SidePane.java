@@ -26,5 +26,4 @@ public class SidePane extends BorderPane {
 	public ListView<String> getCommandHistory() {
 		return myCommandHistory;
 	}
-	
 }
