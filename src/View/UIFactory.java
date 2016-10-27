@@ -18,11 +18,11 @@ import javafx.scene.control.Alert.AlertType;
 public class UIFactory {
 	private ResourceBundle myUILabel;
 	
-	public UIFactory(ResourceBundle uilabel){
+	protected UIFactory(ResourceBundle uilabel){
 		myUILabel = uilabel;
 	}
 	
-	public Button makeButton (String property, EventHandler<ActionEvent> handler) {
+	protected Button makeButton (String property, EventHandler<ActionEvent> handler) {
 		Button result = new Button();
 		String label = myUILabel.getString(property);
 		result.setText(label);
@@ -30,7 +30,7 @@ public class UIFactory {
 		return result;
 	}
 	
-	public ChoiceBox<String> makeChoiceBox(ObservableList<String> choices, String Type){
+	protected ChoiceBox<String> makeChoiceBox(ObservableList<String> choices, String Type){
 		ChoiceBox<String> retBox = new ChoiceBox<String>(choices);
 		if(Type.equals("Language")){
 			retBox.getSelectionModel().selectFirst();
@@ -43,12 +43,13 @@ public class UIFactory {
 		return retBox;
 	}
 	
-	public void promptAlert(String s, Exception e){
+	protected void promptAlert(String s, Exception e){
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(s);
 		alert.setHeaderText(s);
 		alert.setContentText(e.toString());
 		alert.show();
 	}
+	
 
 }
