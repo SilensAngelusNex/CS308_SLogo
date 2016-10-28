@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -42,8 +43,9 @@ public class ConsolePane extends BorderPane {
 	private void createOutputBox() {
 		Text consolelabel = new Text("Console\n");
 		consolelabel.setFont(Font.font("Helvetica", FontWeight.BOLD, 14));
+		consolelabel.setFill(Color.WHITE);
 		myOutputBox = new TextFlow(consolelabel);
-		myOutputBox.setStyle("-fx-background-color: white");
+		myOutputBox.setStyle("-fx-background-color: gray");
 		myOutputBox.setPrefSize(400, 200);
 	}
 	private void parseCommand(String command) {

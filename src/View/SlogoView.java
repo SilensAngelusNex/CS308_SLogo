@@ -41,7 +41,7 @@ public class SlogoView extends BorderPane {
 		mySidePane = new SidePane();
 		myTurtlePane = new TurtlePane();
 		setLeft(myTurtlePane);
-		setTop(makeSettingPane());
+		setTop(makeToolbar());
 		setRight(mySidePane);
 	}
     public void setModelInViewInterface(ModelInViewInterface vm){
@@ -53,7 +53,7 @@ public class SlogoView extends BorderPane {
 		setBottom(myConsolePane);
     }
 
-	private Node makeSettingPane() {
+	private Node makeToolbar() {
 		HBox functionHBox = new HBox();
 		ChoiceBox<String> languageCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
 				"English", "Chinese", "French", "German", "Italian", "Portuguese",
