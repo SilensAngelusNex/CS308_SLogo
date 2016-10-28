@@ -1,8 +1,8 @@
 package Model;
 
-public interface Observable {
+public interface Observable<A> {
 	
-	abstract public void addListener(EnclosureObserver v);
+	abstract public void addListener(A v);
 	
-	abstract public void removeListener(EnclosureObserver v);
+	abstract public void removeListener(A v);
 }

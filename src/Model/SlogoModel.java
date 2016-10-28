@@ -1,16 +1,19 @@
 package Model;
 
+import java.util.List;
+
 import Controller.ModelInViewInterface;
 import parser.ExpressionTree;
 import parser.MainParser;
 import parser.ParserUtils;
 
-public class SlogoModel implements ModelInViewInterface{
+public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>{
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
 	private MainParser myParser;
 	private TreeExecutor myExecutor;
+	private List<VariableObserver> myObservers;
 	
 	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
@@ -26,6 +29,9 @@ public class SlogoModel implements ModelInViewInterface{
 		myTurtleEnclosure.setTurtleImage(image);
 	}
 	
+	/**
+	 * @deprecated
+	 */
 	public String parseAndExecute(String command){
 		ExpressionTree toExec = myParser.getExpressionTreeFromCommand(command);
 		double[] result = myExecutor.exec(toExec, this);
@@ -168,5 +174,17 @@ public class SlogoModel implements ModelInViewInterface{
 	}
 	public double get(String name){
 		return myVariables.get(name);
+	}
+
+	@Override
+	public void addListener(VariableObserver v) {
+		myObservers.add(v);
+		
+	}
+
+	@Override
+	public void removeListener(VariableObserver v) {
+		myObservers.remove(v);
+		
 	}
 }

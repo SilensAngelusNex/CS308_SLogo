@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Enclosure implements Observable{
+public class Enclosure implements Observable<EnclosureObserver>{
 	private List<EnclosureObserver> myObservers;
 
 	private List<TurtleModel> myTurtles;
