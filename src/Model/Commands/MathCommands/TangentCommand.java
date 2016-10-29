@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class TangentCommand extends AbstractCommand {
+public class TangentCommand extends AbstractMathCommand {
 	String myName = "Tangent";
+
+	public TangentCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

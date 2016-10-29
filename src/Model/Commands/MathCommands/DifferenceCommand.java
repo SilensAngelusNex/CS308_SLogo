@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class DifferenceCommand extends AbstractCommand {
+public class DifferenceCommand extends AbstractMathCommand {
 	String myName = "Difference";
+	
+	public DifferenceCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

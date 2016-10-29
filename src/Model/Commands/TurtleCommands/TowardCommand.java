@@ -1,10 +1,17 @@
 package Model.Commands.TurtleCommands;
 
+import java.util.ResourceBundle;
+
+import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 public class TowardCommand extends AbstractCommand {
 	String myName = "Toward";
+
+	public TowardCommand(CommandableModel model, ResourceBundle commands) {
+		super(model, commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

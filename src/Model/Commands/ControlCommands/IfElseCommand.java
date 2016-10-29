@@ -1,10 +1,17 @@
 package Model.Commands.ControlCommands;
 
+import java.util.ResourceBundle;
+
+import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 public class IfElseCommand extends AbstractCommand {
 	String myName = "IfElse";
+	
+	public IfElseCommand(CommandableModel model, ResourceBundle commands) {
+		super(model, commands);
+	}
 
 	@Override
 	public int maxArgs() {

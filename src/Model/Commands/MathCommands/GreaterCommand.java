@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class GreaterCommand extends AbstractCommand {
+public class GreaterCommand extends AbstractMathCommand {
 	String myName = "GreaterThan";
+
+	public GreaterCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

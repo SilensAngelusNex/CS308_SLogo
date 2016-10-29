@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class MinusCommand extends AbstractCommand {
+public class MinusCommand extends AbstractMathCommand {
 	String myName = "Minus";
+	
+	public MinusCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class ArcTangentCommand extends AbstractCommand {
+public class ArcTangentCommand extends AbstractMathCommand {
 	String myName = "ArcTangent";
+	
+	public ArcTangentCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

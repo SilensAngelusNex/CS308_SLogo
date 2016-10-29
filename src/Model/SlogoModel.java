@@ -169,9 +169,40 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	}
 	
 	//Variable Commands
-	public double set(String name, double val){
-		return myVariables.set(name, val);
+	public double set(String name, double val) {
+		double result;
+		if (myVariables.has(name)){
+			result = myVariables.set(name, val);
+			notifyListenersChangeVariable(name, val);
+		} else {
+			result = myVariables.set(name, val);
+			notifyListenersAddVariable(name, val);
+		}
+		return result;
 	}
+	public double remove(String name) {
+		double result = 0;
+		if (myVariables.has(name)) {
+			myVariables.remove(name);
+			notifyListenersRemoveVariable(name);
+			result = 1;
+		}
+		return result;
+	}
+	
+	private void notifyListenersChangeVariable(String name, double value) {
+		for (VariableObserver v: myObservers)
+			v.changeVariable(name, value);
+	}
+	private void notifyListenersAddVariable(String name, double value) {
+		for (VariableObserver v: myObservers)
+			v.addVariable(name, value);
+	}
+	private void notifyListenersRemoveVariable(String name) {
+		for (VariableObserver v: myObservers)
+			v.deleteVariable(name);
+	}
+
 	public double get(String name){
 		return myVariables.get(name);
 	}

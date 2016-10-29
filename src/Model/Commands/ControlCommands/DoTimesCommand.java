@@ -1,12 +1,19 @@
 package Model.Commands.ControlCommands;
 
+import java.util.ResourceBundle;
+
+import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
 
 public class DoTimesCommand extends AbstractCommand {
 	String myName = "DoTimes";
-
+	
+	public DoTimesCommand(CommandableModel model, ResourceBundle commands) {
+		super(model, commands);
+	}
+	
 	@Override
 	public int maxArgs() {
 		return 2;

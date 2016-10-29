@@ -1,9 +1,16 @@
 package Model.Commands;
 
+import java.util.ResourceBundle;
+
+import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 public class CommandList extends AbstractCommand{
+	
+	public CommandList(CommandableModel model, ResourceBundle language) {
+		super(model, language);
+	}
 
 	@Override
 	public double execute() throws InvalidCommandException {

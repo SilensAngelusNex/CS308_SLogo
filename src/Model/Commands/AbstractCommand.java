@@ -1,6 +1,7 @@
 package Model.Commands;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import Model.CommandableModel;
 import parser.InvalidCommandException;
@@ -9,8 +10,14 @@ import parser.InvalidCommandException;
 abstract public class AbstractCommand implements Command{
 	private List<Command> myChildren;
 	private CommandableModel myModel;
-	//TODO: Fetch from resource file
+	private ResourceBundle myLanguage;
+	//TODO: fetch error from resource
 	private String argErrorMessage = "Not enough arguments to complete command: ";
+	
+	public AbstractCommand(CommandableModel model, ResourceBundle language){
+		myLanguage = language;
+		myModel = model;
+	}
 	
 	protected CommandableModel getModel(){
 		return myModel;
@@ -20,7 +27,7 @@ abstract public class AbstractCommand implements Command{
 	public double execute() throws InvalidCommandException {
 		if (argsNotFull())
 			//TODO: Use resource file for error message.
-			throw new InvalidCommandException(argErrorMessage + getName());
+			throw new InvalidCommandException(argErrorMessage + myLanguage.getString(getName()));
 		else {
 			return execCommand();			
 		}
@@ -34,7 +41,7 @@ abstract public class AbstractCommand implements Command{
 	
 	@Override
 	public boolean argsNotFull() {
-		return myChildren.size() < maxArgs();
+		return myChildren.size() < maxArgs() || maxArgs() < 0;
 	}
 
 	public Command getChild(int index) {

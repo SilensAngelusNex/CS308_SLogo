@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VariableContainer {
+	private static final double DEFAULT_VAR_VALUE = 0;
 	private Map<String, Double> myVars;
 	
 	public VariableContainer(){
@@ -16,7 +17,15 @@ public class VariableContainer {
 	}
 
 	public double get(String name) {
-		return myVars.get(name);
+		return myVars.containsKey(name) ? myVars.get(name) : DEFAULT_VAR_VALUE;
+	}
+
+	public boolean has(String name) {
+		return myVars.containsKey(name);
+	}
+
+	public void remove(String name) {
+		myVars.remove(name);
 	}
 
 }

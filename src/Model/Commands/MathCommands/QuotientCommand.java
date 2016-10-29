@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class QuotientCommand extends AbstractCommand {
+public class QuotientCommand extends AbstractMathCommand {
 	String myName = "Quotient";
+
+	public QuotientCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {

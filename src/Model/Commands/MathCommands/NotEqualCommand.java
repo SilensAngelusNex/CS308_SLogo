@@ -1,10 +1,15 @@
 package Model.Commands.MathCommands;
 
-import Model.Commands.AbstractCommand;
+import java.util.ResourceBundle;
+
 import parser.InvalidCommandException;
 
-public class NotEqualCommand extends AbstractCommand {
+public class NotEqualCommand extends AbstractMathCommand {
 	String myName = "NotEqual";
+	
+	public NotEqualCommand(ResourceBundle commands) {
+		super(commands);
+	}
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
