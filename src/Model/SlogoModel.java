@@ -190,6 +190,13 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return result;
 	}
 	
+	public double ID() {
+		return myTurtleEnclosure.ActiveID();
+	}
+	public double turtles() {
+		return myTurtleEnclosure.turtles();
+	}
+	
 	private void notifyListenersChangeVariable(String name, double value) {
 		for (VariableObserver v: myObservers)
 			v.changeVariable(name, value);

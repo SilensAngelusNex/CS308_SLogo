@@ -286,4 +286,12 @@ public class Enclosure implements Observable<EnclosureObserver>{
 			turtle.toTurtleView().setTurtleImage(image);
 		}
 	}
+
+	public double ActiveID() {
+		return myActiveTurtle;
+	}
+
+	public double turtles() {
+		return myTurtles.size();
+	}
 }
