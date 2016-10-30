@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.Stack;
+
+import Model.CommandableModel;
+import Model.Commands.*;
 
 /**
  * This class is the entry point for parsing a command into an expression tree.
@@ -29,8 +33,6 @@ public class MainParser {
 	private CommandParser commandParser;
 	private Map<String, Integer> numParams;
 	
-	private boolean onList = false;
-	
 	public MainParser(String commandResourcePath) {
 		commandParser = new CommandParser(commandResourcePath);
 		numParams = new HashMap<String, Integer>();
@@ -40,13 +42,14 @@ public class MainParser {
     /**
      * Returns the ExpressionTree for a String command
      */
-    public ExpressionTree getExpressionTreeFromCommand(String command) {
-        return createExpressionTree(commandParser, command.split(NEWLINE));
+    public Command getExpressionTreeFromCommand(String command, CommandableModel model) {
+        return createExpressionTree(commandParser, command.split(NEWLINE), model);
     }
     
     /**
      * Returns the ExpressionTree for the contents in a file
      */
+    /*
     public ExpressionTree getExpressionTreeFromFile(String filePath) {
     	try {
     		String fileInput = readFileToString(filePath);
@@ -57,13 +60,19 @@ public class MainParser {
     		return null;
     	}
     }
+    */
     
     /**
      * Returns an ExpressionTree based off the input text
      */
-    private ExpressionTree createExpressionTree(CommandParser lang, String[] text) {
-    	ExpressionNode root = new ExpressionNode();
-    	ExpressionNode curr = root;
+    private Command createExpressionTree(CommandParser lang, String[] text, CommandableModel model) {
+    	CommandFactory factory = new CommandFactory(ParserUtils.SYNTAX_FILE_PATH, ParserUtils.ENGLISH_FILE_PATH, model);
+    	CommandList root = factory.newCommandList();
+    	
+    	Stack<Command> currCommands = new Stack<Command>();
+    	currCommands.push(root);
+    	Stack<AbstractCommandList> currLists = new Stack<AbstractCommandList>();
+    	currLists.push(root);
     	
         for (String line : text) {
         	if (lang.getSymbol(line).equals(COMMENT_CODE)) {
@@ -78,61 +87,46 @@ public class MainParser {
 	                	continue;
 	                }
 	                
-	                addNodeToTree(curr, s, symbol);
-	                
-	                if (isChildrenFull(curr, lang)) {
-	                	boolean allChildrenConstants = true;
+	                if (symbol.equals("ListEnd") || symbol.equals("GroupEnd")){
+	                	currLists.peek().endList(s);
+	                	currLists.pop();
 	                	
-	                	for (ExpressionNode child : curr.getChildren()) {
-	                		if (!isInteger(child.getCommand())) {
-	                			allChildrenConstants = false;
-	                			curr = child;
-	                		}
-	                	}
-	                	
-	                	if (onList && allChildrenConstants) {
-	                		curr = root;
-	                	}
+	                } else {
+	                	Command next;
+	                	if (symbol.equals("ListStart")){
+	                		next = factory.newCommandList();
+		                	currLists.push((AbstractCommandList) next);
+		                	
+	                	} else if (symbol.equals("GroupStart")){
+	                		next = factory.newCommandGroup();
+	                		currLists.push((AbstractCommandList) next);
+		                	
+		                } else {          
+			                if (lang.tokenType(s).equals("Command"))
+			                	next = factory.newCommand(symbol);
+			                else 
+			                	next = factory.newCommand(s);
+			                
+			                currCommands.peek().addChild(next);
+		                }
+			                
+		                if (!currCommands.peek().argsNotFull())
+		                	currCommands.pop();
+		                if (next.argsNotFull())
+		                	currCommands.push(next);
 	                }
+	                
 	            }
         	}
         }
-        
-        return new ExpressionTree(root);
+    	if (!root.argsNotFull())
+    		throw new IllegalArgumentException("Too many parens!");
+        root.endList();
+        return root;
     }
     
-    private void addNodeToTree(ExpressionNode curr, String s, String symbol) {
-    	if (symbol.equals(LIST_START_CODE)) {
-    		onList = true;
-    	}
-    	else if (symbol.equals(LIST_END_CODE)) {
-    		return;
-    	}
-    	else if (symbol.equals(CONSTANT_CODE) || symbol.equals(VARIABLE_CODE)) {
-        	curr.addChild(new ExpressionNode(s));
-        }
-        else {
-        	curr.addChild(new ExpressionNode(symbol));
-        }
-    }
-    
-    private boolean isChildrenFull(ExpressionNode curr, CommandParser lang) {
-    	return curr.getCommand() == "" ||
-    			lang.getSymbol(curr.getCommand()).equals("Variable") ||
-    			lang.getSymbol(curr.getCommand()).equals("Constant") ||
-    			curr.getNumOfChildren() == numParams.get(curr.getCommand());
-    }
-    
-    private boolean isInteger(String s) {
-        try { 
-            Integer.parseInt(s); 
-        } catch (Exception e) { 
-            return false; 
-        } 
-        return true;
-    }
-    
-	/**
+
+    /**
 	 * Reads given file and returns its entire contents as a single string
 	 */
     private String readFileToString(String filename) throws FileNotFoundException {
@@ -159,6 +153,7 @@ public class MainParser {
     }
    
     // used for testing purposes
+    /*
     public static void main(String[] args) {
     	MainParser mainParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
     	
@@ -172,4 +167,5 @@ public class MainParser {
         ExpressionTree tree2 = mainParser.getExpressionTreeFromCommand(command);
         tree2.printTree();
     }
+    */
 }

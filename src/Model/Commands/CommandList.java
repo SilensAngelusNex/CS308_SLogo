@@ -6,10 +6,15 @@ import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class CommandList extends AbstractCommand{
+public class CommandList extends AbstractCommandList{
 	
 	public CommandList(CommandableModel model, ResourceBundle language) {
-		super(model, language);
+		super("[", model, language);
+	}
+	
+	@Override
+	public void endList(){
+		endList("]");
 	}
 
 	@Override
@@ -17,21 +22,6 @@ public class CommandList extends AbstractCommand{
 		return execCommand();
 	}
 
-	@Override
-	public boolean argsNotFull() {
-		return true;
-	}
-
-	@Override
-	public int maxArgs() {
-		// TODO Auto-generated method stub
-		return -1;
-	}
-
-	@Override
-	public String getName() {
-		return "CommandList";
-	}
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {

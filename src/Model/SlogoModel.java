@@ -3,11 +3,13 @@ package Model;
 import java.util.List;
 
 import Controller.ModelInViewInterface;
+import Model.Commands.Command;
 import parser.ExpressionTree;
+import parser.InvalidCommandException;
 import parser.MainParser;
 import parser.ParserUtils;
 
-public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>{
+public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>, CommandableModel{
 	private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
@@ -30,18 +32,14 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	}
 	
 	/**
+	 * @throws InvalidCommandException 
 	 * @deprecated
 	 */
-	public String parseAndExecute(String command){
-		ExpressionTree toExec = myParser.getExpressionTreeFromCommand(command);
-		double[] result = myExecutor.exec(toExec, this);
+	public String parseAndExecute(String command) throws InvalidCommandException{
+		Command toExec = myParser.getExpressionTreeFromCommand(command, this);
+		double result = toExec.execute();
 		
-		StringBuilder s = new StringBuilder();
-		for (double d : result) { 
-			s.append(d).append(" ");
-		}
-		s.append("\n");
-		return s.toString();
+		return Double.toString(result);
 	}
 	//Turtle Cammands
 	public double forward(double distance){

@@ -141,4 +141,11 @@ public class CommandFactory {
 		} else
 			return null;
 	}
+
+	public CommandList newCommandList() {
+		return new CommandList(myModel, myCommands);
+	}
+	public MultiArgumentCommand newCommandGroup() {
+		return new MultiArgumentCommand(myModel, myCommands);
+	}
 }
