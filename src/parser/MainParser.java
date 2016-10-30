@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.regex.Pattern;
 
 /**
  * This class is the entry point for parsing a command into an expression tree.

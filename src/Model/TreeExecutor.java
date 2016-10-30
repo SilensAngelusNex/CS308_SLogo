@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import parser.ExpressionNode;
 import parser.ExpressionTree;
 
+/**
+ * @deprecated
+ * @author Weston
+ *
+ */
 public class TreeExecutor {
 	String myLanguageFilePath;
 	String mySyntaxFilePath;

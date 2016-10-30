@@ -2,6 +2,11 @@ package Model;
 
 import java.util.Random;
 
+/**
+ * @deprecated
+ * @author Weston
+ *
+ */
 public class Calculator {
 	private Random myRandom = new Random();
 

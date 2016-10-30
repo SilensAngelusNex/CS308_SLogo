@@ -47,7 +47,7 @@ public class UIFactory {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(s);
 		alert.setHeaderText(s);
-		alert.setContentText(e.toString());
+		alert.setContentText(e.getMessage());
 		alert.show();
 	}
 	
