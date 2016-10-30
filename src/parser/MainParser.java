@@ -1,9 +1,5 @@
 package parser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import java.util.Scanner;
 import java.util.Stack;
 
 import Model.CommandableModel;
@@ -20,7 +16,6 @@ import Model.Commands.*;
 public class MainParser {
 	private static final String NEWLINE = "\\s*\\r?\\n\\s*";
 	private static final String WHITESPACE = "\\p{Space}";
-	private static final String END_OF_FILE = "\\z";
 	
 	private static final String COMMENT_CODE = "Comment";
 	private static final String COMMAND_CODE = "Command";
@@ -42,21 +37,6 @@ public class MainParser {
      */
     public Command getExpressionTreeFromCommand(String command) {
         return createExpressionTree(myParser, command.split(NEWLINE));
-    }
-    
-    /**
-     * Returns the ExpressionTree for the contents in a file
-     */
-
-    public Command getExpressionTreeFromFile(String filePath) {
-    	try {
-    		String fileInput = readFileToString(filePath);
-    		return createExpressionTree(myParser, fileInput.split(NEWLINE));
-    	}
-    	catch (FileNotFoundException e) {
-    		System.err.println(String.format("Could not load pattern file %s", e.getMessage()));
-    		return null;
-    	}
     }
     
     /**
@@ -101,9 +81,7 @@ public class MainParser {
 			                if (lang.tokenType(s).equals(COMMAND_CODE))
 			                	next = myFactory.newCommand(symbol);
 			                else 
-			                	next = myFactory.newCommand(s);
-			                
-			                
+			                	next = myFactory.newCommand(s); 
 		                }  
 	                	currCommands.peek().addChild(next);
 		                if (!currCommands.peek().argsNotFull())
@@ -119,18 +97,5 @@ public class MainParser {
     		throw new IllegalArgumentException("Too many parens!");
         root.endList();
         return root;
-    }
-    
-
-    /**
-	 * Reads given file and returns its entire contents as a single string
-	 */
-    private String readFileToString(String filename) throws FileNotFoundException {
-        Scanner input = new Scanner(new File(filename));
-        input.useDelimiter(END_OF_FILE);
-        String result = input.next();
-        input.close();
-        
-        return result;
     }
 }
