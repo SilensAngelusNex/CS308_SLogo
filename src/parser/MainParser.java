@@ -14,6 +14,7 @@ import Model.Commands.*;
  * Based off template code from Robert Duvall.
  * 
  * @author Daniel Chai
+ * @author Weston
  *
  */
 public class MainParser {
@@ -46,18 +47,17 @@ public class MainParser {
     /**
      * Returns the ExpressionTree for the contents in a file
      */
-    /*
-    public ExpressionTree getExpressionTreeFromFile(String filePath) {
+
+    public Command getExpressionTreeFromFile(String filePath) {
     	try {
     		String fileInput = readFileToString(filePath);
-    		return createExpressionTree(commandParser, fileInput.split(NEWLINE));
+    		return createExpressionTree(myParser, fileInput.split(NEWLINE));
     	}
     	catch (FileNotFoundException e) {
     		System.err.println(String.format("Could not load pattern file %s", e.getMessage()));
     		return null;
     	}
     }
-    */
     
     /**
      * Returns an ExpressionTree based off the input text
@@ -133,22 +133,4 @@ public class MainParser {
         
         return result;
     }
-
-   
-    // used for testing purposes
-    /*
-    public static void main(String[] args) {
-    	MainParser mainParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
-    	
-        String filePath = "data/examples/simple/forward.logo";
-        ExpressionTree tree1 = mainParser.getExpressionTreeFromFile(filePath);
-        tree1.printTree();
-        
-        System.out.println();
-        
-    	String command = "[ fd sum 50 50 bk 50 ]";
-        ExpressionTree tree2 = mainParser.getExpressionTreeFromCommand(command);
-        tree2.printTree();
-    }
-    */
 }

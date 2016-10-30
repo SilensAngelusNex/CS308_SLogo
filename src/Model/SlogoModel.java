@@ -4,27 +4,26 @@ import java.util.List;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
-import parser.ExpressionTree;
 import parser.InvalidCommandException;
 import parser.MainParser;
 import parser.ParserUtils;
 
 public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>, CommandableModel{
-	private Calculator myCalculator;
+	//private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
 	private MainParser myParser;
-	private TreeExecutor myExecutor;
+	//private TreeExecutor myExecutor;
 	private List<VariableObserver> myObservers;
 	
 	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
 		myTurtleEnclosure.addListener(e);
 		
-		myCalculator = new Calculator();
+		//myCalculator = new Calculator();
 		myVariables = new VariableContainer();
 		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH, this);
-		myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
+		//myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
 	}
 	
 	public void setTurtleImage(String image){
@@ -100,6 +99,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	}
 	
 	//Math Commands
+	/*
 	public double sum(double a, double b){
 		return myCalculator.sum(a, b);
 	}
@@ -165,6 +165,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double not(double a){
 		return myCalculator.not(a);
 	}
+	*/
 	
 	//Variable Commands
 	public double set(String name, double val) {

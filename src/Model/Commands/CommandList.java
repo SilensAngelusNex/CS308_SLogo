@@ -3,7 +3,6 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 public class CommandList extends AbstractCommandList{
