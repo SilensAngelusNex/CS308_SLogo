@@ -23,7 +23,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		
 		myCalculator = new Calculator();
 		myVariables = new VariableContainer();
-		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
+		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH, this);
 		myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
 	}
 	
@@ -36,7 +36,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	 * @deprecated
 	 */
 	public String parseAndExecute(String command) throws InvalidCommandException{
-		Command toExec = myParser.getExpressionTreeFromCommand(command, this);
+		Command toExec = myParser.getExpressionTreeFromCommand(command);
 		double result = toExec.execute();
 		
 		return Double.toString(result);

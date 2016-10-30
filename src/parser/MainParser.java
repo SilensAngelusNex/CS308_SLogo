@@ -2,10 +2,7 @@ package parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -25,25 +22,25 @@ public class MainParser {
 	private static final String END_OF_FILE = "\\z";
 	
 	private static final String COMMENT_CODE = "Comment";
-	private static final String CONSTANT_CODE = "Constant";
-	private static final String VARIABLE_CODE = "Variable";
+	private static final String COMMAND_CODE = "Command";
+	private static final String GROUP_START_CODE = "GroupStart";
+	private static final String GROUP_END_CODE = "GroupEnd";
 	private static final String LIST_START_CODE = "ListStart";
 	private static final String LIST_END_CODE = "ListEnd";
 	
-	private CommandParser commandParser;
-	private Map<String, Integer> numParams;
+	private CommandParser myParser;
+	private CommandFactory myFactory;
 	
-	public MainParser(String commandResourcePath) {
-		commandParser = new CommandParser(commandResourcePath);
-		numParams = new HashMap<String, Integer>();
-		initNumParams();
+	public MainParser(String commandResourcePath, CommandableModel model) {
+		myParser = new CommandParser(commandResourcePath);
+		myFactory = new CommandFactory(ParserUtils.SYNTAX_FILE_PATH, ParserUtils.ENGLISH_FILE_PATH, model);
 	}
 	
     /**
      * Returns the ExpressionTree for a String command
      */
-    public Command getExpressionTreeFromCommand(String command, CommandableModel model) {
-        return createExpressionTree(commandParser, command.split(NEWLINE), model);
+    public Command getExpressionTreeFromCommand(String command) {
+        return createExpressionTree(myParser, command.split(NEWLINE));
     }
     
     /**
@@ -65,9 +62,8 @@ public class MainParser {
     /**
      * Returns an ExpressionTree based off the input text
      */
-    private Command createExpressionTree(CommandParser lang, String[] text, CommandableModel model) {
-    	CommandFactory factory = new CommandFactory(ParserUtils.SYNTAX_FILE_PATH, ParserUtils.ENGLISH_FILE_PATH, model);
-    	CommandList root = factory.newCommandList();
+    private Command createExpressionTree(CommandParser lang, String[] text) {
+    	CommandList root = myFactory.newCommandList();
     	
     	Stack<Command> currCommands = new Stack<Command>();
     	currCommands.push(root);
@@ -87,29 +83,29 @@ public class MainParser {
 	                	continue;
 	                }
 	                
-	                if (symbol.equals("ListEnd") || symbol.equals("GroupEnd")){
+	                if (symbol.equals(LIST_END_CODE) || symbol.equals(GROUP_END_CODE)){
 	                	currLists.peek().endList(s);
 	                	currLists.pop();
 	                	
 	                } else {
 	                	Command next;
-	                	if (symbol.equals("ListStart")){
-	                		next = factory.newCommandList();
+	                	if (symbol.equals(LIST_START_CODE)){
+	                		next = myFactory.newCommandList();
 		                	currLists.push((AbstractCommandList) next);
 		                	
-	                	} else if (symbol.equals("GroupStart")){
-	                		next = factory.newCommandGroup();
+	                	} else if (symbol.equals(GROUP_START_CODE)){
+	                		next = myFactory.newCommandGroup();
 	                		currLists.push((AbstractCommandList) next);
 		                	
 		                } else {          
-			                if (lang.tokenType(s).equals("Command"))
-			                	next = factory.newCommand(symbol);
+			                if (lang.tokenType(s).equals(COMMAND_CODE))
+			                	next = myFactory.newCommand(symbol);
 			                else 
-			                	next = factory.newCommand(s);
+			                	next = myFactory.newCommand(s);
 			                
-			                currCommands.peek().addChild(next);
-		                }
 			                
+		                }  
+	                	currCommands.peek().addChild(next);
 		                if (!currCommands.peek().argsNotFull())
 		                	currCommands.pop();
 		                if (next.argsNotFull())
@@ -137,20 +133,7 @@ public class MainParser {
         
         return result;
     }
-    
-    /**
-     * Initializes the numParams map based on resource file
-     */
-    private void initNumParams() {
-    	ResourceBundle resources = ResourceBundle.getBundle(ParserUtils.NUM_PARAMS_PATH);
-        Enumeration<String> iter = resources.getKeys();
-        
-        while (iter.hasMoreElements()) {
-            String command = iter.nextElement();
-            Integer n = Integer.parseInt(resources.getString(command));
-            numParams.put(command, n);
-        }
-    }
+
    
     // used for testing purposes
     /*
