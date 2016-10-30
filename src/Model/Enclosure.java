@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.awt.Color;
+
 
 public class Enclosure implements Observable<EnclosureObserver>{
 	private List<EnclosureObserver> myObservers;
@@ -176,7 +178,7 @@ public class Enclosure implements Observable<EnclosureObserver>{
 		notifyListenersMoveTurtle(t);
 		
 		if (t.isDrawing()){
-			LineModel toAdd = new LineModel(t.getPreviousLocation(), t.getCurrentLocation(), t.getPenColor());
+			LineModel toAdd = new LineModel(t.getPreviousLocation(), t.getCurrentLocation(), t.getPenColor(), t.getPenSize());
 			myLines.add(toAdd);
 			notifyListenersAddLine(toAdd);
 		}
@@ -286,6 +288,10 @@ public class Enclosure implements Observable<EnclosureObserver>{
 			turtle.toTurtleView().setTurtleImage(image);
 		}
 	}
+	
+	public double setPenColor(Color c) {
+		return getActiveTurtle().setPenColor(c);
+	}
 
 	public double ActiveID() {
 		return myActiveTurtle;
@@ -293,5 +299,20 @@ public class Enclosure implements Observable<EnclosureObserver>{
 
 	public double turtles() {
 		return myTurtles.size();
+	}
+
+	public double setPenSize(double size) {
+		return getActiveTurtle().setPenSize(size);
+	}
+
+	public Color getPenColor() {
+		return getActiveTurtle().getPenColor();
+	}
+
+	public int getShape() {
+		return getActiveTurtle().getShape();
+	}
+	public void setShape(int index) {
+		getActiveTurtle().setShape(index);
 	}
 }

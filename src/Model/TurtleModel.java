@@ -24,7 +24,7 @@ public interface TurtleModel {
 	
 	abstract public Color getPenColor();
 	
-	abstract public void setPenColor(Color c);
+	abstract public double setPenColor(Color c);
 	
 	abstract public Point getCurrentLocation();
 	
@@ -35,5 +35,13 @@ public interface TurtleModel {
 	abstract public void setVisibility(boolean b);
 	
 	abstract public boolean getVisibility();
+
+	abstract public double setPenSize(double size);
+
+	abstract public int getPenSize();
+	
+	abstract public int getShape();
+	
+	abstract public void setShape(int index);
 	
 }

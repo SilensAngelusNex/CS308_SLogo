@@ -12,8 +12,11 @@ public class Turtle implements TurtleModel, TurtleView{
 	private double myLastHeading;
 	
 	private Color myPenColor;
+	private int myPenSize;
 	private boolean myPenDown;
+	
 	private boolean myVisibility;
+	private int myShapeIndex;
 	
 	public Turtle(){
 		myPosition = new Point(0, 0);
@@ -23,7 +26,9 @@ public class Turtle implements TurtleModel, TurtleView{
 		myTurtleImage = "turtle.png";
 		myPenDown = true;
 		myPenColor = new Color(255, 255, 255);
+		myPenSize = 2;
 		myVisibility = true;
+		myShapeIndex = 1;
 	}
 	
 	@Override
@@ -71,9 +76,11 @@ public class Turtle implements TurtleModel, TurtleView{
 		return myPenColor;
 	}
 
-	public void setPenColor(Color c) {
+	public double setPenColor(Color c) {
 		myPenColor = c;
+		return 1;
 	}
+	
 
 	@Override
 	public Point getCurrentLocation() {
@@ -132,5 +139,26 @@ public class Turtle implements TurtleModel, TurtleView{
 	@Override
 	public void setTurtleImage(String image) {
 		myTurtleImage = image;
+	}
+
+	@Override
+	public double setPenSize(double size) {
+		myPenSize = (int) size;
+		return size;
+	}
+
+	@Override
+	public int getPenSize() {
+		return myPenSize;
+	}
+
+	@Override
+	public int getShape() {
+		return myShapeIndex;
+	}
+
+	@Override
+	public void setShape(int index) {
+		myShapeIndex = index;
 	}
 }
