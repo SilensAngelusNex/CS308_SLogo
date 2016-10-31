@@ -7,27 +7,24 @@ import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 public class PenColorCommand extends AbstractCommand {
-
+	String myName = "GetPenColor";
+	
 	public PenColorCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);
 	}
 
 	@Override
 	public int maxArgs() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return myName;
 	}
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		// TODO Auto-generated method stub
-		return 0;
+		return getModel().getPenColor();
 	}
-
 }

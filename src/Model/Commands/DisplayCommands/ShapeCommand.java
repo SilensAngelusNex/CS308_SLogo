@@ -7,27 +7,25 @@ import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 public class ShapeCommand extends AbstractCommand {
-
+	String myName = "GetShape";
+	
 	public ShapeCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);
 	}
 
 	@Override
 	public int maxArgs() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return myName;
 	}
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		// TODO Auto-generated method stub
-		return 0;
+		return getModel().getShape();
 	}
 
 }
