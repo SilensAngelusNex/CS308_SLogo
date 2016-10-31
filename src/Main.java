@@ -14,7 +14,6 @@ public class Main extends Application {
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
 		primaryStage.setTitle(TITLE);
 		SlogoController myController = new SlogoController();
 		Scene primaryscene = new Scene(myController.getView(), DEFAULT_SIZE.width, DEFAULT_SIZE.height);

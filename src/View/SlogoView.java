@@ -5,10 +5,12 @@ import java.io.File;
 import java.util.ResourceBundle;
 
 import Controller.ModelInViewInterface;
+import Model.SlogoModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
@@ -70,7 +72,9 @@ public class SlogoView extends BorderPane {
 		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
 		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
-		functionHBox.getChildren().addAll(languageCBox, colorCBox, lineColorBox, BackgroundButton, TurtleDisplyButton, HelpButton);
+		Button workspaceButton = myUIFactory.makeButton("NewWorkspaceLabel", e -> makeNewWorkspace());
+		functionHBox.getChildren().addAll(languageCBox, colorCBox, lineColorBox, BackgroundButton, 
+				TurtleDisplyButton, HelpButton, workspaceButton);
 		return functionHBox;
 	}
 	
@@ -120,12 +124,22 @@ public class SlogoView extends BorderPane {
 			myModelInViewInterface.setTurtleImage(myImage.getName());
 		}
 	}
+	
+	private void makeNewWorkspace(){
+		SlogoView workspaceView = new SlogoView("english");
+		SlogoModel workspaceModel = new SlogoModel(workspaceView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
+		workspaceView.setModelInViewInterface((ModelInViewInterface) workspaceModel);
+		workspaceView.setConsolePane();
+	//	Scene newScene = new Scene(workspaceView, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+		Stage newWorkspace = new Stage();
+		newWorkspace.setScene(new Scene(workspaceView, DEFAULT_SIZE.width, DEFAULT_SIZE.height));
+		newWorkspace.show();
+	}
 
 	private void setBackground() {
 		ChooseFile fileChooser = new ChooseFile();
 		File myImage = fileChooser.chooseFile();
 		if(myImage !=null){
-			System.out.println(myImage.getName());
 			myTurtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
 		}
 
