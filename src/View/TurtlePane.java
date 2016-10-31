@@ -9,6 +9,7 @@ import Model.LineModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 /**
  * @author Owen Chung, Blake Becerra
@@ -24,6 +25,7 @@ public class TurtlePane extends Pane implements EnclosureObserver{
 		myLines = new HashMap<LineModel, Line>();
 		initPane();
 	}
+	
 
 	private void initPane() {
 		setMinWidth(DEFAULT_SIZE.getWidth() * 0.7);
@@ -33,9 +35,17 @@ public class TurtlePane extends Pane implements EnclosureObserver{
 		setStyle("-fx-background-color: white");
 	}
 	
+	public void changeTurtleImage(String image){
+		 for(ImageView turtle: myTurtleImages.values()){
+			 turtle.setImage(new Image(getClass().getClassLoader().getResourceAsStream(image)));
+		 }
+	}
+	
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
+		turtle.setFitHeight(50);
+		turtle.setFitWidth(50);
 		myTurtleImages.put(t, turtle);
 		turtle.setRotate(t.getCurrentHeading());
 		turtle.relocate(getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 
@@ -63,6 +73,7 @@ public class TurtlePane extends Pane implements EnclosureObserver{
 				getMaxHeight() / 2 - l.getStart().getY(), 
 				getMaxWidth() / 2 + l.getEnd().getX(), 
 				getMaxHeight() /2 - l.getEnd().getY());
+		lineToAdd.setFill(l.getColor());
 		myLines.put(l, lineToAdd);
 		getChildren().add(lineToAdd);
 	}
