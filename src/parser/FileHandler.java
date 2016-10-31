@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -21,13 +23,21 @@ import Model.Commands.Command;
 public class FileHandler {
 	private static final String END_OF_FILE = "\\z";
 	private static final String PATH_PREFIX = "data/saved/";
+	private static final String PATH_SUFFIX = ".logo";
 
 	private MainParser myParser;
-	private Set<String> savedFiles;
+	private Map<String, String> savedFiles; 	// map of name to file path
 
 	public FileHandler(MainParser myParser) {
 		this.myParser = myParser;
-		this.savedFiles = new HashSet<String>();
+		this.savedFiles = new HashMap<String, String>();
+	}
+
+	/**
+	 * Returns the names of user-saved files of commands.
+	 */
+	public Set<String> getUserFiles() {
+		return Collections.unmodifiableSet(savedFiles.keySet());
 	}
 
 	/**
@@ -36,9 +46,10 @@ public class FileHandler {
 	 */
 	public boolean saveCommandsToFile(String name, List<String> commands) {
 		try {
-			savedFiles.add(name);
+			String filePath = PATH_PREFIX + name + PATH_SUFFIX;
+			savedFiles.put(name, filePath);
 
-			File file = new File(PATH_PREFIX + name + ".logo");
+			File file = new File(filePath);
 			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 
 			for (String command : commands) {
@@ -58,10 +69,10 @@ public class FileHandler {
 	 * indicating the success/failure of the operation.
 	 */
 	public boolean deleteUserFile(String name) {
-		if (savedFiles.contains(name)) {
+		if (savedFiles.containsKey(name)) {
 			savedFiles.remove(name);
 
-			File file = new File(PATH_PREFIX + name + ".logo");
+			File file = new File(savedFiles.get(name));
 			file.delete();
 
 			return true;
@@ -76,7 +87,7 @@ public class FileHandler {
 	 * @throws FileNotFoundException
 	 */
 	public Command getCommandTreeForUserFile(String name) throws FileNotFoundException {
-		return getCommandTree(PATH_PREFIX + name);
+		return getCommandTree(savedFiles.get(name));
 	}
 
 	/**
