@@ -6,6 +6,9 @@ import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
+/**
+ * @author Daniel Chai
+ */
 public class ShapeCommand extends AbstractCommand {
 	String myName = "GetShape";
 	

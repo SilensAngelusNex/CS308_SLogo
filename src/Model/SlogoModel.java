@@ -5,8 +5,8 @@ import java.util.List;
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
+import parser.Language;
 import parser.MainParser;
-import parser.ParserUtils;
 
 public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>, CommandableModel{
 	private Enclosure myTurtleEnclosure;
@@ -20,7 +20,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		myTurtleEnclosure.addListener(e);
 		
 		myVariables = new VariableContainer();
-		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH, this);
+		myParser = new MainParser(Language.ENGLISH, this);
 	}
 	
 	public void setTurtleImage(String image){

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import Model.Commands.TurtleCommands.*;
+import parser.Language;
 import Model.Commands.MathCommands.*;
 import Model.CommandableModel;
 import Model.Commands.ControlCommands.*;
@@ -15,10 +16,10 @@ public class CommandFactory {
 	ResourceBundle mySyntax;
 	ResourceBundle myCommands;
 	
-	public CommandFactory(String syntaxPath, String languagePath, CommandableModel model) {
+	public CommandFactory(String syntaxPath, Language language, CommandableModel model) {
 		myModel = model;
 		mySyntax = ResourceBundle.getBundle(syntaxPath);
-		myCommands = ResourceBundle.getBundle(languagePath);
+		myCommands = language.getResource();
 	}
 	
 	public Command newCommand(Command c) {

@@ -18,12 +18,12 @@ public class CommandParser {
     private List<Entry<String, Pattern>> mySymbols;
     private List<Entry<String, Pattern>> myCommands;
     
-    public CommandParser(String commandsFilePath) {
+    public CommandParser(Language language) {
         mySymbols = new ArrayList<Entry<String, Pattern>>();
         myCommands = new ArrayList<Entry<String, Pattern>>();
         
         addPatterns(mySymbols, ParserUtils.SYNTAX_FILE_PATH);
-        addPatterns(myCommands, commandsFilePath);
+        addPatterns(myCommands, language.getPath());
     }
     
     /**

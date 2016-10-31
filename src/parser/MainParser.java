@@ -26,9 +26,9 @@ public class MainParser {
 	private CommandParser myParser;
 	private CommandFactory myFactory;
 	
-	public MainParser(String commandResourcePath, CommandableModel model) {
-		myParser = new CommandParser(commandResourcePath);
-		myFactory = new CommandFactory(ParserUtils.SYNTAX_FILE_PATH, ParserUtils.ENGLISH_FILE_PATH, model);
+	public MainParser(Language language, CommandableModel model) {
+		myParser = new CommandParser(language);
+		myFactory = new CommandFactory(ParserUtils.SYNTAX_FILE_PATH, language, model);
 	}
 	
     /**

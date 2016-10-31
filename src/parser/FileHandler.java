@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 import Model.Commands.Command;
 
+/**
+ * This class handles reading commands from a file and saving commands to a file.
+ * 
+ * @author Daniel Chai
+ */
 public class FileHandler {
 	private static final String END_OF_FILE = "\\z";
 	
