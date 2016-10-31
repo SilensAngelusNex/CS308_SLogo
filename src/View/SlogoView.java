@@ -16,6 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import parser.InvalidCommandException;
 
 /**
  * @author Owen Chung, Blake Becerra
@@ -83,8 +84,13 @@ public class SlogoView extends BorderPane {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
-				myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor") 
-										+ " " + lineColorBox.getSelectionModel().getSelectedIndex());
+				try {
+					myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor") 
+											+ " " + lineColorBox.getSelectionModel().getSelectedIndex());
+				} catch (InvalidCommandException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

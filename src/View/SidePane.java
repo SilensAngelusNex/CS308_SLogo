@@ -23,4 +23,15 @@ public class SidePane extends BorderPane {
 	protected ListView<String> getCommandHistory() {
 		return myCommandHistory;
 	}
+	private void initUserDefinedPane(){
+		myUserDefinedPane = new BorderPane();
+		myAvailableVariables = new ListView<String>();
+		myAvailableVariables.setMaxSize(150, 150);
+		myUserCommands = new ListView<String>();
+		myUserCommands.setMaxSize(150, 150);
+		myUserDefinedPane.setRight(myAvailableVariables);
+		myUserDefinedPane.setLeft(myUserCommands);
+		setCenter(myUserDefinedPane);
+		
+	}
 }
