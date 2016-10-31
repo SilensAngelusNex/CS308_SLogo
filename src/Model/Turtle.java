@@ -1,6 +1,6 @@
 package Model;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 
 import View.TurtleView;
 
@@ -22,7 +22,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		myLastHeading = myHeading;
 		myTurtleImage = "turtle.png";
 		myPenDown = true;
-		myPenColor = new Color(255, 255, 255);
+		myPenColor = new Color(1, 1, 1, 1.0);
 		myVisibility = true;
 	}
 	

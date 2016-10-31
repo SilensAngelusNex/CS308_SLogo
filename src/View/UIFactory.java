@@ -40,6 +40,9 @@ public class UIFactory {
 		else if(Type.equals("Color")){
 			retBox.getSelectionModel().selectLast();
 		}
+		else if(Type.equals("LineColor")){
+			retBox.getSelectionModel().selectFirst();
+		}
 		return retBox;
 	}
 	

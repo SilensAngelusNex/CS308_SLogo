@@ -3,6 +3,7 @@ package View;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
+
 import Controller.ModelInViewInterface;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -61,13 +62,27 @@ public class SlogoView extends BorderPane {
 		
 		ChoiceBox<String> colorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
 				"Black", "Blue", "White"), "Color");
+		ChoiceBox<String> lineColorBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
+				"Black",  "Blue", "Red"), "LineColor");
 		setLanguageChangeListener(languageCBox);
 		setColorChangeListener(colorCBox);
+		setLineColorChangeListener(lineColorBox);
 		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
 		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
-		functionHBox.getChildren().addAll(languageCBox, colorCBox, BackgroundButton, TurtleDisplyButton, HelpButton);
+		functionHBox.getChildren().addAll(languageCBox, colorCBox, lineColorBox, BackgroundButton, TurtleDisplyButton, HelpButton);
 		return functionHBox;
+	}
+	
+	private void setLineColorChangeListener(ChoiceBox<String> lineColorBox){
+		lineColorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
+			@Override
+			public void changed(ObservableValue<? extends String> arg0,
+					String arg1, String arg2) {
+				myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor") 
+										+ " " + lineColorBox.getSelectionModel().getSelectedIndex());
+			}
+		});
 	}
 
 	private void setColorChangeListener(ChoiceBox<String> colorCBox) {
