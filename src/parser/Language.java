@@ -16,7 +16,7 @@ public enum Language {
 	RUSSIAN ("Russian"),
 	SPANISH ("Spanish");
 	
-	public static final String PATH_PREFIX = "resources/languages/";
+	private static final String PATH_PREFIX = "resources/languages/";
 	private final String pathSuffix;
 	
 	private Language(String pathSuffix) {
