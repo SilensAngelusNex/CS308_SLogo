@@ -21,6 +21,7 @@ public class ColorPallet implements Observable<ColorObserver>{
 
 	public double setIndex(int index, int r, int g, int b) {
 		myColors.set(index, Color.color(r, g, b));
+		notifyListenersColorChange(index);
 		return index;
 	}
 	
@@ -39,7 +40,8 @@ public class ColorPallet implements Observable<ColorObserver>{
 	}
 
 	public void setBackground(int index) {
-		
+		myBackground = myColors.get(index);
+		notifyListenersBackgroundChange();
 	}
 
 	@Override

@@ -33,15 +33,17 @@ public class MainParser {
 
 	/**
 	 * Returns the ExpressionTree for a String command
+	 * @throws InvalidCommandException 
 	 */
-	public Command getExpressionTreeFromCommand(String command) {
+	public Command getExpressionTreeFromCommand(String command) throws InvalidCommandException {
 		return createExpressionTree(myParser, command.split(NEWLINE));
 	}
 
 	/**
 	 * Returns an ExpressionTree based off the input text
+	 * @throws InvalidCommandException 
 	 */
-	private Command createExpressionTree(CommandParser lang, String[] text) {
+	private Command createExpressionTree(CommandParser lang, String[] text) throws InvalidCommandException {
 		CommandList root = myFactory.newCommandList();
 
 		Stack<Command> currCommands = new Stack<Command>();

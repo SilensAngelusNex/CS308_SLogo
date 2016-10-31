@@ -1,17 +1,21 @@
 package Model.Commands;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import Model.Commands.TurtleCommands.*;
+import javafx.util.Pair;
+
 import parser.Language;
-import Model.Commands.MathCommands.*;
 import Model.CommandableModel;
+import Model.Commands.TurtleCommands.*;
+import Model.Commands.MathCommands.*;
 import Model.Commands.ControlCommands.*;
 import Model.Commands.DisplayCommands.*;
 
 public class CommandFactory {
-	Map<String, UserDefinedCommand> myUserDefinedCommands;
+	Map<String, Pair<List<String>, Command>> myUserDefinedCommands;
 	CommandableModel myModel;
 	ResourceBundle mySyntax;
 	ResourceBundle myCommands;
@@ -147,10 +151,11 @@ public class CommandFactory {
 				return new ShapeCommand(myModel, myCommands);
 				
 			default:
-				if (myUserDefinedCommands.containsKey(command))
-					return myUserDefinedCommands.get(command);
-				else
-					throw new UnsupportedOperationException("Unimplemented Command: " + command);
+				return new UserDefinedCommand(
+						myModel,
+						myCommands,
+						command
+						);
 			}
 		} else if (command.matches(mySyntax.getString("Variable"))) {
 			return new VariableCommand(myModel, myCommands, command);
@@ -166,4 +171,45 @@ public class CommandFactory {
 	public MultiArgumentCommand newCommandGroup() {
 		return new MultiArgumentCommand(myModel, myCommands);
 	}
+
+	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
+		if (!myUserDefinedCommands.containsKey(commandName))
+			return 0;
+		
+		if (executable(ops)) {
+			myUserDefinedCommands.put(commandName, new Pair<List<String>, Command>(argNames, ops));
+			return 1;
+		} else {
+			myUserDefinedCommands.remove(commandName);
+			return 0;
+		}
+	}
+
+	public void tentativeAddUserCommand(String commandName, ArrayList<String> argNames) {
+		myUserDefinedCommands.put(commandName, new Pair<List<String>, Command>(argNames, null));
+	}
+	
+	private boolean executable(Command c){
+		boolean result = !c.argsNotFull();
+		
+		for (Command child: c.getChildren()){
+			if (!result)
+				break;
+			result = (result && executable(child));
+		}
+		
+		return result;
+			
+	}
+
+	public List<String> getUserArgs(String myName) {
+		return myUserDefinedCommands.get(myName).getKey();
+	}
+
+	public Command getUserCommand(String myName) {
+		return myUserDefinedCommands.get(myName).getValue();
+
+	}
+	
+	
 }
