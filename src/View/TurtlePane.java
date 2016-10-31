@@ -35,9 +35,17 @@ public class TurtlePane extends Pane implements EnclosureObserver{
 		setStyle("-fx-background-color: white");
 	}
 	
+	public void changeTurtleImage(String image){
+		 for(ImageView turtle: myTurtleImages.values()){
+			 turtle.setImage(new Image(getClass().getClassLoader().getResourceAsStream(image)));
+		 }
+	}
+	
 	@Override
 	public void addTurtle(TurtleView t) {
 		ImageView turtle = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(t.getImagePath())));
+		turtle.setFitHeight(50);
+		turtle.setFitWidth(50);
 		myTurtleImages.put(t, turtle);
 		turtle.setRotate(t.getCurrentHeading());
 		turtle.relocate(getMaxWidth() / 2 - turtle.getBoundsInLocal().getWidth() / 2 + t.getCurrentLocation().getX(), 

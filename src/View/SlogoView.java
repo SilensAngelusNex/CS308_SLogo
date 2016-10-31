@@ -116,6 +116,7 @@ public class SlogoView extends BorderPane {
 		ChooseFile fileChooser = new ChooseFile();
 		File myImage = fileChooser.chooseFile();
 		if (myImage != null){
+			myTurtlePane.changeTurtleImage(myImage.getName());;
 			myModelInViewInterface.setTurtleImage(myImage.getName());
 		}
 	}
