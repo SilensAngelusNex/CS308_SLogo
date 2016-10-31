@@ -28,5 +28,13 @@ public interface CommandableModel {
 	public double set(String name, double val);
 	public double get(String name);
 
+	//Display Commands
+	public double setBackground(double index);
+	public double setPenColor(double index);
+	public double setPenSize(double size);
+	public double setShape(double index);
+	public double getShape();
+	public double setPallet(double index, double r, double g, double b);
+	public double getPenColor();
 }
 

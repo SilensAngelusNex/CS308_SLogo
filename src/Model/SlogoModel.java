@@ -140,7 +140,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double setPallet(double index, double r, double g, double b){
 		return myColors.setIndex((int) index, (int) r, (int) g, (int) b);
 	}
-	public double getPenColor(double index){
+	public double getPenColor(){
 		return myColors.getIndex(myTurtleEnclosure.getPenColor());
 	}
 	

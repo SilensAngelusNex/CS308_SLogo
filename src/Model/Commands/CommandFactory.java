@@ -7,6 +7,7 @@ import Model.Commands.TurtleCommands.*;
 import Model.Commands.MathCommands.*;
 import Model.CommandableModel;
 import Model.Commands.ControlCommands.*;
+import Model.Commands.DisplayCommands.*;
 
 public class CommandFactory {
 	Map<String, UserDefinedCommand> myUserDefinedCommands;
@@ -128,6 +129,22 @@ public class CommandFactory {
 			case "MakeUserInstruction":
 				throw new UnsupportedOperationException("Can't assign user commands.");
 				//return new ToCommand();
+			
+			case "SetBackground":
+				return new SetBackgroundCommand(myModel, myCommands);
+			case "SetPenColor": 
+				return new SetPenColorCommand(myModel, myCommands);
+			case "SetPenSize":
+				return new SetPenSizeCommand(myModel, myCommands);
+			case "SetShape":
+				return new SetShapeCommand(myModel, myCommands);
+			case "SetPalette":
+				return new SetPaletteCommand(myModel, myCommands);
+			case "GetPenColor":
+				return new PenColorCommand(myModel, myCommands);
+			case "GetShape":
+				return new ShapeCommand(myModel, myCommands);
+				
 			default:
 				if (myUserDefinedCommands.containsKey(command))
 					return myUserDefinedCommands.get(command);
