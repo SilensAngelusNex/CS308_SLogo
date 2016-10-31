@@ -3,26 +3,27 @@ package Model;
 import java.util.List;
 
 import Controller.ModelInViewInterface;
-import parser.ExpressionTree;
+import Model.Commands.Command;
+import parser.InvalidCommandException;
 import parser.MainParser;
 import parser.ParserUtils;
 
-public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>{
-	private Calculator myCalculator;
+public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>, CommandableModel{
+	//private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
 	private MainParser myParser;
-	private TreeExecutor myExecutor;
+	//private TreeExecutor myExecutor;
 	private List<VariableObserver> myObservers;
 	
 	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
 		myTurtleEnclosure.addListener(e);
 		
-		myCalculator = new Calculator();
+		//myCalculator = new Calculator();
 		myVariables = new VariableContainer();
-		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH);
-		myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
+		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH, this);
+		//myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
 	}
 	
 	public void setTurtleImage(String image){
@@ -30,18 +31,14 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	}
 	
 	/**
+	 * @throws InvalidCommandException 
 	 * @deprecated
 	 */
-	public String parseAndExecute(String command){
-		ExpressionTree toExec = myParser.getExpressionTreeFromCommand(command);
-		double[] result = myExecutor.exec(toExec, this);
+	public String parseAndExecute(String command) throws InvalidCommandException{
+		Command toExec = myParser.getExpressionTreeFromCommand(command);
+		double result = toExec.execute();
 		
-		StringBuilder s = new StringBuilder();
-		for (double d : result) { 
-			s.append(d).append(" ");
-		}
-		s.append("\n");
-		return s.toString();
+		return Double.toString(result);
 	}
 	//Turtle Cammands
 	public double forward(double distance){
@@ -102,6 +99,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	}
 	
 	//Math Commands
+	/*
 	public double sum(double a, double b){
 		return myCalculator.sum(a, b);
 	}
@@ -167,6 +165,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double not(double a){
 		return myCalculator.not(a);
 	}
+	*/
 	
 	//Variable Commands
 	public double set(String name, double val) {

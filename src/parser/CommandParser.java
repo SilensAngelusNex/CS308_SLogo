@@ -44,6 +44,13 @@ public class CommandParser {
         return ParserUtils.ERROR_CODE;
     }
     
+    public String tokenType(String text) {
+        for (Entry<String, Pattern> e : mySymbols)
+            if (match(text, e.getValue()))
+            	return e.getKey();
+        return ParserUtils.ERROR_CODE;  
+        }
+    
     private String getCommand(String text) {
         for (Entry<String, Pattern> e : myCommands) {
             if (match(text, e.getValue())) {

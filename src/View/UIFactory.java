@@ -45,14 +45,8 @@ public class UIFactory {
 		}
 		return retBox;
 	}
-	
-	protected void promptAlert(String s, Exception e){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(s);
-		alert.setHeaderText(s);
-		alert.setContentText(e.getMessage());
-		alert.show();
-	}
+
+
 	
 
 }
