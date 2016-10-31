@@ -144,6 +144,8 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return myColors.getIndex(myTurtleEnclosure.getPenColor());
 	}
 	
+	
+	//Multiturtle Commands
 	public double ID() {
 		return myTurtleEnclosure.ActiveID();
 	}

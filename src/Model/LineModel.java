@@ -1,16 +1,16 @@
 package Model;
 
-import java.awt.Color;
+import javafx.scene.paint.Paint;
 
 public class LineModel {
 	
 	private Point myStart;
 	private Point myEnd;
-	private Color myLineColor;
+	private Paint myLineColor;
 	private int myWidth;
 	
 	
-	public LineModel(Point start, Point end, Color color, int width){
+	public LineModel(Point start, Point end, Paint color, int width){
 		myStart = start;
 		myEnd = end;
 		myLineColor = color;
@@ -23,7 +23,7 @@ public class LineModel {
 	public Point getEnd(){
 		return myEnd;
 	}
-	public Color getColor(){
+	public Paint getColor(){
 		return myLineColor;
 	}
 	public int getWidth(){

@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 
 
 public class Enclosure implements Observable<EnclosureObserver>{
@@ -314,5 +314,6 @@ public class Enclosure implements Observable<EnclosureObserver>{
 	}
 	public void setShape(int index) {
 		getActiveTurtle().setShape(index);
+		notifyListenersMoveTurtle(getActiveTurtle());
 	}
 }

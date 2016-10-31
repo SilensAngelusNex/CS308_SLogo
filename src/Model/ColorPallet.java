@@ -1,24 +1,26 @@
 package Model;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColorPallet {
+import javafx.scene.paint.Color;
+
+public class ColorPallet implements Observable<ColorObserver>{
+	List<ColorObserver> myObservers;
 	Color myBackground;
 	List<Color> myColors;
 	
 	public ColorPallet(){
 		myColors = new ArrayList<Color>();
-		myBackground = new Color(0, 0, 0);
+		myBackground = Color.color(0, 0, 0);
 	}
 	
 	public void addColor(int r, int g, int b){
-		myColors.add(new Color(r, g, b));
+		myColors.add(Color.color(r, g, b));
 	}
 
 	public double setIndex(int index, int r, int g, int b) {
-		myColors.set(index, new Color(r, g, b));
+		myColors.set(index, Color.color(r, g, b));
 		return index;
 	}
 	
@@ -38,5 +40,30 @@ public class ColorPallet {
 
 	public void setBackground(int index) {
 		
+	}
+
+	@Override
+	public void addListener(ColorObserver v) {
+		myObservers.add(v);
+		for (int i = 0; i < myColors.size(); i++)
+			v.colorChange(i, myColors.get(i));
+		v.backgroundChange(myBackground);
+	}
+
+	private void notifyListenersBackgroundChange() {
+		for (ColorObserver o: myObservers){
+			o.backgroundChange(myBackground);
+		}
+	}
+
+	private void notifyListenersColorChange(int index) {
+		for (ColorObserver o: myObservers){
+			o.colorChange(index, myColors.get(index));
+		}
+	}
+
+	@Override
+	public void removeListener(ColorObserver v) {
+		myObservers.remove(v);
 	}
 }
