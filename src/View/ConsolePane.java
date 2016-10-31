@@ -52,7 +52,7 @@ public class ConsolePane extends BorderPane {
 	}
 	private void parseCommand(String command) {
 		try{
-			addTexttoInputBox(new Text(myModelInViewInterface.parseAndExecute(String.format("[ %s ]", command))));
+			addTexttoInputBox(new Text(myModelInViewInterface.parseAndExecute(command)));
 			myCommandHistory.getItems().add(command);
 			
 		}catch(Exception e){

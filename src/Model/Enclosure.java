@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Enclosure implements Observable{
+public class Enclosure implements Observable<EnclosureObserver>{
 	private List<EnclosureObserver> myObservers;
 
 	private List<TurtleModel> myTurtles;
@@ -285,5 +285,13 @@ public class Enclosure implements Observable{
 		for (TurtleModel turtle: myTurtles){
 			turtle.toTurtleView().setTurtleImage(image);
 		}
+	}
+
+	public double ActiveID() {
+		return myActiveTurtle;
+	}
+
+	public double turtles() {
+		return myTurtles.size();
 	}
 }
