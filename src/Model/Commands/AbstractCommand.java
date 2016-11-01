@@ -112,7 +112,13 @@ abstract public class AbstractCommand implements Command{
 	
 	@Override
 	public String toString() {
-		return getName();
+		StringBuilder s = new StringBuilder();
+		s.append(getName());
+		s.append("(");
+		for (Command c: myChildren)
+			s.append(c.toString());
+		s.append(")");
+		return s.toString();
 	}
 	
 	
@@ -121,21 +127,26 @@ abstract public class AbstractCommand implements Command{
 	protected void execNonTurtleCommand() throws InvalidCommandException {
 		if(!isTurtleCommand()){
 			execChildrenAndReplaceSelf();
+		} else {
+			preExecChildren();
 		}
 		
 	}
 	
 	protected void execChildrenAndReplaceSelf() throws InvalidCommandException{
+		if (preExecChildren()){
+			double result = execute();	
+			selfReplace(new ConstantCommand(this, result));
+		}
+	}
+	
+	protected boolean preExecChildren() throws InvalidCommandException{
 		boolean childrenConstant = true;
 		for (int i = 0; i < getChildren().size(); i++){
 			getChild(i).execNonTurtle();
 			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 		}
-		if (childrenConstant){
-			double result = execute();
-			
-			selfReplace(new ConstantCommand(this, result));
-		}
+		return childrenConstant;
 	}
 	
 

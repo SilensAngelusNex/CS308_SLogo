@@ -35,6 +35,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	 */
 	public String parseAndExecute(String command) throws InvalidCommandException{
 		Command toExec = myParser.getExpressionTreeFromCommand(command);
+		toExec.execNonTurtle();
 		double result = toExec.execute();
 		
 		return Double.toString(result);
