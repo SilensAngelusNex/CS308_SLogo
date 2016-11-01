@@ -3,6 +3,7 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.Commands.ControlCommands.ToCommand;
 import parser.InvalidCommandException;
 
 public class CommandList extends AbstractCommandList{
@@ -12,8 +13,16 @@ public class CommandList extends AbstractCommandList{
 	}
 	
 	@Override
-	public void endList(){
+	public void endList() throws InvalidCommandException{
 		endList("]");
+		
+		/*
+		 * Adds the User defined command to the list of recognized commands when its list of arguments is completed.
+		 *This allows for recursion in UserDefinedCommands.
+		 *Probably a weird dependency that needs documentation.
+		 */
+		if (getParent() instanceof ToCommand && getParent().getChild(1) == this)
+			((ToCommand) getParent()).recursionEnable();
 	}
 
 	@Override

@@ -1,29 +1,28 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
+import parser.Language;
 import parser.MainParser;
-import parser.ParserUtils;
 
 public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>, CommandableModel{
-	//private Calculator myCalculator;
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
 	private MainParser myParser;
-	//private TreeExecutor myExecutor;
+	private ColorPallet myColors;
 	private List<VariableObserver> myObservers;
 	
 	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
 		myTurtleEnclosure.addListener(e);
 		
-		//myCalculator = new Calculator();
 		myVariables = new VariableContainer();
-		myParser = new MainParser(ParserUtils.ENGLISH_FILE_PATH, this);
-		//myExecutor = new TreeExecutor(ParserUtils.ENGLISH_FILE_PATH, ParserUtils.SYNTAX_FILE_PATH);
+		myParser = new MainParser(Language.ENGLISH, this);
+		myObservers = new ArrayList<VariableObserver>();
 	}
 	
 	public void setTurtleImage(String image){
@@ -98,75 +97,6 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return myTurtleEnclosure.isShowing();
 	}
 	
-	//Math Commands
-	/*
-	public double sum(double a, double b){
-		return myCalculator.sum(a, b);
-	}
-	public double difference(double a, double b){
-		return myCalculator.difference(a, b);
-	}
-	public double product(double a, double b){
-		return myCalculator.product(a, b);
-	}
-	public double quotient(double a, double b){
-		return myCalculator.quotient(a, b);
-	}
-	public double remainder(double a, double b){
-		return myCalculator.remainder(a, b);
-	}
-	public double minus(double a){
-		return myCalculator.minus(a);
-	}
-	public double random(double max){
-		return myCalculator.random(max);
-	}
-	public double sin(double degrees){
-		return myCalculator.sin(degrees);
-	}
-	public double cos(double degrees){
-		return myCalculator.cos(degrees);
-	}
-	public double tan(double degrees){
-		return myCalculator.tan(degrees);
-	}
-	public double atan(double degrees){
-		return myCalculator.atan(degrees);
-	}
-	public double log(double a){
-		return myCalculator.log(a);
-	}
-	public double pow(double a, double b){
-		return myCalculator.pow(a, b);
-	}
-	public double pi(){
-		return myCalculator.pi();
-	}
-	
-	//Boolean Commands
-	public double less(double a, double b){
-		return myCalculator.less(a, b);
-	}
-	public double greater(double a, double b){
-		return myCalculator.greater(a, b);
-	}
-	public double equal(double a, double b){
-		return myCalculator.equal(a, b);
-	}
-	public double notEqual(double a, double b){
-		return myCalculator.notEqual(a, b);
-	}
-	public double and(double a, double b){
-		return myCalculator.and(a, b);
-	}
-	public double or(double a, double b){
-		return myCalculator.or(a, b);
-	}
-	public double not(double a){
-		return myCalculator.not(a);
-	}
-	*/
-	
 	//Variable Commands
 	public double set(String name, double val) {
 		double result;
@@ -189,6 +119,35 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return result;
 	}
 	
+	
+	//Display Commands
+	public double setBackground(double index){
+		myColors.setBackground((int) index);
+		return index;
+	}
+	public double setPenColor(double index){
+		myTurtleEnclosure.setPenColor(myColors.getColor((int) index));
+		return index;
+	}
+	public double setPenSize(double size){
+		return myTurtleEnclosure.setPenSize(size);
+	}
+	public double setShape(double index){
+		myTurtleEnclosure.setShape((int) index);
+		return index;
+	}
+	public double getShape(){
+		return myTurtleEnclosure.getShape();
+	}
+	public double setPallet(double index, double r, double g, double b){
+		return myColors.setIndex((int) index, (int) r, (int) g, (int) b);
+	}
+	public double getPenColor(){
+		return myColors.getIndex(myTurtleEnclosure.getPenColor());
+	}
+	
+	
+	//Multiturtle Commands
 	public double ID() {
 		return myTurtleEnclosure.ActiveID();
 	}
@@ -212,6 +171,8 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double get(String name){
 		return myVariables.get(name);
 	}
+	
+	
 
 	@Override
 	public void addListener(VariableObserver v) {

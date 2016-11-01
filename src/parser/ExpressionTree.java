@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class ExpressionTree {
 	private ExpressionNode root;
-	
+
 	public ExpressionTree(ExpressionNode root) {
 		this.root = root;
 	}
@@ -18,7 +18,7 @@ public class ExpressionTree {
 	public ExpressionNode getRoot() {
 		return root;
 	}
-	
+
 	/**
 	 * Prints the tree in level-order traversal for testing purposes.
 	 */
@@ -26,22 +26,22 @@ public class ExpressionTree {
 		if (root == null) {
 			return;
 		}
-		
+
 		Queue<ExpressionNode> q = new LinkedList<ExpressionNode>();
 		q.add(root);
-		
+
 		while (!q.isEmpty()) {
 			int numInLevel = q.size();
-			
+
 			for (int i = 0; i < numInLevel; i++) {
 				ExpressionNode curr = q.poll();
 				System.out.print(curr.getCommand() + "(" + curr.getNumOfChildren() + ") ");
-				
+
 				for (ExpressionNode child : curr.getChildren()) {
 					q.add(child);
 				}
 			}
-			
+
 			System.out.println();
 		}
 	}

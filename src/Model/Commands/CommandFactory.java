@@ -1,23 +1,31 @@
 package Model.Commands;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.util.Pair;
+
+import parser.Language;
+import Model.CommandableModel;
 import Model.Commands.TurtleCommands.*;
 import Model.Commands.MathCommands.*;
-import Model.CommandableModel;
 import Model.Commands.ControlCommands.*;
+import Model.Commands.DisplayCommands.*;
 
 public class CommandFactory {
-	Map<String, UserDefinedCommand> myUserDefinedCommands;
+	Map<String, Pair<List<String>, Command>> myUserDefinedCommands;
 	CommandableModel myModel;
 	ResourceBundle mySyntax;
 	ResourceBundle myCommands;
 	
-	public CommandFactory(String syntaxPath, String languagePath, CommandableModel model) {
+	public CommandFactory(String syntaxPath, Language language, CommandableModel model) {
 		myModel = model;
 		mySyntax = ResourceBundle.getBundle(syntaxPath);
-		myCommands = ResourceBundle.getBundle(languagePath);
+		myCommands = language.getResource();
+		myUserDefinedCommands = new HashMap<String, Pair<List<String>, Command>>();
 	}
 	
 	public Command newCommand(Command c) {
@@ -31,6 +39,7 @@ public class CommandFactory {
 	public Command newCommand(String command){
 		if (command.matches(mySyntax.getString("Command"))) {
 			switch (command){
+			//Turtle Commands
 			case "Forward":
 				return new ForwardCommand(myModel, myCommands);
 			case "Backward":
@@ -57,7 +66,8 @@ public class CommandFactory {
 				return new HomeCommand(myModel, myCommands);
 			case "ClearScreen":
 				return new ClearScreenCommand(myModel, myCommands);
-				
+			
+			//Turtle Queries
 			case "XCoordinate":
 				return new XCoorCommand(myModel, myCommands);
 			case "YCoordinate":
@@ -68,7 +78,8 @@ public class CommandFactory {
 				return new IsPenDownCommand(myModel, myCommands);
 			case "IsShowing":
 				return new IsShowingCommand(myModel, myCommands);
-				
+			
+			//Math Commands
 			case "Sum":
 				return new SumCommand(myCommands);
 			case "Difference":
@@ -98,6 +109,7 @@ public class CommandFactory {
 			case "Pi":
 				return new PiCommand(myCommands);
 				
+			//Boolean Commands
 			case "LessThan":
 				return new LessCommand(myCommands);
 			case "GreaterThan":
@@ -112,7 +124,8 @@ public class CommandFactory {
 				return new OrCommand(myCommands);
 			case "Not":
 				return new NotCommand(myCommands);
-				
+			
+			//Control Commands
 			case "MakeVariable":
 				return new MakeCommand(myModel, myCommands);
 			case "Repeat":
@@ -126,16 +139,43 @@ public class CommandFactory {
 			case "IfElse":
 				return new IfElseCommand(myModel, myCommands);
 			case "MakeUserInstruction":
-				throw new UnsupportedOperationException("Can't assign user commands.");
-				//return new ToCommand();
+				//throw new UnsupportedOperationException("Can't assign user commands.");
+				return new ToCommand(myModel, myCommands, this);
+			
+			//Display Commands
+			case "SetBackground":
+				return new SetBackgroundCommand(myModel, myCommands);
+			case "SetPenColor": 
+				return new SetPenColorCommand(myModel, myCommands);
+			case "SetPenSize":
+				return new SetPenSizeCommand(myModel, myCommands);
+			case "SetShape":
+				return new SetShapeCommand(myModel, myCommands);
+			case "SetPalette":
+				return new SetPaletteCommand(myModel, myCommands);
+			case "GetPenColor":
+				return new PenColorCommand(myModel, myCommands);
+			case "GetShape":
+				return new ShapeCommand(myModel, myCommands);
+			
+			//User Defined Commands
 			default:
-				if (myUserDefinedCommands.containsKey(command))
-					return myUserDefinedCommands.get(command);
+				if (myUserDefinedCommands.containsKey(command.toLowerCase()))
+					return new UserDefinedCommand(
+							myModel,
+							myCommands,
+							command,
+							this
+							);
 				else
-					throw new UnsupportedOperationException("Unimplemented Command: " + command);
+					return new UserDefinedCommand(
+							myModel,
+							myCommands,
+							command
+							);
 			}
 		} else if (command.matches(mySyntax.getString("Variable"))) {
-			return new VariableCommand(myModel, myCommands, command);
+			return new VariableCommand(myModel, myCommands, command.replace(":", ""));
 		} else if (command.matches(mySyntax.getString("Constant"))) {
 			return new ConstantCommand(myModel, myCommands, command);
 		} else
@@ -148,4 +188,45 @@ public class CommandFactory {
 	public MultiArgumentCommand newCommandGroup() {
 		return new MultiArgumentCommand(myModel, myCommands);
 	}
+
+	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
+		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase()))
+			return 0;
+		
+		if (executable(ops)) {
+			myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, ops));
+			return 1;
+		} else {
+			myUserDefinedCommands.remove(commandName.toLowerCase());
+			return 0;
+		}
+	}
+
+	public void tentativeAddUserCommand(String commandName, ArrayList<String> argNames) {
+		myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, null));
+	}
+	
+	private boolean executable(Command c){
+		boolean result = !c.argsNotFull();
+		
+		for (Command child: c.getChildren()){
+			if (!result)
+				break;
+			result = (result && executable(child));
+		}
+		
+		return result;
+			
+	}
+
+	public List<String> getUserArgs(String myName) {
+		return myUserDefinedCommands.get(myName).getKey();
+	}
+
+	public Command getUserCommand(String myName) {
+		return myUserDefinedCommands.get(myName).getValue();
+
+	}
+	
+	
 }

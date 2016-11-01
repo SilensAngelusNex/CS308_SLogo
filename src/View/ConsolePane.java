@@ -56,7 +56,9 @@ public class ConsolePane extends BorderPane {
 			myCommandHistory.getItems().add(command);
 			
 		}catch(Exception e){
+			e.printStackTrace();
 			promptAlert("Command Error", e);
+
 		}
 	}
 
