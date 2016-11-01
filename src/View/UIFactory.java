@@ -40,16 +40,13 @@ public class UIFactory {
 		else if(Type.equals("Color")){
 			retBox.getSelectionModel().selectLast();
 		}
+		else if(Type.equals("LineColor")){
+			retBox.getSelectionModel().selectFirst();
+		}
 		return retBox;
 	}
-	
-	protected void promptAlert(String s, Exception e){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(s);
-		alert.setHeaderText(s);
-		alert.setContentText(e.getMessage());
-		alert.show();
-	}
+
+
 	
 
 }
