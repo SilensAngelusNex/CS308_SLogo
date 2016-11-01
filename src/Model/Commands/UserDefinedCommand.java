@@ -8,18 +8,31 @@ import parser.InvalidCommandException;
 
 public class UserDefinedCommand extends AbstractCommand {
 	String myName;
+	CommandFactory myFactory;
 	Command myInstructionTree;
 	List<String> myArguments;
 	
-	public UserDefinedCommand(CommandableModel model, ResourceBundle language, Command instructions) {
+	public UserDefinedCommand(CommandableModel model, ResourceBundle language, String name, CommandFactory maker) {
 		super(model, language);
-		myInstructionTree = instructions;
+		myFactory = maker;
+		myName = name;
 		
+		myArguments = maker.getUserArgs(myName);
+		myInstructionTree = maker.getUserCommand(myName);
+
+	}
+	
+	public UserDefinedCommand(CommandableModel model, ResourceBundle language, String name) {
+		super(model, language);
+		myName = name;
 	}
 
 	@Override
 	public int maxArgs() {
-		return myArguments.size();
+		if (myArguments != null)
+			return myArguments.size();
+		else 
+			return 0;
 	}
 
 	@Override
@@ -29,6 +42,10 @@ public class UserDefinedCommand extends AbstractCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
+		if (myInstructionTree == null) {
+			throw new InvalidCommandException("Command not defined: " + myName);
+		}
+		
 		double[] varValues = new double[myArguments.size()];
 		
 		for (int i = 0; i < varValues.length; i++){

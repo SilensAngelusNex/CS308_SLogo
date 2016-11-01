@@ -3,6 +3,7 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import parser.InvalidCommandException;
 
 abstract public class AbstractCommandList extends AbstractCommand {
 	private String myName;
@@ -21,7 +22,7 @@ abstract public class AbstractCommandList extends AbstractCommand {
 		myName = newName;
 	}
 	
-	abstract public void endList();
+	abstract public void endList() throws InvalidCommandException;
 	
 	@Override
 	public boolean argsNotFull() {
