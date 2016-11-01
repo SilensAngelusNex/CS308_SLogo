@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import Model.SlogoModel;
 import View.SlogoView;
-import View.StartScreen;
+//import View.StartScreen;
 /**
  * @author Owen Chung
  */
