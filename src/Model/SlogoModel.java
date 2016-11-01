@@ -160,8 +160,10 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 			v.changeVariable(name, value);
 	}
 	private void notifyListenersAddVariable(String name, double value) {
-		for (VariableObserver v: myObservers)
+		for (VariableObserver v: myObservers){
 			v.addVariable(name, value);
+		}
+			
 	}
 	private void notifyListenersRemoveVariable(String name) {
 		for (VariableObserver v: myObservers)

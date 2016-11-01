@@ -14,7 +14,7 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 	private ListView<String> myUserCommands;
 	private Map<String, Double> myValueMap;
 	
-	protected UserDefinedPane(){
+	public UserDefinedPane(){
 		initPanes();
 		
 	}
@@ -35,6 +35,7 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 	@Override
 	public void addVariable(String varVame, double value) {
 		myValueMap.put(varVame, value);
+		System.out.println("adding a variable");
 		myAvailableVariables.getItems().add(varVame + "        " + value);
 	
 	}

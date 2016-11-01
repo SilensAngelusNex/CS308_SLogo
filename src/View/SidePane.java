@@ -8,17 +8,21 @@ import javafx.scene.layout.BorderPane;
 public class SidePane extends BorderPane {
 	private ListView<String> myCommandHistory;
 	private UserDefinedPane myUserDefinedPane;
-	public SidePane(){
+	public SidePane(UserDefinedPane udp){
+		myUserDefinedPane = udp;
 		initPane();
+		
 	}
 	private void initPane() {
 		myCommandHistory = new ListView<String>();
 		myCommandHistory.setMaxSize(300, 150);
-		myUserDefinedPane = new UserDefinedPane();
 		setTop(myCommandHistory);
 		setCenter(myUserDefinedPane);
 	}
 	protected ListView<String> getCommandHistory() {
 		return myCommandHistory;
+	}
+	protected UserDefinedPane getUserDefinePane(){
+		return myUserDefinedPane;
 	}
 }

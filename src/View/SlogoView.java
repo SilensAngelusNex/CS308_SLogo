@@ -5,7 +5,9 @@ import java.io.File;
 import java.util.ResourceBundle;
 
 import Controller.ModelInViewInterface;
+import Model.Observable;
 import Model.SlogoModel;
+import Model.VariableObserver;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,12 +39,12 @@ public class SlogoView extends BorderPane {
 	private ConsolePane myConsolePane;
 	
 	
-    public SlogoView(String language){
+    public SlogoView(String language, UserDefinedPane udp){
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		myHelpPage = new UserManualPopup();
 		myUIFactory = new UIFactory(myUILabel);
-		mySidePane = new SidePane();
+		mySidePane = new SidePane(udp);
 		myTurtlePane = new TurtlePane();
 		setLeft(myTurtlePane);
 		setTop(makeToolbar());
@@ -132,7 +134,8 @@ public class SlogoView extends BorderPane {
 	}
 	
 	private void makeNewWorkspace(){
-		SlogoView workspaceView = new SlogoView("english");
+		// TODO : I don't think this will work because we need to add listener in controller class
+		SlogoView workspaceView = new SlogoView("english", new UserDefinedPane());
 		SlogoModel workspaceModel = new SlogoModel(workspaceView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		workspaceView.setModelInViewInterface((ModelInViewInterface) workspaceModel);
 		workspaceView.setConsolePane();
