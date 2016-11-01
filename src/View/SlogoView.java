@@ -5,9 +5,7 @@ import java.io.File;
 import java.util.ResourceBundle;
 
 import Controller.ModelInViewInterface;
-import Model.Observable;
 import Model.SlogoModel;
-import Model.VariableObserver;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -58,7 +56,7 @@ public class SlogoView extends BorderPane {
     	myConsolePane = new ConsolePane(mySidePane.getCommandHistory(), myModelInViewInterface, myUILabel);
 		setBottom(myConsolePane);
     }
-
+// TODO : REMOVE THIS AND CHANGE IT TO TOOLBAR CLASS
 	private Node makeToolbar() {
 		HBox functionHBox = new HBox();
 		ChoiceBox<String> languageCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(

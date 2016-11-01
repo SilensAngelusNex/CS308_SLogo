@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import javafx.scene.control.ChoiceBox;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 

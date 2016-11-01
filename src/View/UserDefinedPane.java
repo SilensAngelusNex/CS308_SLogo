@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Model.VariableObserver;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 
@@ -13,6 +15,7 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 	private ListView<String> myAvailableVariables;
 	private ListView<String> myUserCommands;
 	private Map<String, Double> myValueMap;
+	private ObservableList<String> myVariables;
 	
 	public UserDefinedPane(){
 		initPanes();
@@ -27,8 +30,15 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 		myAvailableVariables.getItems().add("variable" + "        " + "value");
 		myUserCommands.setMaxSize(mySize.getWidth(), mySize.getHeight());
 		
-		setRight(myAvailableVariables);
-		setLeft(myUserCommands);
+		BorderPane rightPane = new BorderPane();
+		rightPane.setTop(new Label("Available Variables"));
+		rightPane.setBottom(myAvailableVariables);
+		setRight(rightPane);
+		
+		BorderPane leftPane = new BorderPane();
+		leftPane.setTop(new Label("User Defined Commands"));
+		leftPane.setBottom(myUserCommands);
+		setLeft(leftPane);
 		
 	}
 
