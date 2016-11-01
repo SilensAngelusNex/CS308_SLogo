@@ -1,6 +1,6 @@
 package Model;
 
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 
 public class LineModel {
