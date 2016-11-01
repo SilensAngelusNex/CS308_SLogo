@@ -39,9 +39,10 @@ public class ColorPallet implements Observable<ColorObserver>{
 		return myColors.get(index);
 	}
 
-	public void setBackground(int index) {
+	public double setBackground(int index) {
 		myBackground = myColors.get(index);
 		notifyListenersBackgroundChange();
+		return index;
 	}
 
 	@Override

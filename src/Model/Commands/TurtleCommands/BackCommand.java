@@ -3,7 +3,6 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.Command;
 import parser.InvalidCommandException;
 
 public class BackCommand extends AbstractTurtleCommand{
