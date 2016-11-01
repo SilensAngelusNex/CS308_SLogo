@@ -1,6 +1,7 @@
 package Model.Commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ public class CommandFactory {
 		myModel = model;
 		mySyntax = ResourceBundle.getBundle(syntaxPath);
 		myCommands = language.getResource();
+		myUserDefinedCommands = new HashMap<String, Pair<List<String>, Command>>();
 	}
 	
 	public Command newCommand(Command c) {
@@ -132,8 +134,8 @@ public class CommandFactory {
 			case "IfElse":
 				return new IfElseCommand(myModel, myCommands);
 			case "MakeUserInstruction":
-				throw new UnsupportedOperationException("Can't assign user commands.");
-				//return new ToCommand();
+				//throw new UnsupportedOperationException("Can't assign user commands.");
+				return new ToCommand(myModel, myCommands, this);
 			
 			case "SetBackground":
 				return new SetBackgroundCommand(myModel, myCommands);
@@ -151,14 +153,22 @@ public class CommandFactory {
 				return new ShapeCommand(myModel, myCommands);
 				
 			default:
-				return new UserDefinedCommand(
-						myModel,
-						myCommands,
-						command
-						);
+				if (myUserDefinedCommands.containsKey(command.toLowerCase()))
+					return new UserDefinedCommand(
+							myModel,
+							myCommands,
+							command,
+							this
+							);
+				else
+					return new UserDefinedCommand(
+							myModel,
+							myCommands,
+							command
+							);
 			}
 		} else if (command.matches(mySyntax.getString("Variable"))) {
-			return new VariableCommand(myModel, myCommands, command);
+			return new VariableCommand(myModel, myCommands, command.replace(":", ""));
 		} else if (command.matches(mySyntax.getString("Constant"))) {
 			return new ConstantCommand(myModel, myCommands, command);
 		} else
@@ -173,20 +183,20 @@ public class CommandFactory {
 	}
 
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
-		if (!myUserDefinedCommands.containsKey(commandName))
+		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase()))
 			return 0;
 		
 		if (executable(ops)) {
-			myUserDefinedCommands.put(commandName, new Pair<List<String>, Command>(argNames, ops));
+			myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, ops));
 			return 1;
 		} else {
-			myUserDefinedCommands.remove(commandName);
+			myUserDefinedCommands.remove(commandName.toLowerCase());
 			return 0;
 		}
 	}
 
 	public void tentativeAddUserCommand(String commandName, ArrayList<String> argNames) {
-		myUserDefinedCommands.put(commandName, new Pair<List<String>, Command>(argNames, null));
+		myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, null));
 	}
 	
 	private boolean executable(Command c){

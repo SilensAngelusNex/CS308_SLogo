@@ -22,6 +22,7 @@ public class MainParser {
 	private static final String GROUP_END_CODE = "GroupEnd";
 	private static final String LIST_START_CODE = "ListStart";
 	private static final String LIST_END_CODE = "ListEnd";
+	private static final String UNKNOWN_COMMAND_CODE = "UNKNOWN COMMAND";
 
 	private CommandParser myParser;
 	private CommandFactory myFactory;
@@ -65,8 +66,9 @@ public class MainParser {
 					}
 
 					if (symbol.equals(LIST_END_CODE) || symbol.equals(GROUP_END_CODE)) {
-						currLists.peek().endList(s);
+						currLists.peek().endList();
 						currLists.pop();
+						currCommands.pop();
 
 					} else {
 						Command next;
@@ -79,7 +81,7 @@ public class MainParser {
 							currLists.push((AbstractCommandList) next);
 
 						} else {
-							if (lang.tokenType(s).equals(COMMAND_CODE))
+							if (lang.tokenType(s).equals(COMMAND_CODE) && !symbol.equals(UNKNOWN_COMMAND_CODE))
 								next = myFactory.newCommand(symbol);
 							else
 								next = myFactory.newCommand(s);

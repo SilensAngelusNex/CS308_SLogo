@@ -85,8 +85,9 @@ public class FileHandler {
 	 * Returns the Command tree for the contents in a user-saved file.
 	 * 
 	 * @throws FileNotFoundException
+	 * @throws InvalidCommandException 
 	 */
-	public Command getCommandTreeForUserFile(String name) throws FileNotFoundException {
+	public Command getCommandTreeForUserFile(String name) throws FileNotFoundException, InvalidCommandException {
 		return getCommandTree(savedFiles.get(name));
 	}
 
@@ -94,8 +95,9 @@ public class FileHandler {
 	 * Returns the Command tree for the contents in a file.
 	 * 
 	 * @throws FileNotFoundException
+	 * @throws InvalidCommandException 
 	 */
-	public Command getCommandTree(String filePath) throws FileNotFoundException {
+	public Command getCommandTree(String filePath) throws FileNotFoundException, InvalidCommandException {
 		String fileInput = readFileToString(filePath);
 		return myParser.getExpressionTreeFromCommand(fileInput);
 	}
