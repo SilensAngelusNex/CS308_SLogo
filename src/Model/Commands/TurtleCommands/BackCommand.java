@@ -3,10 +3,10 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
+import Model.Commands.Command;
 import parser.InvalidCommandException;
 
-public class BackCommand extends AbstractCommand{
+public class BackCommand extends AbstractTurtleCommand{
 	String myName = "Back";
 
 	public BackCommand(CommandableModel model, ResourceBundle commands) {
@@ -28,5 +28,6 @@ public class BackCommand extends AbstractCommand{
 	public String getName(){
 		return myName;
 	}
+
 
 }

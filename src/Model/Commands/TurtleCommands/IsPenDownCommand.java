@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class IsPenDownCommand extends AbstractCommand {
+public class IsPenDownCommand extends AbstractTurtleCommand {
 	String myName = "IsPenDown";
 
 	public IsPenDownCommand(CommandableModel model, ResourceBundle commands) {

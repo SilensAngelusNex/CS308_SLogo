@@ -28,4 +28,10 @@ public class VariableCommand extends AbstractCommand{
 		return getModel().get(myName);
 	}
 
+	@Override
+	protected void execNonTurtleCommand() throws InvalidCommandException {
+		
+		
+	}
+
 }

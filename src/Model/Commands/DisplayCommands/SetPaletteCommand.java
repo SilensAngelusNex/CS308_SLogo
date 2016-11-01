@@ -3,13 +3,12 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
 /**
  * @author Daniel Chai
  */
-public class SetPaletteCommand extends AbstractCommand {
+public class SetPaletteCommand extends AbstractDisplayCommand {
 	String myName = "SetPalette";
 	
 	public SetPaletteCommand(CommandableModel model, ResourceBundle language) {
