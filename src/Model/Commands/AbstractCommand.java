@@ -39,9 +39,6 @@ abstract public class AbstractCommand implements Command{
 	@Override
 	public void addChild(Command cmd) {
 		if (argsNotFull()) {
-			System.out.println(this.toString());
-			System.out.println(cmd.toString());
-			
 			myChildren.add(cmd);
 			cmd.setParent(this);
 		}

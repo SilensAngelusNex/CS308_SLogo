@@ -39,6 +39,7 @@ public class CommandFactory {
 	public Command newCommand(String command){
 		if (command.matches(mySyntax.getString("Command"))) {
 			switch (command){
+			//Turtle Commands
 			case "Forward":
 				return new ForwardCommand(myModel, myCommands);
 			case "Backward":
@@ -65,7 +66,8 @@ public class CommandFactory {
 				return new HomeCommand(myModel, myCommands);
 			case "ClearScreen":
 				return new ClearScreenCommand(myModel, myCommands);
-				
+			
+			//Turtle Queries
 			case "XCoordinate":
 				return new XCoorCommand(myModel, myCommands);
 			case "YCoordinate":
@@ -76,7 +78,8 @@ public class CommandFactory {
 				return new IsPenDownCommand(myModel, myCommands);
 			case "IsShowing":
 				return new IsShowingCommand(myModel, myCommands);
-				
+			
+			//Math Commands
 			case "Sum":
 				return new SumCommand(myCommands);
 			case "Difference":
@@ -106,6 +109,7 @@ public class CommandFactory {
 			case "Pi":
 				return new PiCommand(myCommands);
 				
+			//Boolean Commands
 			case "LessThan":
 				return new LessCommand(myCommands);
 			case "GreaterThan":
@@ -120,7 +124,8 @@ public class CommandFactory {
 				return new OrCommand(myCommands);
 			case "Not":
 				return new NotCommand(myCommands);
-				
+			
+			//Control Commands
 			case "MakeVariable":
 				return new MakeCommand(myModel, myCommands);
 			case "Repeat":
@@ -137,6 +142,7 @@ public class CommandFactory {
 				//throw new UnsupportedOperationException("Can't assign user commands.");
 				return new ToCommand(myModel, myCommands, this);
 			
+			//Display Commands
 			case "SetBackground":
 				return new SetBackgroundCommand(myModel, myCommands);
 			case "SetPenColor": 
@@ -151,7 +157,8 @@ public class CommandFactory {
 				return new PenColorCommand(myModel, myCommands);
 			case "GetShape":
 				return new ShapeCommand(myModel, myCommands);
-				
+			
+			//User Defined Commands
 			default:
 				if (myUserDefinedCommands.containsKey(command.toLowerCase()))
 					return new UserDefinedCommand(
