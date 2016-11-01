@@ -36,7 +36,7 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 		setRight(rightPane);
 		
 		BorderPane leftPane = new BorderPane();
-		leftPane.setTop(new Label("User Defined Commands"));
+		leftPane.setTop(new Label("Available Commands"));
 		leftPane.setBottom(myUserCommands);
 		setLeft(leftPane);
 		
