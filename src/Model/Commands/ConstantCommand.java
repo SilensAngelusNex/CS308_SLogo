@@ -3,7 +3,6 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class ConstantCommand extends AbstractCommand{
@@ -30,13 +29,14 @@ public class ConstantCommand extends AbstractCommand{
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		return Double.parseDouble(myName);
 	}
 
 	@Override
-	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
+	protected void execNonTurtleCommand() throws InvalidCommandException {
 		// Do nothing. (Already a constant)	
 	}
+
 
 }

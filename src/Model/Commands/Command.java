@@ -21,4 +21,5 @@ public interface Command {
 	abstract public Command getChild(int index);
 	abstract public Command getParent();
 	abstract public void setParent(Command cmd);
+	abstract public void setTurtle(TurtleModel t);
 }

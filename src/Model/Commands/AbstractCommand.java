@@ -18,6 +18,7 @@ abstract public class AbstractCommand implements Command{
 	private Command myParent;
 	private CommandableModel myModel;
 	private ResourceBundle myLanguage;
+	private TurtleModel myTurtle;
 	
 	private String argErrorMessage;
 	
@@ -50,7 +51,8 @@ abstract public class AbstractCommand implements Command{
 		if (argsNotFull())
 			throw argError();
 		else {
-			return execCommand(t);
+			myTurtle = t;
+			return execCommand();
 		}
 	}
 
@@ -60,7 +62,8 @@ abstract public class AbstractCommand implements Command{
 		if (argsNotFull())
 			throw argError();
 		else {
-			execNonTurtleCommand(t);			
+			myTurtle = t;
+			execNonTurtleCommand();			
 		}
 	}
 	
@@ -134,13 +137,13 @@ abstract public class AbstractCommand implements Command{
 	}
 	
 	
-	abstract protected double execCommand(TurtleModel t) throws InvalidCommandException;
+	abstract protected double execCommand() throws InvalidCommandException;
 	
-	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
+	protected void execNonTurtleCommand() throws InvalidCommandException {
 		if(!isTurtleCommand()){
-			execChildrenAndReplaceSelf(t);
+			execChildrenAndReplaceSelf(myTurtle);
 		} else {
-			preExecChildren(t);
+			preExecChildren(myTurtle);
 		}
 		
 	}
@@ -159,6 +162,13 @@ abstract public class AbstractCommand implements Command{
 			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 		}
 		return childrenConstant;
+	}
+	
+	protected TurtleModel getTurtle(){
+		return myTurtle;
+	}
+	public void setTurtle(TurtleModel t){
+		myTurtle = t;
 	}
 	
 	protected InvalidCommandException argError() {

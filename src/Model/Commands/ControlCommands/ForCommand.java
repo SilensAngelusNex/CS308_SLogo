@@ -3,7 +3,6 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
 
@@ -25,12 +24,12 @@ public class ForCommand extends AbstractNoVariablePreExecuteCommand {
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		
 		String varName = getChild(0).getChild(0).getName().replaceAll(":", "");
-		int start = (int) getChild(0).getChild(1).execute(t);
-		int end = (int) getChild(0).getChild(2).execute(t);
-		int jump = (int) getChild(0).getChild(3).execute(t);
+		int start = (int) getChild(0).getChild(1).execute(getTurtle());
+		int end = (int) getChild(0).getChild(2).execute(getTurtle());
+		int jump = (int) getChild(0).getChild(3).execute(getTurtle());
 		
 		Command toExec = getChild(1);
 		
@@ -38,7 +37,7 @@ public class ForCommand extends AbstractNoVariablePreExecuteCommand {
 		
 		double result = 0;
 		while (getModel().get(varName) < end){
-			result = toExec.execute(t);
+			result = toExec.execute(getTurtle());
 			getModel().set(varName, getModel().get(varName) + jump);
 		}
 		

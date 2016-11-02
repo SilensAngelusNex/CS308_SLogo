@@ -3,7 +3,6 @@ package Model.Commands.MathCommands;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class RandomCommand extends AbstractMathCommand {
@@ -25,8 +24,8 @@ public class RandomCommand extends AbstractMathCommand {
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
-		return myRandom.nextDouble() * getChild(0).execute(t);
+	protected double execCommand() throws InvalidCommandException {
+		return myRandom.nextDouble() * getChild(0).execute(getTurtle());
 	}
 
 }

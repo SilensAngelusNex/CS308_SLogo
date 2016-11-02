@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class UserDefinedCommand extends AbstractCommand {
@@ -42,7 +41,7 @@ public class UserDefinedCommand extends AbstractCommand {
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		if (myInstructionTree == null) {
 			throw new InvalidCommandException("Command not defined: " + myName);
 		}
@@ -51,10 +50,10 @@ public class UserDefinedCommand extends AbstractCommand {
 		
 		for (int i = 0; i < varValues.length; i++){
 			varValues[i] = getModel().get(myArguments.get(i));
-			getModel().set(myArguments.get(i), getChild(i).execute(t));
+			getModel().set(myArguments.get(i), getChild(i).execute(getTurtle()));
 		}
 		
-		double result = myInstructionTree.execute(t);
+		double result = myInstructionTree.execute(getTurtle());
 		
 		for (int i = 0; i < varValues.length; i++){
 			getModel().set(myArguments.get(i), varValues[i]);

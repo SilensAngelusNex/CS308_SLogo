@@ -3,7 +3,6 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 /**
@@ -27,11 +26,11 @@ public class SetPaletteCommand extends AbstractDisplayCommand {
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
-		return getModel().setPallet(getChild(0).execute(t), 
-									getChild(1).execute(t),
-									getChild(2).execute(t),
-									getChild(3).execute(t));
+	protected double execCommand() throws InvalidCommandException {
+		return getModel().setPallet(getChild(0).execute(getTurtle()), 
+									getChild(1).execute(getTurtle()),
+									getChild(2).execute(getTurtle()),
+									getChild(3).execute(getTurtle()));
 	}
 
 }

@@ -3,7 +3,6 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
@@ -25,12 +24,12 @@ public class RepeatCommand extends AbstractCommand {
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		double result = 0;
 		
-		int repeatTimes = (int) getChild(0).execute(t); 
+		int repeatTimes = (int) getChild(0).execute(getTurtle()); 
 		for (int i = 0; i < repeatTimes; i++){
-			result = getChild(1).execute(t);
+			result = getChild(1).execute(getTurtle());
 		}
 		
 		return result;

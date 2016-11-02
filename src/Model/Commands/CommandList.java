@@ -28,7 +28,8 @@ public class CommandList extends AbstractCommandList{
 
 	@Override
 	public double execute(TurtleModel t) throws InvalidCommandException {
-		return execCommand(t);
+		setTurtle(t);
+		return execCommand();
 	}
 	
 	@Override
@@ -43,14 +44,21 @@ public class CommandList extends AbstractCommandList{
 
 
 	
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		double result = 0;
 		
 		for (Command c: getChildren())
-			result = c.execute(t);
+			result = c.execute(getTurtle());
 
 		return result;
 	}
+
+	@Override
+	public void setTurtle(TurtleModel t) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

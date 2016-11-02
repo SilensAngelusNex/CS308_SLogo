@@ -3,7 +3,6 @@ package Model.Commands.MultiTurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
@@ -25,7 +24,7 @@ public class TurtleNumberCommand extends AbstractTurtleCommand{
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		return getModel().turtleNumber();
 	}
 

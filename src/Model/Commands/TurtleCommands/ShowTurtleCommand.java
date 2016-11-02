@@ -3,7 +3,6 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class ShowTurtleCommand extends AbstractTurtleCommand{
@@ -14,8 +13,8 @@ public class ShowTurtleCommand extends AbstractTurtleCommand{
 	}
 
 	@Override
-	public double execCommand(TurtleModel t) throws InvalidCommandException {
-		return t.setVisibility(true);
+	public double execCommand() throws InvalidCommandException {
+		return getTurtle().setVisibility(true);
 	}
 
 	@Override
