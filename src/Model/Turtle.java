@@ -325,6 +325,5 @@ public class Turtle implements TurtleModel, TurtleView{
 		return myContainer.getIndex(this);
 	}
 
-
-
 }
+

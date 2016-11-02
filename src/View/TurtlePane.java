@@ -4,17 +4,20 @@ import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
+import Model.ColorObserver;
 import Model.EnclosureObserver;
 import Model.LineModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 /**
  * @author Owen Chung, Blake Becerra
  */
 
-public class TurtlePane extends Pane implements EnclosureObserver{
+public class TurtlePane extends Pane implements EnclosureObserver, ColorObserver{
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	private Map<TurtleView, ImageView> myTurtleImages;
 	private Map<LineModel, Line> myLines;
@@ -72,7 +75,8 @@ public class TurtlePane extends Pane implements EnclosureObserver{
 				getMaxHeight() / 2 - l.getStart().getY(), 
 				getMaxWidth() / 2 + l.getEnd().getX(), 
 				getMaxHeight() /2 - l.getEnd().getY());
-		lineToAdd.setFill(l.getColor());
+		lineToAdd.setStroke(l.getColor());
+		lineToAdd.setStrokeWidth(l.getWidth());
 		myLines.put(l, lineToAdd);
 		getChildren().add(lineToAdd);
 	}
@@ -80,5 +84,16 @@ public class TurtlePane extends Pane implements EnclosureObserver{
 	@Override
 	public void removeLine(LineModel l) {	
 		getChildren().remove(myLines.get(l));
+	}
+
+
+	@Override
+	public void colorChange(int index, Color newColor) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void backgroundChange(Color newColor) {
+		this.setStyle("-fx-background-color: #" + newColor.toString().substring(2, 8) + ";");
 	}
 }
