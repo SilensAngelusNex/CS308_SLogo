@@ -202,4 +202,8 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		myObservers.remove(v);
 		
 	}
+	
+	public void addCommandListener(CommandObserver o) {
+		myParser.getCommandFactory().addListener(o);
+	}
 }
