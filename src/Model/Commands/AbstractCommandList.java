@@ -26,7 +26,7 @@ abstract public class AbstractCommandList extends AbstractCommand {
 	
 	@Override
 	protected void execNonTurtleCommand() throws InvalidCommandException {
-		preExecChildren(getTurtle());
+		preExecChildren();
 	}
 	
 	@Override

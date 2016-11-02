@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.Commands.Command;
@@ -7,13 +8,17 @@ import View.TurtleView;
 import parser.InvalidCommandException;
 
 public class CompositeTurtle implements TurtleModel{
-	List<Turtle> myTurtles;
+	List<TurtleModel> myTurtles;
 	
+
+	public CompositeTurtle(ArrayList<TurtleModel> bale) {
+		myTurtles = bale;
+	}
 
 	@Override
 	public double forward(Command distance) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.forward(distance);
 		return result;
 	}
@@ -21,7 +26,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double back(Command distance) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.back(distance);
 		return result;
 	}
@@ -29,7 +34,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double right(Command degrees) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.right(degrees);
 		return result;
 	}
@@ -37,7 +42,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double left(Command degrees) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.left(degrees);
 		return result;
 	}
@@ -45,7 +50,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double setHeading(Command degrees) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.setHeading(degrees);
 		return result;
 	}
@@ -53,7 +58,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double towards(Command x, Command y) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.towards(x, y);
 		return result;
 	}
@@ -61,7 +66,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double goTo(Command x, Command y) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.goTo(x, y);
 		return result;
 	}
@@ -69,7 +74,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double goTo(double d, double e) {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.goTo(d, e);
 		return result;
 	}
@@ -77,7 +82,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double getHeading() {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.getHeading();
 		return result;
 	}
@@ -85,7 +90,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double getX() {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.getX();
 		return result;
 	}
@@ -93,7 +98,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double getY() {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.getY();
 		return result;
 	}
@@ -101,7 +106,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double setHeading(double radians) {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.setHeading(radians);
 		return result;
 	}
@@ -109,14 +114,14 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public boolean isDrawing() {
 		boolean result = false;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = result && t.isDrawing();
 		return result;
 	}
 
 	@Override
 	public double setPen(boolean b) {
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			t.setPen(b);
 		return b ? 1 : 0;
 	}
@@ -129,7 +134,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double getPenColor() {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.getPenColor();
 		return result;
 	}
@@ -137,7 +142,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double setPenColor(int index) {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.setPenColor(index);
 		return result;
 	}
@@ -146,7 +151,7 @@ public class CompositeTurtle implements TurtleModel{
 	public Point getCurrentLocation() {
 		double xResult = 0;
 		double yResult = 0;
-		for (Turtle t: myTurtles){
+		for (TurtleModel t: myTurtles){
 			xResult += t.getX();
 			yResult += t.getY();
 		}
@@ -157,7 +162,7 @@ public class CompositeTurtle implements TurtleModel{
 	public Point getPreviousLocation() {
 		double xResult = 0;
 		double yResult = 0;
-		for (Turtle t: myTurtles){
+		for (TurtleModel t: myTurtles){
 			xResult += t.getPreviousLocation().getX();
 			yResult += t.getPreviousLocation().getY();
 		}
@@ -166,12 +171,12 @@ public class CompositeTurtle implements TurtleModel{
 
 	@Override
 	public TurtleView toTurtleView() {
-		return myTurtles.get(myTurtles.size() - 1);
+		return myTurtles.get(myTurtles.size() - 1).toTurtleView();
 	}
 
 	@Override
 	public double setVisibility(boolean b) {
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			t.setVisibility(b);
 		return b ? 1 : 0;
 	}
@@ -179,14 +184,14 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public boolean getVisibility() {
 		boolean result = false;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = result && t.isDrawing();
 		return result;
 	}
 
 	@Override
 	public double setPenSize(double size) {
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			t.setPenSize(size);
 		return size;
 	}
@@ -194,7 +199,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public int getPenSize() {
 		int result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.getPenSize();
 		return result;
 	}
@@ -202,14 +207,14 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public int getShape() {
 		int result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.getShape();
 		return result;
 	}
 
 	@Override
 	public double setShape(int index) {
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			t.setShape(index);
 		return index;
 	}
@@ -217,7 +222,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double setPenSize(Command size) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.setPenSize(size);
 		return result;
 	}
@@ -225,7 +230,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double setShape(Command shape) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.setPenSize(shape);
 		return result;
 	}
@@ -233,7 +238,7 @@ public class CompositeTurtle implements TurtleModel{
 	@Override
 	public double setPenColor(Command index) throws InvalidCommandException {
 		double result = 0;
-		for (Turtle t: myTurtles)
+		for (TurtleModel t: myTurtles)
 			result = t.setPenColor(index);
 		return result;
 	}

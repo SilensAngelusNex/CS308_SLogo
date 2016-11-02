@@ -141,34 +141,40 @@ abstract public class AbstractCommand implements Command{
 	
 	protected void execNonTurtleCommand() throws InvalidCommandException {
 		if(!isTurtleCommand()){
-			execChildrenAndReplaceSelf(myTurtle);
+			execChildrenAndReplaceSelf();
 		} else {
-			preExecChildren(myTurtle);
+			preExecChildren();
 		}
 		
 	}
 	
-	protected void execChildrenAndReplaceSelf(TurtleModel t) throws InvalidCommandException{
-		if (preExecChildren(t)){
-			double result = execute(null);	
+	protected void execChildrenAndReplaceSelf() throws InvalidCommandException{
+		if (preExecChildren()){
+			double result = execute(myTurtle);	
 			selfReplace(new ConstantCommand(this, result));
 		}
 	}
 	
-	protected boolean preExecChildren(TurtleModel t) throws InvalidCommandException{
+	protected boolean preExecChildren() throws InvalidCommandException{
 		boolean childrenConstant = true;
 		for (int i = 0; i < getChildren().size(); i++){
-			getChild(i).execNonTurtle(t);
+			getChild(i).execNonTurtle(myTurtle);
 			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 		}
 		return childrenConstant;
 	}
 	
-	protected TurtleModel getTurtle(){
+	public TurtleModel getTurtle(){
 		return myTurtle;
 	}
 	public void setTurtle(TurtleModel t){
 		myTurtle = t;
+	}
+	
+	public void setTurtleRecursive(TurtleModel t){
+		myTurtle = t;
+		if (myParent != null)
+			myParent.setTurtleRecursive(t);
 	}
 	
 	protected InvalidCommandException argError() {

@@ -15,7 +15,7 @@ abstract public class AbstractNoVariablePreExecuteCommand extends AbstractComman
 	@Override
 	protected void execNonTurtleCommand() throws InvalidCommandException {
 		if (!(isVariableCommand() || isTurtleCommand())){
-			execChildrenAndReplaceSelf(getTurtle());
+			execChildrenAndReplaceSelf();
 		}
 	}
 

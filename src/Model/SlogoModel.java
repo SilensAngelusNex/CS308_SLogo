@@ -5,6 +5,7 @@ import java.util.List;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
+import javafx.util.Pair;
 import parser.FileHandler;
 import parser.InvalidCommandException;
 import parser.Language;
@@ -144,6 +145,16 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	@Override
 	public double turtleNumber() {
 		return myTurtleEnclosure.turtles();
+	}
+
+	@Override
+	public Pair<Double, TurtleModel> newCompositeTurtleCondition(Command cond) throws InvalidCommandException {
+		return myTurtleEnclosure.newCompositeTurtleCondition(cond);
+	}
+
+	@Override
+	public Pair<Double, TurtleModel> newCompositeTurtle(Command list) throws InvalidCommandException {
+		return myTurtleEnclosure.newCompositeTurtle(list);
 	}
 
 }

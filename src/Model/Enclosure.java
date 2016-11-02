@@ -1,12 +1,18 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import Model.Commands.Command;
+import javafx.util.Pair;
+import parser.InvalidCommandException;
 
 
 public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer{
 	private List<EnclosureObserver> myObservers;
-	private List<TurtleModel> myTurtles;
+	private Map<Integer, TurtleModel> myTurtles;
 	private List<LineModel> myLines;
 	private TurtleModel myActiveTurtle;
 	private ColorPallet myColors;
@@ -20,17 +26,17 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 		myMaximumY = maxY;
 		myObservers = new ArrayList<EnclosureObserver>();
 		myLines = new ArrayList<LineModel>();
-		myTurtles = new ArrayList<TurtleModel>();
+		myTurtles = new HashMap<Integer, TurtleModel>();
 
 		myActiveTurtle = new Turtle(myColors, this);
-		addTurtle(myActiveTurtle);
+		addTurtle(0, myActiveTurtle);
 	}
 	
 	public double clearScreen(){
 		removeAllLines();
 		removeAllTurtles();
 		
-		addTurtle(myActiveTurtle);
+		addTurtle(0, myActiveTurtle);
 		myActiveTurtle.setHeading(Math.toRadians(90));
 		
 		return myActiveTurtle.goTo(0, 0);
@@ -42,7 +48,7 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 	public void addListener(EnclosureObserver v) {
 		myObservers.add(v);
 		
-		for (TurtleModel t: myTurtles){
+		for (TurtleModel t: myTurtles.values()){
 			if (t.getVisibility())
 				v.addTurtle(t.toTurtleView());
 		}
@@ -57,16 +63,16 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 		myObservers.remove(v);
 	}
 	
-	private void addTurtle(TurtleModel t){
-		myTurtles.add(t);
+	private void addTurtle(int index, TurtleModel t){
+		myTurtles.put(index, t);
 		notifyListenersAddTurtle(t);
 	}
 	
 	private void removeAllTurtles(){
-		for (TurtleModel t: myTurtles){
+		for (TurtleModel t: myTurtles.values()){
 			notifyListenersRemoveTurtle(t);
 		}
-		myTurtles = new ArrayList<TurtleModel>();
+		myTurtles = new HashMap<Integer, TurtleModel>();
 	}
 	
 	private void removeAllLines(){
@@ -104,8 +110,9 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 	}
 
 	public double ActiveID() {
-		return myTurtles.indexOf(myActiveTurtle);
+		return myActiveTurtle.getIndex();
 	}
+
 
 	public double turtles() {
 		return myTurtles.size();
@@ -145,17 +152,54 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 	}
 
 	@Override
-	public int getIndex(Turtle turtle) {
-		return myTurtles.indexOf(turtle);
+	public int getIndex(TurtleModel turtle) {
+		for (Map.Entry<Integer, TurtleModel> e : myTurtles.entrySet())
+			if (e.getValue() == turtle)
+				return e.getKey();
+		return -1;
 	}
 
 	@Override
-	public void turtleAdd(Turtle turtle) {
+	public void turtleAdd(TurtleModel turtle) {
 		notifyListenersAddTurtle(turtle);
 	}
 
 	@Override
-	public void turtleRemove(Turtle turtle) {
+	public void turtleRemove(TurtleModel turtle) {
 		notifyListenersRemoveTurtle(turtle);
+	}
+
+	public Pair<Double, TurtleModel> newCompositeTurtle(Command list) throws InvalidCommandException {
+		//A bale is a group of turtles. :D
+		ArrayList<TurtleModel> bale = new ArrayList<TurtleModel>();
+		TurtleModel currTurtle = list.getTurtle();
+		
+		int index = 0;
+		for (Command child: list.getChildren()){
+			index = (int) child.execute(currTurtle);
+			bale.add(getTurtle(index));
+		}
+		
+		return new Pair<Double, TurtleModel>((double) index, new CompositeTurtle(bale));
+		
+	}
+
+	private TurtleModel getTurtle(double index) {
+		if (!myTurtles.containsKey((int) index))
+			myTurtles.put((int) index, new Turtle(myColors, this));
+		return myTurtles.get((int) index);
+	}
+
+	public Pair<Double, TurtleModel> newCompositeTurtleCondition(Command cond) throws InvalidCommandException {
+		//A bale is a group of turtles. :D
+		ArrayList<TurtleModel> bale = new ArrayList<TurtleModel>();
+		
+		int index = 0;
+		for (TurtleModel t: myTurtles.values())
+			if (cond.execute(t) != 0)
+				bale.add(t);
+		
+		return new Pair<Double, TurtleModel>((double) index, new CompositeTurtle(bale));
+		
 	}
 }
