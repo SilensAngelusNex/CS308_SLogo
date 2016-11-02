@@ -3,14 +3,12 @@ import java.awt.Dimension;
 import java.util.ResourceBundle;
 
 import Controller.MakeMultipleWorkspaceInterface;
-
 import Controller.ModelInViewInterface;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
-
 import parser.InvalidCommandException;
 
 /**
@@ -75,8 +73,7 @@ public class SlogoView extends BorderPane {
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				try {
-					System.out.println(lineColorBox.getSelectionModel().getSelectedIndex());
-					myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor") 
+					myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor").split("\\|")[0] 
 											+ " " + lineColorBox.getSelectionModel().getSelectedIndex());
 				} catch (InvalidCommandException e) {
 					myUIFactory.promptAlert("Command Error", e);
@@ -90,7 +87,6 @@ public class SlogoView extends BorderPane {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
-				System.out.println(arg2);
 				myTurtlePane.setStyle("-fx-background-color: " + arg2);
 			}
 		});

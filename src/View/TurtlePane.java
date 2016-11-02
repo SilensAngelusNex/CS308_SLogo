@@ -77,7 +77,6 @@ public class TurtlePane extends Pane implements EnclosureObserver, ColorObserver
 				getMaxHeight() /2 - l.getEnd().getY());
 		lineToAdd.setStroke(l.getColor());
 		lineToAdd.setStrokeWidth(l.getWidth());
-		System.out.println(l.getColor().toString());
 		myLines.put(l, lineToAdd);
 		getChildren().add(lineToAdd);
 	}
