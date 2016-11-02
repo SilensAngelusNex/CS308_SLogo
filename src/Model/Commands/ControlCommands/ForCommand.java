@@ -3,11 +3,10 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
 
-public class ForCommand extends AbstractCommand {
+public class ForCommand extends AbstractNoVariablePreExecuteCommand {
 	String myName = "For";
 	
 	public ForCommand(CommandableModel model, ResourceBundle commands) {

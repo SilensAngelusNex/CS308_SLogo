@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class XCoorCommand extends AbstractCommand {
+public class XCoorCommand extends AbstractTurtleCommand {
 	String myName = "XCoordinate";
 
 	public XCoorCommand(CommandableModel model, ResourceBundle commands) {

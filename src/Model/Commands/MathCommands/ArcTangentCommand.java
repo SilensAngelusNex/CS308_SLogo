@@ -26,4 +26,5 @@ public class ArcTangentCommand extends AbstractMathCommand {
 		return myName;
 	}
 
+
 }

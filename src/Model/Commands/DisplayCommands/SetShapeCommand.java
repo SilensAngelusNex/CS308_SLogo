@@ -3,13 +3,13 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
+import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
 /**
  * @author Daniel Chai
  */
-public class SetShapeCommand extends AbstractCommand {
+public class SetShapeCommand extends AbstractTurtleCommand {
 	String myName = "SetShape";
 	
 	public SetShapeCommand(CommandableModel model, ResourceBundle language) {

@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class ForwardCommand extends AbstractCommand{
+public class ForwardCommand extends AbstractTurtleCommand{
 	String myName = "Forward";
 	
 	public ForwardCommand(CommandableModel model, ResourceBundle commands) {

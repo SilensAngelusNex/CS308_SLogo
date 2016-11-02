@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class ClearScreenCommand extends AbstractCommand{
+public class ClearScreenCommand extends AbstractTurtleCommand{
 	String myName = "ClearScreen";
 
 	public ClearScreenCommand(CommandableModel model, ResourceBundle commands) {

@@ -1,65 +1,69 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-public class ColorPallet implements Observable<ColorObserver>{
+public class ColorPallet implements Observable<ColorObserver> {
 	List<ColorObserver> myObservers;
 	Color myBackground;
-	List<Color> myColors;
-	
-	public ColorPallet(){
-		myColors = new ArrayList<Color>();
+	Map<Integer, Color> myColors;
+
+	public ColorPallet() {
+		myColors = new HashMap<Integer, Color>();
 		myBackground = Color.color(0, 0, 0);
+		myObservers = new ArrayList<ColorObserver>();
 	}
-	
-	public void addColor(int r, int g, int b){
-		myColors.add(Color.color(r, g, b));
+
+	public void addColor(int r, int g, int b) {
+		myColors.put(myColors.size(), Color.color(r, g, b));
 	}
 
 	public double setIndex(int index, int r, int g, int b) {
-		myColors.set(index, Color.color(r, g, b));
+		myColors.put(index, Color.color(r, g, b));
 		notifyListenersColorChange(index);
 		return index;
 	}
-	
-	public double getIndex(Color toFind){
-		int i = 0;
-		while (i < myColors.size()){
-			if (myColors.get(i).equals(toFind))
-				break;
-			i++;
+
+	public double getIndex(Color toFind) {
+		for (Integer index : myColors.keySet()) {
+			if (myColors.get(index).equals(toFind)) {
+				return index;
+			}
 		}
-		return i;
+		return -1;
 	}
-	
-	public Color getColor(int index){
+
+	public Color getColor(int index) {
 		return myColors.get(index);
 	}
 
-	public void setBackground(int index) {
+	public double setBackground(int index) {
 		myBackground = myColors.get(index);
 		notifyListenersBackgroundChange();
+		return index;
 	}
 
 	@Override
 	public void addListener(ColorObserver v) {
 		myObservers.add(v);
-		for (int i = 0; i < myColors.size(); i++)
-			v.colorChange(i, myColors.get(i));
+		for (Integer index : myColors.keySet()) {
+			v.colorChange(index, myColors.get(index));
+		}
 		v.backgroundChange(myBackground);
 	}
 
 	private void notifyListenersBackgroundChange() {
-		for (ColorObserver o: myObservers){
+		for (ColorObserver o : myObservers) {
 			o.backgroundChange(myBackground);
 		}
 	}
 
 	private void notifyListenersColorChange(int index) {
-		for (ColorObserver o: myObservers){
+		for (ColorObserver o : myObservers) {
 			o.colorChange(index, myColors.get(index));
 		}
 	}

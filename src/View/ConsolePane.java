@@ -60,7 +60,7 @@ public class ConsolePane extends BorderPane {
 			
 		}catch(Exception e){
 			myUIFactory.promptAlert("Command Error", e);
-
+			e.printStackTrace();
 		}
 	}
 

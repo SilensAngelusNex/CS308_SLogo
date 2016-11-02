@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class HideTurtleCommand extends AbstractCommand{
+public class HideTurtleCommand extends AbstractTurtleCommand{
 	String myName = "HideTurtle";
 
 	public HideTurtleCommand(CommandableModel model, ResourceBundle commands) {
