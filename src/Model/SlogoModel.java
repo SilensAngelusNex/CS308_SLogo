@@ -23,6 +23,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		myVariables = new VariableContainer();
 		myParser = new MainParser(Language.ENGLISH, this);
 		myObservers = new ArrayList<VariableObserver>();
+		myColors = new ColorPallet();
 	}
 	
 	public void setTurtleImage(String image){

@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ public class ColorPallet implements Observable<ColorObserver> {
 	public ColorPallet() {
 		myColors = new HashMap<Integer, Color>();
 		myBackground = Color.color(0, 0, 0);
+		myObservers = new ArrayList<ColorObserver>();
 	}
 
 	public void addColor(int r, int g, int b) {
