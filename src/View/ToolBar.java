@@ -70,7 +70,7 @@ public class ToolBar extends HBox{
 	private void displayTurtle() {
 		File file = chooseFiletoRead();
 		if (file != null){
-			myModelInViewInterface.setTurtleImage(file.getName());
+			myTurtlePane.changeTurtleImage(file.getName());
 		}
 	}
 	
