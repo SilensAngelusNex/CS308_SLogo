@@ -18,7 +18,7 @@ public class SlogoController {
 	public SlogoController(){
 		
 		myView = new SlogoView("english", myUserDefinedPane);
-		myModel = new SlogoModel(myView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
+		myModel = new SlogoModel(myView.getTurtlePane(), myView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		myView.setModelInViewInterface((ModelInViewInterface) myModel);
 		myView.setMakeMultipleWorkspaceInterface(new MultipleWorkspace("english"));
 		myModel.addListener(myUserDefinedPane);

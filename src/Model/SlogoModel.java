@@ -16,7 +16,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private ColorPallet myColors;
 	private List<VariableObserver> myObservers;
 	
-	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
+	public SlogoModel(EnclosureObserver e, ColorObserver c, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
 		myTurtleEnclosure.addListener(e);
 		
@@ -24,6 +24,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		myParser = new MainParser(Language.ENGLISH, this);
 		myObservers = new ArrayList<VariableObserver>();
 		myColors = new ColorPallet();
+		myColors.addListener(c);
 	}
 	
 	public void setTurtleImage(String image){
