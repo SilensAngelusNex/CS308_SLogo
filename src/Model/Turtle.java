@@ -26,7 +26,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		myTurtleImage = "turtle.png";
 		
 		myPenDown = true;
-		myPenColor = Color.color(1, 1, 1, 1.0);
+		myPenColor = Color.color(0, 0, 0, 1.0);
 		myPenSize = 2;
 
 		myVisibility = true;

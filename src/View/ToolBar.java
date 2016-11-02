@@ -43,10 +43,10 @@ public class ToolBar extends HBox{
 		myLanguageCBox = myUIFactory.makeChoiceBox(languages, "Language");
 		
 		myColorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"Black", "Blue", "White"), "Color");
+				"White",  "Black", "Red", "Blue", "Green", "Aqua", 	"Fuchsia", "Yellow"), "Color");
 		
 		myLineColorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"Black",  "Blue", "Red"), "LineColor");
+				"White",  "Black", "Red", "Blue", "Green", "Aqua", 	"Fuchsia", "Yellow"), "LineColor");
 		
 		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
@@ -88,7 +88,7 @@ public class ToolBar extends HBox{
 	}
 	
 	public ChoiceBox<String> getLineColorCBox() {
-		return myColorCBox;
+		return myLineColorCBox;
 	}
 	
 }
