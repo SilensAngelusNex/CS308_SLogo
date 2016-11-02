@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 /**
  * @author Owen Chung, Blake Becerra
  */
@@ -74,7 +75,8 @@ public class TurtlePane extends Pane implements EnclosureObserver, ColorObserver
 				getMaxHeight() / 2 - l.getStart().getY(), 
 				getMaxWidth() / 2 + l.getEnd().getX(), 
 				getMaxHeight() /2 - l.getEnd().getY());
-		lineToAdd.setFill(l.getColor());
+		lineToAdd.setStroke(l.getColor());
+		lineToAdd.setStrokeWidth(l.getWidth());
 		myLines.put(l, lineToAdd);
 		getChildren().add(lineToAdd);
 	}
@@ -88,7 +90,6 @@ public class TurtlePane extends Pane implements EnclosureObserver, ColorObserver
 	@Override
 	public void colorChange(int index, Color newColor) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
