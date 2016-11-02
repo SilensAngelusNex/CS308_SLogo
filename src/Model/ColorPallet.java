@@ -10,11 +10,13 @@ import javafx.scene.paint.Color;
 public class ColorPallet implements Observable<ColorObserver> {
 	List<ColorObserver> myObservers;
 	Color myBackground;
+	Color myPen;
 	Map<Integer, Color> myColors;
 
 	public ColorPallet() {
 		myColors = new HashMap<Integer, Color>();
 		myBackground = Color.color(1, 1, 1);
+		myPen = Color.color(0, 0, 0);
 		myObservers = new ArrayList<ColorObserver>();
 	}
 
@@ -44,6 +46,11 @@ public class ColorPallet implements Observable<ColorObserver> {
 	public double setBackground(int index) {
 		myBackground = myColors.get(index);
 		notifyListenersBackgroundChange();
+		return index;
+	}
+	
+	public double setPen(int index){
+		myPen = myColors.get(index);
 		return index;
 	}
 

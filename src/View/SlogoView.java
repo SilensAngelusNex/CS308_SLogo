@@ -70,17 +70,18 @@ public class SlogoView extends BorderPane {
 		setLanguageChangeListener(myToolBar.getLanguageCBox());
 		setColorChangeListener(myToolBar.getColorCBox());
 		setLineColorChangeListener(myToolBar.getLineColorCBox());
-		//TODO : adding workspace 
 		Button workspaceButton = myUIFactory.makeButton("NewWorkspaceLabel", e -> makeNewWorkspace());
 		myToolBar.getChildren().add(workspaceButton);
 	}
 	
 	private void setLineColorChangeListener(ChoiceBox<String> lineColorBox){
+		//System.out.println("setting listener");
 		lineColorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				try {
+					System.out.println(lineColorBox.getSelectionModel().getSelectedIndex());
 					myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor") 
 											+ " " + lineColorBox.getSelectionModel().getSelectedIndex());
 				} catch (InvalidCommandException e) {
@@ -98,7 +99,6 @@ public class SlogoView extends BorderPane {
 				System.out.println(arg2);
 				myTurtlePane.setStyle("-fx-background-color: " + arg2);
 			}
-
 		});
 	}
 
