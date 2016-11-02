@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class HeadingCommand extends AbstractCommand {
+public class HeadingCommand extends AbstractTurtleCommand {
 	String myName = "Heading";
 
 	public HeadingCommand(CommandableModel model, ResourceBundle commands) {

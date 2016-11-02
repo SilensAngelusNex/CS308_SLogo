@@ -32,10 +32,11 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	
 	/**
 	 * @throws InvalidCommandException 
-	 * @deprecated
+	 * 
 	 */
 	public String parseAndExecute(String command) throws InvalidCommandException{
 		Command toExec = myParser.getExpressionTreeFromCommand(command);
+		toExec.execNonTurtle();
 		double result = toExec.execute();
 		
 		return Double.toString(result);
@@ -123,19 +124,16 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	
 	//Display Commands
 	public double setBackground(double index){
-		myColors.setBackground((int) index);
-		return index;
+		return myColors.setBackground((int) index);
 	}
 	public double setPenColor(double index){
-		myTurtleEnclosure.setPenColor(myColors.getColor((int) index));
-		return index;
+		return myTurtleEnclosure.setPenColor(myColors.getColor((int) index));
 	}
 	public double setPenSize(double size){
 		return myTurtleEnclosure.setPenSize(size);
 	}
 	public double setShape(double index){
-		myTurtleEnclosure.setShape((int) index);
-		return index;
+		return myTurtleEnclosure.setShape((int) index);
 	}
 	public double getShape(){
 		return myTurtleEnclosure.getShape();

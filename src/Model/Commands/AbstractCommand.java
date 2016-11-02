@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
 
@@ -16,6 +17,12 @@ abstract public class AbstractCommand implements Command{
 	//TODO: fetch error from resource
 	private String argErrorMessage = "Not enough arguments to complete command: ";
 	
+	protected AbstractCommand(AbstractCommand cmd){
+		myLanguage = cmd.myLanguage;
+		myModel = cmd.myModel;
+		myChildren = new ArrayList<Command>();
+	}
+	
 	public AbstractCommand(CommandableModel model, ResourceBundle language){
 		myLanguage = language;
 		myModel = model;
@@ -26,14 +33,43 @@ abstract public class AbstractCommand implements Command{
 		return myModel;
 	}
 	
+	
 	@Override
 	public double execute() throws InvalidCommandException {
 		if (argsNotFull())
 			//TODO: Use resource file for error message.
-			throw new InvalidCommandException(argErrorMessage + myLanguage.getString(getName()));
+			throw argError();
 		else {
-			return execCommand();			
+			return execCommand();
 		}
+	}
+	
+	@Override
+	public void execNonTurtle() throws InvalidCommandException {
+		if (argsNotFull())
+			//TODO: Use resource file for error message.
+			throw argError();
+		else {
+			execNonTurtleCommand();			
+		}
+	}
+	
+	@Override
+	public boolean isTurtleCommand(){
+		boolean children = false;
+		for (Command child: myChildren){
+			children = children || child.isTurtleCommand();
+		}
+		return (this instanceof AbstractTurtleCommand) || children;
+	}
+	
+	@Override
+	public boolean isVariableCommand(){
+		boolean children = false;
+		for (Command child: myChildren){
+			children = children || child.isVariableCommand();
+		}
+		return (this instanceof VariableCommand) || children;
 	}
 
 	@Override
@@ -45,32 +81,79 @@ abstract public class AbstractCommand implements Command{
 	}
 	
 	@Override
+	public void selfReplace(Command replacement) {
+		myParent.getChildren().set(myParent.getChildren().indexOf(this), replacement);
+		replacement.setParent(myParent);
+		myParent = null;
+	}
+	
+	@Override
 	public boolean argsNotFull() {
 		return myChildren.size() < maxArgs() || maxArgs() < 0;
 	}
 
+	@Override
 	public Command getChild(int index) {
 		return myChildren.get(index);
 	}
 
+	@Override
 	public List<Command> getChildren() {
 		return myChildren;
 	}
 	
+	@Override
 	public void setParent(Command cmd) {
 		myParent = cmd;
 	}
 	
+	@Override
 	public Command getParent() {
 		return myParent;
 	}
 	
+	@Override
 	public String toString() {
-		return getName();
+		StringBuilder s = new StringBuilder();
+		s.append(getName());
+		s.append("(");
+		for (Command c: myChildren)
+			s.append(c.toString());
+		s.append(")");
+		return s.toString();
 	}
 	
 	
 	abstract protected double execCommand() throws InvalidCommandException;
+	
+	protected void execNonTurtleCommand() throws InvalidCommandException {
+		if(!isTurtleCommand()){
+			execChildrenAndReplaceSelf();
+		} else {
+			preExecChildren();
+		}
+		
+	}
+	
+	protected void execChildrenAndReplaceSelf() throws InvalidCommandException{
+		if (preExecChildren()){
+			double result = execute();	
+			selfReplace(new ConstantCommand(this, result));
+		}
+	}
+	
+	protected boolean preExecChildren() throws InvalidCommandException{
+		boolean childrenConstant = true;
+		for (int i = 0; i < getChildren().size(); i++){
+			getChild(i).execNonTurtle();
+			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
+		}
+		return childrenConstant;
+	}
+	
+	protected InvalidCommandException argError() {
+		return new InvalidCommandException(argErrorMessage + getName());
+	}
 	
 
 }

@@ -8,6 +8,11 @@ import parser.InvalidCommandException;
 public class ConstantCommand extends AbstractCommand{
 	private String myName;
 	
+	public ConstantCommand(AbstractCommand cmd, double myValue) {
+		super(cmd);
+		myName = Double.toString(myValue);
+	}
+	
 	public ConstantCommand(CommandableModel model, ResourceBundle commands, String varName) {
 		super(model, commands);
 		myName = varName;
@@ -26,6 +31,11 @@ public class ConstantCommand extends AbstractCommand{
 	@Override
 	protected double execCommand() throws InvalidCommandException {
 		return Double.parseDouble(myName);
+	}
+
+	@Override
+	protected void execNonTurtleCommand() throws InvalidCommandException {
+		// Do nothing. (Already a constant)	
 	}
 
 }
