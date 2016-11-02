@@ -194,15 +194,13 @@ public class CommandFactory implements Observable<CommandObserver> {
 
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
 		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase())) {
-			notifyListenersAddCommand(commandName.toLowerCase(), argNames.size());
 			return 0;
 		}
 		if (executable(ops)) {
-			notifyListenersChangeCommand(commandName.toLowerCase(), argNames.size());
+			notifyListenersAddCommand(commandName.toLowerCase(), argNames.size());
 			myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, ops));
 			return 1;
 		} else {
-			notifiyListenersRemoveCommand(commandName.toLowerCase());
 			myUserDefinedCommands.remove(commandName.toLowerCase());
 			return 0;
 		}
@@ -246,18 +244,6 @@ public class CommandFactory implements Observable<CommandObserver> {
 	private void notifyListenersAddCommand(String commandName, int numArgs) {
 		for (CommandObserver o : myObservers) {
 			o.addCommand(commandName, numArgs);
-		}
-	}
-	
-	private void notifyListenersChangeCommand(String commandName, int numArgs){ 
-		for (CommandObserver o : myObservers) {
-			o.changeCommand(commandName, numArgs);
-		}
-	}
-	
-	private void notifiyListenersRemoveCommand(String commandName) {
-		for (CommandObserver o : myObservers) {
-			o.deleteVariable(commandName);
 		}
 	}
 }
