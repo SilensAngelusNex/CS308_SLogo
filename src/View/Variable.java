@@ -3,7 +3,9 @@ package View;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+/**
+ * @author Owen Chung
+ */
 public class Variable {
 	 private SimpleStringProperty myVariable;
 	 private SimpleDoubleProperty myValue;
