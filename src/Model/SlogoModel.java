@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
@@ -15,6 +16,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private MainParser myParser;
 	private ColorPallet myColors;
 	private List<VariableObserver> myObservers;
+	private Map<String, Language> languageMap;
 	
 	public SlogoModel(EnclosureObserver e, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
@@ -41,6 +43,17 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		
 		return Double.toString(result);
 	}
+	
+	@Override
+	public void changeLanguage(String language) {
+		for (Language l : Language.values()) {
+			if (l.getLangName().equals(language)) {
+				myParser = new MainParser(l, this);
+				return;
+			}
+		}
+	}
+	
 	//Turtle Cammands
 	public double forward(double distance){
 		return myTurtleEnclosure.forward(distance);

@@ -101,6 +101,7 @@ public class SlogoView extends BorderPane {
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
+				myModelInViewInterface.changeLanguage(arg2);
 			}
 
 		});
