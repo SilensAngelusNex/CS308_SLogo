@@ -3,6 +3,7 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 abstract public class AbstractCommandList extends AbstractCommand {
@@ -23,6 +24,11 @@ abstract public class AbstractCommandList extends AbstractCommand {
 	}
 	
 	abstract public void endList() throws InvalidCommandException;
+	
+	@Override
+	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
+		preExecChildren(t);
+	}
 	
 	@Override
 	public boolean argsNotFull() {

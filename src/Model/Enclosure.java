@@ -26,66 +26,7 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 		addTurtle(myActiveTurtle);
 	}
 	
-	/*
-	public double forward(Command distance) throws InvalidCommandException{
-		return myActiveTurtle.forward(distance);
-	}
-	
-	public double back(Command distance){
-		return myActiveTurtle.back(distance);
-	}
-	
-	public double right(Command degrees){
-		return myActiveTurtle.right(degrees);
-	}
-	
-	public double left(Command degrees){
-		return myActiveTurtle.left(degrees);
-	}
-	
-	public double setHeading(Command degrees){
-		return myActiveTurtle.setHeading(degrees);
-		
-	}
-	
-	public double towards(Command x, Command y){
-		return myActiveTurtle.towards(x, y);
-	}
-	
-	public double goTo(Command x, Command y){
-		return myActiveTurtle.goTo(x, y);
-	}
-	
-	public double penDown(){
-		myActiveTurtle.setPen(true);
-		return 1;
-	}
-	public double penUp(){
-		myActiveTurtle.setPen(false);
-		return 0;
-	}
-	public double showTurtle(){
-		if (!myActiveTurtle.getVisibility()){
-			myActiveTurtle.setVisibility(true);
-			notifyListenersAddTurtle(myActiveTurtle);
-		}
-
-		return 1;
-	}
-	public double hideTurtle(){
-		if (myActiveTurtle.getVisibility()){
-			myActiveTurtle.setVisibility(false);
-			notifyListenersRemoveTurtle(myActiveTurtle);
-		}
-		return 0;
-	}
-	public double home(){
-		return myActiveTurtle.goTo(0, 0);
-	}
-	*/
-	
 	public double clearScreen(){
-		
 		removeAllLines();
 		removeAllTurtles();
 		

@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
