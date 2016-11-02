@@ -105,6 +105,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 			notifyListenersChangeVariable(name, val);
 		} else {
 			result = myVariables.set(name, val);
+			System.out.println("setting a variable");
 			notifyListenersAddVariable(name, val);
 		}
 		return result;
@@ -162,6 +163,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private void notifyListenersAddVariable(String name, double value) {
 		for (VariableObserver v: myObservers){
 			v.addVariable(name, value);
+			System.out.println("notifying listeners");
 		}
 			
 	}

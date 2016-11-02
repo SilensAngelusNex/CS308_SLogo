@@ -9,7 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
+/**
+ * @author Owen Chung
+ */
 public class ToolBar extends HBox{
 	private UIFactory myUIFactory;
 	private TurtlePane myTurtlePane;

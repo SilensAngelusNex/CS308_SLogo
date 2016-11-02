@@ -5,17 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Model.VariableObserver;
-import javafx.collections.ObservableList;
+//import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * @author Owen Chung
+ */
 public class UserDefinedPane extends BorderPane implements VariableObserver{
 	private Dimension mySize = new Dimension(150, 150);
 	private ListView<String> myAvailableVariables;
 	private ListView<String> myUserCommands;
 	private Map<String, Double> myValueMap;
-	private ObservableList<String> myVariables;
 	
 	public UserDefinedPane(){
 		initPanes();
