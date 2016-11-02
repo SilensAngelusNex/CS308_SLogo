@@ -4,12 +4,10 @@ package View;
 import java.util.ResourceBundle;
 
 import Controller.ModelInViewInterface;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -58,12 +56,11 @@ public class ConsolePane extends BorderPane {
 	private void parseCommand(String command) {
 		try{
 			addTexttoInputBox(new Text(myModelInViewInterface.parseAndExecute(command)));
-			myCommandHistory.getItems().add(command);
+			myCommandHistory.getItems().add(command + "\n");
 			
 		}catch(Exception e){
+			myUIFactory.promptAlert("Command Error", e);
 			e.printStackTrace();
-			promptAlert("Command Error", e);
-
 		}
 	}
 
@@ -78,12 +75,6 @@ public class ConsolePane extends BorderPane {
 		myOutputBox.getChildren().add(t);
 	}
 	
-	private void promptAlert(String s, Exception e){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(s);
-		alert.setHeaderText(s);
-		alert.setContentText(e.toString());
-		alert.show();
-	}
+
 	
 }

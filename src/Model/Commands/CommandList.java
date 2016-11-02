@@ -29,6 +29,16 @@ public class CommandList extends AbstractCommandList{
 	public double execute() throws InvalidCommandException {
 		return execCommand();
 	}
+	
+	@Override
+	public void selfReplace(Command replacement) {
+		if (getParent() != null)
+			super.selfReplace(replacement);
+		else {
+			getChildren().clear();
+			addChild(replacement);
+		}
+	}
 
 
 	@Override
