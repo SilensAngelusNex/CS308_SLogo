@@ -6,9 +6,15 @@ import java.util.ResourceBundle;
 import Controller.ModelInViewInterface;
 import javafx.scene.control.ChoiceBox;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+/**
+ * @author Owen Chung
+ */
+
+import parser.Language;
 
 public class ToolBar extends HBox{
 	private UIFactory myUIFactory;
@@ -28,9 +34,13 @@ public class ToolBar extends HBox{
 		myHelpPage = helppage;
 		myTurtlePane = turtlepane;
 		myModelInViewInterface = MVI;
-		myLanguageCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"English", "Chinese", "French", "German", "Italian", "Portuguese",
-				"Russian", "Spanish"), "Language");
+		
+		ObservableList<String> languages = FXCollections.observableArrayList();
+		for (Language lang : Language.values()) {
+			languages.add(lang.getLangName());
+		}
+		
+		myLanguageCBox = myUIFactory.makeChoiceBox(languages, "Language");
 		
 		myColorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
 				"Black", "Blue", "White"), "Color");

@@ -9,4 +9,5 @@ import parser.InvalidCommandException;
 public interface ModelInViewInterface {
 	public String parseAndExecute(String command) throws InvalidCommandException;
 	public void setTurtleImage(String image);
+	public void changeLanguage(String language);
 }

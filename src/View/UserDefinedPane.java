@@ -11,12 +11,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * @author Owen Chung
+ */
 public class UserDefinedPane extends BorderPane implements VariableObserver{
 	private Dimension mySize = new Dimension(150, 150);
 	private TableView<Variable> myAvailableVariables;
 	private ListView<String> myUserCommands;
 	private Map<String, Double> myVariableMap;
+
 	
 	public UserDefinedPane(){
 		initPanes();

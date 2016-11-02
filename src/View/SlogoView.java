@@ -1,15 +1,16 @@
 package View;
-
 import java.awt.Dimension;
 import java.util.ResourceBundle;
 
 import Controller.MakeMultipleWorkspaceInterface;
+
 import Controller.ModelInViewInterface;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
+
 import parser.InvalidCommandException;
 
 /**
@@ -101,6 +102,7 @@ public class SlogoView extends BorderPane {
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
+				myModelInViewInterface.changeLanguage(arg2);
 			}
 
 		});
