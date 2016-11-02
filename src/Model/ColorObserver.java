@@ -8,4 +8,5 @@ public interface ColorObserver {
 	
 	abstract public void backgroundChange(Color newColor);
 
+	
 }
