@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import Controller.MakeMultipleWorkspaceInterface;
 import Controller.ModelInViewInterface;
 import Model.SlogoModel;
 import javafx.beans.value.ChangeListener;
@@ -30,6 +31,7 @@ public class SlogoView extends BorderPane {
 	private ResourceBundle myLanguageResources;
 	private ResourceBundle myUILabel;
 	private ModelInViewInterface myModelInViewInterface;
+	private MakeMultipleWorkspaceInterface myMultipleWorkspaceInterface;
 	private UserManualPopup myHelpPage;
 	private UIFactory myUIFactory;
 	private SidePane mySidePane;
@@ -38,7 +40,7 @@ public class SlogoView extends BorderPane {
 	private ToolBar myToolBar;
 	
 	
-    public SlogoView(String language, UserDefinedPane udp){
+    public SlogoView(String language, UserDefinedPane udp ){
 		myUILabel = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + language);
 		myHelpPage = new UserManualPopup();
@@ -52,6 +54,10 @@ public class SlogoView extends BorderPane {
 	}
     public void setModelInViewInterface(ModelInViewInterface vm){
     	myModelInViewInterface = vm;
+    }
+    
+    public void setMakeMultipleWorkspaceInterface(MakeMultipleWorkspaceInterface mw){
+    	myMultipleWorkspaceInterface = mw;
     }
     
     public void setConsolePane(){
@@ -105,16 +111,9 @@ public class SlogoView extends BorderPane {
 
 		});
 	}
-	// TODO : I don't think this will work because we need to add listener in controller class
+	
 	private void makeNewWorkspace(){
-		SlogoView workspaceView = new SlogoView("english", new UserDefinedPane());
-		SlogoModel workspaceModel = new SlogoModel(workspaceView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
-		workspaceView.setModelInViewInterface((ModelInViewInterface) workspaceModel);
-		workspaceView.setConsolePane();
-	//	Scene newScene = new Scene(workspaceView, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
-		Stage newWorkspace = new Stage();
-		newWorkspace.setScene(new Scene(workspaceView, DEFAULT_SIZE.width, DEFAULT_SIZE.height));
-		newWorkspace.show();
+		myMultipleWorkspaceInterface.makeWorkspace();
 	}
 
 
