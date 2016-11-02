@@ -56,7 +56,7 @@ public class ConsolePane extends BorderPane {
 	private void parseCommand(String command) {
 		try{
 			addTexttoInputBox(new Text(myModelInViewInterface.parseAndExecute(command)));
-			myCommandHistory.getItems().add(command);
+			myCommandHistory.getItems().add(command + "\n");
 			
 		}catch(Exception e){
 			myUIFactory.promptAlert("Command Error", e);

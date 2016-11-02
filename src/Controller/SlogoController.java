@@ -2,7 +2,9 @@ package Controller;
 
 import java.awt.Dimension;
 
+import Model.CommandObserver;
 import Model.SlogoModel;
+import Model.VariableObserver;
 import View.SlogoView;
 import View.UserDefinedPane;
 //import View.StartScreen;
@@ -21,7 +23,8 @@ public class SlogoController {
 		myModel = new SlogoModel(myView.getTurtlePane(), myView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		myView.setModelInViewInterface((ModelInViewInterface) myModel);
 		myView.setMakeMultipleWorkspaceInterface(new MultipleWorkspace("english"));
-		myModel.addListener(myUserDefinedPane);
+		myModel.addListener((VariableObserver)myUserDefinedPane);
+		myModel.addCommandListener((CommandObserver)myUserDefinedPane);
 		myView.setConsolePane();
 		
 		/*
