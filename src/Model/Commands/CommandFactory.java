@@ -17,6 +17,8 @@ import Model.Commands.TurtleCommands.*;
 import Model.Commands.MathCommands.*;
 import Model.Commands.ControlCommands.*;
 import Model.Commands.DisplayCommands.*;
+import Model.Commands.MultiTurtleCommands.*;
+
 
 public class CommandFactory implements Observable<CommandObserver> {
 	private Map<String, Pair<List<String>, Command>> myUserDefinedCommands;
@@ -165,6 +167,18 @@ public class CommandFactory implements Observable<CommandObserver> {
 				return new PenColorCommand(myModel, myCommands);
 			case "GetShape":
 				return new ShapeCommand(myModel, myCommands);
+				
+			//Multiturtle Commands
+			case "Tell":
+				return new TellCommand(myModel, myCommands);
+			case "Ask":
+				return new AskCommand(myModel, myCommands);
+			case "AskWith":
+				return new AskWithCommand(myModel, myCommands);
+			case "ID":
+				return new IDCommand(myModel, myCommands);
+			case "Turtles":
+				return new TurtleNumberCommand(myModel, myCommands);
 			
 			//User Defined Commands
 			default:

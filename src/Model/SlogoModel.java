@@ -2,10 +2,10 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
+import javafx.util.Pair;
 import parser.FileHandler;
 import parser.InvalidCommandException;
 import parser.Language;
@@ -19,7 +19,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private List<VariableObserver> myObservers;
 	private FileHandler myFileHandler;
 	
-	public SlogoModel(EnclosureObserver e, ColorObserver c, double enclosureMaxX, double enclosureMaxY){
+	public SlogoModel(EnclosureObserver e, List<ColorObserver> c, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY, myColors);
 		myTurtleEnclosure.addListener(e);
 		
@@ -27,8 +27,10 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		myParser = new MainParser(Language.ENGLISH, this);
 		myObservers = new ArrayList<VariableObserver>();
 		myColors = new ColorPallet();
+		for (ColorObserver colorobs : c){
+			myColors.addListener(colorobs);
+		}
 		
-		myColors.addListener(c);
 	}
 	
 	/**
@@ -145,6 +147,21 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	@Override
 	public double turtleNumber() {
 		return myTurtleEnclosure.turtles();
+	}
+
+	@Override
+	public Pair<Double, TurtleModel> newCompositeTurtleCondition(Command cond) throws InvalidCommandException {
+		return myTurtleEnclosure.newCompositeTurtleCondition(cond);
+	}
+
+	@Override
+	public Pair<Double, TurtleModel> newCompositeTurtle(Command list) throws InvalidCommandException {
+		return myTurtleEnclosure.newCompositeTurtle(list);
+	}
+
+	@Override
+	public void setActiveTurtle(TurtleModel t) {
+		myTurtleEnclosure.setActiveTurtle(t);
 	}
 
 }

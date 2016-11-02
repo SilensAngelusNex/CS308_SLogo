@@ -3,7 +3,6 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class MultiArgumentCommand extends AbstractCommandList{	
@@ -21,7 +20,7 @@ public class MultiArgumentCommand extends AbstractCommandList{
 
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		throw new UnsupportedOperationException("This shouldn't be reachable code. Congrats.");
 		/*
 		double startVal = getChild(1).execute();
@@ -35,7 +34,7 @@ public class MultiArgumentCommand extends AbstractCommandList{
 	
 
 	@Override
-	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
+	protected void execNonTurtleCommand() throws InvalidCommandException {
 
 		int argsPerCmd = getChild(0).maxArgs();
 		if (
@@ -82,6 +81,6 @@ public class MultiArgumentCommand extends AbstractCommandList{
 		
 		selfReplace(root);
 		root.endList();
-		root.execNonTurtle(t);
+		root.execNonTurtle(getTurtle());
 	}
 }

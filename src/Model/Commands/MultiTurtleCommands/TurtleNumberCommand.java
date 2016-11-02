@@ -3,12 +3,11 @@ package Model.Commands.MultiTurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
 public class TurtleNumberCommand extends AbstractTurtleCommand{
-	private static final String myName = "ID";
+	private static final String myName = "Turtles";
 
 	public TurtleNumberCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);
@@ -25,7 +24,7 @@ public class TurtleNumberCommand extends AbstractTurtleCommand{
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		return getModel().turtleNumber();
 	}
 

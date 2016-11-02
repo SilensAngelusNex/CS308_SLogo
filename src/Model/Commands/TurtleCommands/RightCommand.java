@@ -3,7 +3,6 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class RightCommand extends AbstractTurtleCommand{
@@ -13,8 +12,8 @@ public class RightCommand extends AbstractTurtleCommand{
 		super(model, commands);
 	}
 	@Override
-	public double execCommand(TurtleModel t) throws InvalidCommandException {
-		return t.right(getChild(0));
+	public double execCommand() throws InvalidCommandException {
+		return getTurtle().right(getChild(0));
 	}
 	@Override
 	public int maxArgs() {

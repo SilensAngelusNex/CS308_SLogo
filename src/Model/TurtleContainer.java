@@ -9,11 +9,11 @@ public interface TurtleContainer {
 
 	public void addLine(LineModel toAdd);
 
-	public int getIndex(Turtle turtle);
+	public int getIndex(TurtleModel turtle);
 	
-	public void turtleAdd(Turtle turtle);
+	public void turtleAdd(TurtleModel turtle);
 	
 	public void turtleMove(TurtleModel t);
 
-	public void turtleRemove(Turtle turtle);
+	public void turtleRemove(TurtleModel turtle);
 }

@@ -3,19 +3,21 @@ package Model.Commands.MultiTurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
+import javafx.util.Pair;
 import parser.InvalidCommandException;
 
-public class IDCommand extends AbstractTurtleCommand{
-	private static final String myName = "ID";
+public class AskWithCommand extends AbstractTurtleCommand{
+	private static final String myName = "Tell";
 
-	public IDCommand(CommandableModel model, ResourceBundle language) {
+	public AskWithCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);
 	}
 
 	@Override
 	public int maxArgs() {
-		return 0;
+		return 2;
 	}
 
 	@Override
@@ -25,7 +27,8 @@ public class IDCommand extends AbstractTurtleCommand{
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return getTurtle().getIndex();
+		Pair<Double, TurtleModel> result = getModel().newCompositeTurtleCondition(getChild(0));
+		return getChild(1).execute(result.getValue());
 	}
 
 }

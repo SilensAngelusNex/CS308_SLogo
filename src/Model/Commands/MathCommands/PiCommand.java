@@ -2,7 +2,6 @@ package Model.Commands.MathCommands;
 
 import java.util.ResourceBundle;
 
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class PiCommand extends AbstractMathCommand {
@@ -13,7 +12,7 @@ public class PiCommand extends AbstractMathCommand {
 	}
 
 	@Override
-	public double execCommand(TurtleModel t) throws InvalidCommandException {
+	public double execCommand() throws InvalidCommandException {
 		return Math.PI;
 	}
 

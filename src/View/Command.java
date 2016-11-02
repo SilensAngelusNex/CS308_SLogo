@@ -2,7 +2,9 @@ package View;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+/**
+ * @author Owen Chung
+ */
 public class Command {
 	 private SimpleStringProperty myCommand;
 	 private SimpleIntegerProperty myNumberOfArguments;

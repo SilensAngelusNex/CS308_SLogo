@@ -25,6 +25,11 @@ abstract public class AbstractCommandList extends AbstractCommand {
 	abstract public void endList() throws InvalidCommandException;
 	
 	@Override
+	protected void execNonTurtleCommand() throws InvalidCommandException {
+		preExecChildren();
+	}
+	
+	@Override
 	public boolean argsNotFull() {
 		return !myName.matches("[\\[\\(][\\]\\)]");
 	}

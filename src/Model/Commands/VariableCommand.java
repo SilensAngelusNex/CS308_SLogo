@@ -3,7 +3,6 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class VariableCommand extends AbstractCommand{
@@ -25,12 +24,12 @@ public class VariableCommand extends AbstractCommand{
 	}
 
 	@Override
-	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+	protected double execCommand() throws InvalidCommandException {
 		return getModel().get(myName);
 	}
 
 	@Override
-	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
+	protected void execNonTurtleCommand() throws InvalidCommandException {
 		//Do nothing.
 	}
 
