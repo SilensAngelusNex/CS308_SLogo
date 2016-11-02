@@ -30,6 +30,16 @@ public class CommandList extends AbstractCommandList{
 	public double execute(TurtleModel t) throws InvalidCommandException {
 		return execCommand(t);
 	}
+	
+	@Override
+	public void selfReplace(Command replacement) {
+		if (getParent() != null)
+			super.selfReplace(replacement);
+		else {
+			getChildren().clear();
+			addChild(replacement);
+		}
+	}
 
 
 	

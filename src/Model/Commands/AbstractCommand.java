@@ -11,23 +11,34 @@ import parser.InvalidCommandException;
 
 
 abstract public class AbstractCommand implements Command{
+	public static final String ERROR_RESOURCE = "resources/CommandError";
+	public static final String ERROR_KEY = "NotEnoughArgs";
+	
 	private List<Command> myChildren;
 	private Command myParent;
 	private CommandableModel myModel;
 	private ResourceBundle myLanguage;
-	//TODO: fetch error from resource
-	private String argErrorMessage = "Not enough arguments to complete command: ";
+	
+	private String argErrorMessage;
 	
 	protected AbstractCommand(AbstractCommand cmd){
 		myLanguage = cmd.myLanguage;
 		myModel = cmd.myModel;
 		myChildren = new ArrayList<Command>();
+		
+		initErrorMessage();
 	}
 	
 	public AbstractCommand(CommandableModel model, ResourceBundle language){
 		myLanguage = language;
 		myModel = model;
 		myChildren = new ArrayList<Command>();
+		
+		initErrorMessage();
+	}
+	
+	private void initErrorMessage() {
+		argErrorMessage = ResourceBundle.getBundle(ERROR_RESOURCE).getString(ERROR_KEY);
 	}
 	
 	protected CommandableModel getModel(){
@@ -37,7 +48,6 @@ abstract public class AbstractCommand implements Command{
 	@Override
 	public double execute(TurtleModel t) throws InvalidCommandException {
 		if (argsNotFull())
-			//TODO: Use resource file for error message.
 			throw argError();
 		else {
 			return execCommand(t);
@@ -48,7 +58,6 @@ abstract public class AbstractCommand implements Command{
 	@Override
 	public void execNonTurtle(TurtleModel t) throws InvalidCommandException {
 		if (argsNotFull())
-			//TODO: Use resource file for error message.
 			throw argError();
 		else {
 			execNonTurtleCommand(t);			
@@ -155,6 +164,4 @@ abstract public class AbstractCommand implements Command{
 	protected InvalidCommandException argError() {
 		return new InvalidCommandException(argErrorMessage + getName());
 	}
-	
-
 }
