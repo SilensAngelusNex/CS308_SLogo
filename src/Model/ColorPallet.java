@@ -14,7 +14,7 @@ public class ColorPallet implements Observable<ColorObserver> {
 
 	public ColorPallet() {
 		myColors = new HashMap<Integer, Color>();
-		myBackground = Color.color(0, 0, 0);
+		myBackground = Color.color(1, 1, 1);
 		myObservers = new ArrayList<ColorObserver>();
 	}
 
