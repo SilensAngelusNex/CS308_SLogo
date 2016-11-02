@@ -65,7 +65,8 @@ public class SlogoView extends BorderPane {
 		setColorChangeListener(myToolBar.getColorCBox());
 		setLineColorChangeListener(myToolBar.getLineColorCBox());
 		//TODO : adding workspace 
-		//Button workspaceButton = myUIFactory.makeButton("NewWorkspaceLabel", e -> makeNewWorkspace());
+		Button workspaceButton = myUIFactory.makeButton("NewWorkspaceLabel", e -> makeNewWorkspace());
+		myToolBar.getChildren().add(workspaceButton);
 	}
 	
 	private void setLineColorChangeListener(ChoiceBox<String> lineColorBox){
