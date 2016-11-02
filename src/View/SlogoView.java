@@ -105,7 +105,7 @@ public class SlogoView extends BorderPane {
 		});
 	}
 	// TODO : I don't think this will work because we need to add listener in controller class
-	private void makeNewWorkspace()
+	private void makeNewWorkspace(){
 		SlogoView workspaceView = new SlogoView("english", new UserDefinedPane());
 		SlogoModel workspaceModel = new SlogoModel(workspaceView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		workspaceView.setModelInViewInterface((ModelInViewInterface) workspaceModel);
