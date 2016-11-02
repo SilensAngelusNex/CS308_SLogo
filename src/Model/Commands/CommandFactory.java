@@ -139,7 +139,6 @@ public class CommandFactory {
 			case "IfElse":
 				return new IfElseCommand(myModel, myCommands);
 			case "MakeUserInstruction":
-				//throw new UnsupportedOperationException("Can't assign user commands.");
 				return new ToCommand(myModel, myCommands, this);
 			
 			//Display Commands
@@ -225,8 +224,5 @@ public class CommandFactory {
 
 	public Command getUserCommand(String myName) {
 		return myUserDefinedCommands.get(myName).getValue();
-
 	}
-	
-	
 }

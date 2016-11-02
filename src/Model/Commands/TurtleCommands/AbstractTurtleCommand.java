@@ -11,7 +11,6 @@ abstract public class AbstractTurtleCommand extends AbstractCommand{
 
 	public AbstractTurtleCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
