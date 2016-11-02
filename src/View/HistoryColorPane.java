@@ -3,7 +3,9 @@ package View;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * @author Owen Chung
+ */
 public class HistoryColorPane extends BorderPane{
 	private ListView<String> myCommandHistory;
 	private ListView<String> myColorPalette;

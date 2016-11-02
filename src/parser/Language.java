@@ -8,19 +8,25 @@ import java.util.ResourceBundle;
  * @author Daniel Chai
  */
 public enum Language {
-	ENGLISH ("English"),
-	CHINESE ("Chinese"),
-	FRENCH ("French"),
-	GERMAN ("German"),
-	ITALIAN ("Italian"),
-	RUSSIAN ("Russian"),
-	SPANISH ("Spanish");
+	ENGLISH ("English", "English"),
+	CHINESE ("Chinese", "Chinese"),
+	FRENCH ("French", "French"),
+	GERMAN ("German", "German"),
+	ITALIAN ("Italian", "Italian"),
+	RUSSIAN ("Russian", "Russian"),
+	SPANISH ("Spanish", "Spanish");
 	
 	private static final String PATH_PREFIX = "resources/languages/";
 	private final String pathSuffix;
+	private final String langName;
 	
-	private Language(String pathSuffix) {
+	private Language(String langName, String pathSuffix) {
+		this.langName = langName;
 		this.pathSuffix = pathSuffix;
+	}
+	
+	public String getLangName() {
+		return langName;
 	}
 	
 	public String getPath() {

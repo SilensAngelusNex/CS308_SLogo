@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
@@ -15,6 +16,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private MainParser myParser;
 	private ColorPallet myColors;
 	private List<VariableObserver> myObservers;
+	private Map<String, Language> languageMap;
 	
 	public SlogoModel(EnclosureObserver e, ColorObserver c, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
@@ -42,6 +44,17 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		
 		return Double.toString(result);
 	}
+	
+	@Override
+	public void changeLanguage(String language) {
+		for (Language l : Language.values()) {
+			if (l.getLangName().equals(language)) {
+				myParser = new MainParser(l, this);
+				return;
+			}
+		}
+	}
+	
 	//Turtle Cammands
 	public double forward(double distance){
 		return myTurtleEnclosure.forward(distance);
@@ -108,6 +121,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 			notifyListenersChangeVariable(name, val);
 		} else {
 			result = myVariables.set(name, val);
+			System.out.println("setting a variable");
 			notifyListenersAddVariable(name, val);
 		}
 		return result;
@@ -162,6 +176,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private void notifyListenersAddVariable(String name, double value) {
 		for (VariableObserver v: myObservers){
 			v.addVariable(name, value);
+			System.out.println("notifying listeners");
 		}
 			
 	}

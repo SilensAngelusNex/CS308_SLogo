@@ -1,22 +1,16 @@
 package View;
-
 import java.awt.Dimension;
-import java.io.File;
 import java.util.ResourceBundle;
 
 import Controller.MakeMultipleWorkspaceInterface;
+
 import Controller.ModelInViewInterface;
-import Model.SlogoModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+
 import parser.InvalidCommandException;
 
 /**
@@ -75,7 +69,7 @@ public class SlogoView extends BorderPane {
 	}
 	
 	private void setLineColorChangeListener(ChoiceBox<String> lineColorBox){
-		//System.out.println("setting listener");
+
 		lineColorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
@@ -108,6 +102,7 @@ public class SlogoView extends BorderPane {
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
 				myLanguageResources = ResourceBundle.getBundle(LAUGUAGE_RESOURCE_PACKAGE + arg2);
+				myModelInViewInterface.changeLanguage(arg2);
 			}
 
 		});
