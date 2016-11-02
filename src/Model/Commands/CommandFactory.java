@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.util.Pair;
 
@@ -38,6 +39,10 @@ public class CommandFactory implements Observable<CommandObserver> {
 	
 	public Command newCommand(double val) {
 		return new ConstantCommand(myModel, myCommands, Double.toString(val));
+	}
+	
+	public Set<String> getUserCommands() {
+		return myUserDefinedCommands.keySet();
 	}
 
 	public Command newCommand(String command){
@@ -191,7 +196,7 @@ public class CommandFactory implements Observable<CommandObserver> {
 	public MultiArgumentCommand newCommandGroup() {
 		return new MultiArgumentCommand(myModel, myCommands, this);
 	}
-// TODO: notifyListener
+
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
 		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase())) {
 			return 0;

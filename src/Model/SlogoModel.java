@@ -119,7 +119,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		double result;
 		if (myVariables.has(name)){
 			result = myVariables.set(name, val);
-			notifyListenersChangeVariable(name, val);
+//			notifyListenersChangeVariable(name, val);
 		} else {
 			result = myVariables.set(name, val);
 			System.out.println("setting a variable");
@@ -170,10 +170,10 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return myTurtleEnclosure.turtles();
 	}
 	
-	private void notifyListenersChangeVariable(String name, double value) {
-		for (VariableObserver v: myObservers)
-			v.changeVariable(name, value);
-	}
+//	private void notifyListenersChangeVariable(String name, double value) {
+//		for (VariableObserver v: myObservers)
+//			v.changeVariable(name, value);
+//	}
 	private void notifyListenersAddVariable(String name, double value) {
 		for (VariableObserver v: myObservers){
 			v.addVariable(name, value);
