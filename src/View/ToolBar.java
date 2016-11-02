@@ -46,7 +46,7 @@ public class ToolBar extends HBox{
 				"White",  "Black", "Red", "Blue", "Green", "Aqua", 	"Fuchsia", "Yellow"), "Color");
 		
 		myLineColorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"White",  "Black", "Red", "Blue", "Green", "Aqua", 	"Fuchsia", "Yellow"), "LineColor");
+				"White",  "Black", "Red", "Green", "Blue", "Aqua", 	"Fuchsia", "Yellow"), "LineColor");
 		
 		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
