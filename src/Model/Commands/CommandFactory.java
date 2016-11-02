@@ -9,23 +9,27 @@ import java.util.ResourceBundle;
 import javafx.util.Pair;
 
 import parser.Language;
+import Model.CommandObserver;
 import Model.CommandableModel;
+import Model.Observable;
 import Model.Commands.TurtleCommands.*;
 import Model.Commands.MathCommands.*;
 import Model.Commands.ControlCommands.*;
 import Model.Commands.DisplayCommands.*;
 
-public class CommandFactory {
-	Map<String, Pair<List<String>, Command>> myUserDefinedCommands;
-	CommandableModel myModel;
-	ResourceBundle mySyntax;
-	ResourceBundle myCommands;
+public class CommandFactory implements Observable<CommandObserver> {
+	private Map<String, Pair<List<String>, Command>> myUserDefinedCommands;
+	private CommandableModel myModel;
+	private ResourceBundle mySyntax;
+	private ResourceBundle myCommands;
+	private List<CommandObserver> myObservers;
 	
 	public CommandFactory(String syntaxPath, Language language, CommandableModel model) {
 		myModel = model;
 		mySyntax = ResourceBundle.getBundle(syntaxPath);
 		myCommands = language.getResource();
 		myUserDefinedCommands = new HashMap<String, Pair<List<String>, Command>>();
+		myObservers = new ArrayList<CommandObserver>();
 	}
 	
 	public Command newCommand(Command c) {
@@ -189,13 +193,16 @@ public class CommandFactory {
 	}
 
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
-		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase()))
+		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase())) {
+			notifyListenersAddCommand(commandName.toLowerCase(), argNames.size());
 			return 0;
-		
+		}
 		if (executable(ops)) {
+			notifyListenersChangeCommand(commandName.toLowerCase(), argNames.size());
 			myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, ops));
 			return 1;
 		} else {
+			notifiyListenersRemoveCommand(commandName.toLowerCase());
 			myUserDefinedCommands.remove(commandName.toLowerCase());
 			return 0;
 		}
@@ -224,5 +231,33 @@ public class CommandFactory {
 
 	public Command getUserCommand(String myName) {
 		return myUserDefinedCommands.get(myName).getValue();
+	}
+
+	@Override
+	public void addListener(CommandObserver v) {
+		myObservers.add(v);
+	}
+
+	@Override
+	public void removeListener(CommandObserver v) {
+		myObservers.remove(v);
+	}
+	
+	private void notifyListenersAddCommand(String commandName, int numArgs) {
+		for (CommandObserver o : myObservers) {
+			o.addCommand(commandName, numArgs);
+		}
+	}
+	
+	private void notifyListenersChangeCommand(String commandName, int numArgs){ 
+		for (CommandObserver o : myObservers) {
+			o.changeCommand(commandName, numArgs);
+		}
+	}
+	
+	private void notifiyListenersRemoveCommand(String commandName) {
+		for (CommandObserver o : myObservers) {
+			o.deleteVariable(commandName);
+		}
 	}
 }
