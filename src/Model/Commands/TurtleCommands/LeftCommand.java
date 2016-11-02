@@ -14,8 +14,7 @@ public class LeftCommand extends AbstractTurtleCommand{
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().left(childResult);
+		return getTurtle().left(getChild(0));
 	}
 
 	@Override

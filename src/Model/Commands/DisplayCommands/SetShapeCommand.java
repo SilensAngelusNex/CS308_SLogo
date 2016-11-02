@@ -28,8 +28,7 @@ public class SetShapeCommand extends AbstractTurtleCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setShape(childResult);
+		return getTurtle().setShape(getChild(0));
 	}
 
 }

@@ -26,8 +26,8 @@ public class IfCommand extends AbstractCommand {
 	@Override
 	protected double execCommand() throws InvalidCommandException {
 		
-		if (getChild(0).execute() != 0){
-			return getChild(1).execute();
+		if (getChild(0).execute(getTurtle()) != 0){
+			return getChild(1).execute(getTurtle());
 		} else {
 			return 0;
 		}

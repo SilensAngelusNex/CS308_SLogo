@@ -50,10 +50,10 @@ public class UserDefinedCommand extends AbstractCommand {
 		
 		for (int i = 0; i < varValues.length; i++){
 			varValues[i] = getModel().get(myArguments.get(i));
-			getModel().set(myArguments.get(i), getChild(i).execute());
+			getModel().set(myArguments.get(i), getChild(i).execute(getTurtle()));
 		}
 		
-		double result = myInstructionTree.execute();
+		double result = myInstructionTree.execute(getTurtle());
 		
 		for (int i = 0; i < varValues.length; i++){
 			getModel().set(myArguments.get(i), varValues[i]);

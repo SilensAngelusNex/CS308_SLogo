@@ -27,14 +27,8 @@ public class SetBackgroundCommand extends AbstractDisplayCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setBackground(childResult);
+		return getModel().setBackground(getChild(0).execute(getTurtle()));
 	}
 
-	@Override
-	protected void execNonTurtleCommand() throws InvalidCommandException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

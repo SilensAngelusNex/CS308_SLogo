@@ -14,9 +14,9 @@ abstract public class AbstractTurtleCommand extends AbstractCommand{
 	}
 
 	@Override
-	protected void execNonTurtleCommand() throws InvalidCommandException {
+	public void execNonTurtleCommand() throws InvalidCommandException {
 		for(Command c: getChildren()){
-			c.execNonTurtle();
+			c.execNonTurtle(getTurtle());
 		}
 	}
 	

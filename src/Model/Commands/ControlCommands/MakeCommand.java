@@ -27,7 +27,7 @@ public class MakeCommand extends AbstractCommand {
 	protected double execCommand() throws InvalidCommandException {
 		
 		String varName = getChild(0).getName().replaceAll(":", "");
-		double varValue = getChild(1).execute();
+		double varValue = getChild(1).execute(getTurtle());
 		
 		return getModel().set(varName, varValue);
 		

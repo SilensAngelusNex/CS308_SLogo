@@ -25,7 +25,7 @@ public class RandomCommand extends AbstractMathCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return myRandom.nextDouble() * getChild(0).execute();
+		return myRandom.nextDouble() * getChild(0).execute(getTurtle());
 	}
 
 }

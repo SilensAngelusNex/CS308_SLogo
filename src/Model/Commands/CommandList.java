@@ -3,6 +3,7 @@ package Model.Commands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.ControlCommands.ToCommand;
 import parser.InvalidCommandException;
 
@@ -26,7 +27,8 @@ public class CommandList extends AbstractCommandList{
 	}
 
 	@Override
-	public double execute() throws InvalidCommandException {
+	public double execute(TurtleModel t) throws InvalidCommandException {
+		setTurtle(t);
 		return execCommand();
 	}
 	
@@ -41,14 +43,17 @@ public class CommandList extends AbstractCommandList{
 	}
 
 
-	@Override
+	
 	protected double execCommand() throws InvalidCommandException {
 		double result = 0;
 		
 		for (Command c: getChildren())
-			result = c.execute();
+			result = c.execute(getTurtle());
 
 		return result;
 	}
+
+
+
 
 }

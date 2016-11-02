@@ -14,7 +14,7 @@ public class IsPenDownCommand extends AbstractTurtleCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().isPenDown();			
+		return getTurtle().getPenDown() ? 1 : 0;			
 	}
 
 	@Override

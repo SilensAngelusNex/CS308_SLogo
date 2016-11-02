@@ -13,7 +13,7 @@ public class MinusCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return-getChild(0).execute();
+		return-getChild(0).execute(getTurtle());
 	}
 
 	@Override

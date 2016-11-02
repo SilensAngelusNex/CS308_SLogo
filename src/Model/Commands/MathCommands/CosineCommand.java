@@ -13,7 +13,7 @@ public class CosineCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return Math.cos(Math.toRadians(getChild(0).execute()));
+		return Math.cos(Math.toRadians(getChild(0).execute(getTurtle())));
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package Controller;
 import java.awt.Dimension;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import Model.SlogoModel;
 import View.SlogoView;

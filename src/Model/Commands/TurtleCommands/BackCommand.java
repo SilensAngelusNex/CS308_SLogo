@@ -14,8 +14,7 @@ public class BackCommand extends AbstractTurtleCommand{
 	
 	@Override
 	public double execCommand() throws InvalidCommandException{
-		double childResult = getChild(0).execute();
-		return getModel().back(childResult);
+		return getTurtle().back(getChild(0));
 	}
 
 	@Override

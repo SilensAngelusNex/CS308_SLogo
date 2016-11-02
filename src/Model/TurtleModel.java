@@ -1,47 +1,72 @@
 package Model;
 
-import javafx.scene.paint.Color;
-
+import parser.InvalidCommandException;
+import Model.Commands.Command;
 import View.TurtleView;
 
 public interface TurtleModel {
 	
-	abstract public double getHeading();
+	public abstract double forward(Command distance) throws InvalidCommandException;
+
+	public abstract double back(Command distance) throws InvalidCommandException;
+
+	public abstract double right(Command degrees) throws InvalidCommandException;
+
+	public abstract double left(Command degrees) throws InvalidCommandException;
+
+	public abstract double setHeading(Command degrees) throws InvalidCommandException;
+
+	public abstract double towards(Command x, Command y) throws InvalidCommandException;
+
+	public abstract double goTo(Command x, Command y) throws InvalidCommandException;
+
+	public abstract double goTo(double d, double e);
+
+	public abstract double getHeading();
+
+	public abstract double getX();
+
+	public abstract double getY();
 	
 	abstract public double setHeading(double radians);
-	
-	abstract public double getX();
-	
-	abstract public double getY();
-	
-	abstract public void setLocation(double newX, double newY);
-	
+
 	abstract public boolean isDrawing();
-	
-	abstract public void setPen(boolean b);
-	
+
+	abstract public double setPen(boolean b);
+
 	abstract public boolean getPenDown();
-	
-	abstract public Color getPenColor();
-	
-	abstract public double setPenColor(Color c);
-	
+
+	abstract public double getPenColor();
+
+	abstract public double setPenColor(int index);
+
 	abstract public Point getCurrentLocation();
-	
+
 	abstract public Point getPreviousLocation();
-	
+
 	abstract public TurtleView toTurtleView();
 
-	abstract public void setVisibility(boolean b);
-	
+	abstract public double setVisibility(boolean b);
+
 	abstract public boolean getVisibility();
 
 	abstract public double setPenSize(double size);
 
 	abstract public int getPenSize();
-	
+
 	abstract public int getShape();
-	
-	abstract public void setShape(int index);
+
+	abstract public double setShape(int index);
+
+	public abstract double setPenSize(Command size) throws InvalidCommandException;
+
+	public abstract double setShape(Command shape) throws InvalidCommandException;
+
+	public abstract double setPenColor(Command index) throws InvalidCommandException;
+
+	public abstract int getIndex();
+
+
+
 	
 }

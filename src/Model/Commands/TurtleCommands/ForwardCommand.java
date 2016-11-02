@@ -15,8 +15,7 @@ public class ForwardCommand extends AbstractTurtleCommand{
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().forward(childResult);
+		return getTurtle().forward(getChild(0));
 	}
 
 	@Override

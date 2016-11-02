@@ -1,4 +1,4 @@
-package Model.Commands.DisplayCommands;
+package Model.Commands.MultiTurtleCommands;
 
 import java.util.ResourceBundle;
 
@@ -6,13 +6,10 @@ import Model.CommandableModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
-/**
- * @author Daniel Chai
- */
-public class PenColorCommand extends AbstractTurtleCommand {
-	String myName = "GetPenColor";
-	
-	public PenColorCommand(CommandableModel model, ResourceBundle language) {
+public class IDCommand extends AbstractTurtleCommand{
+	private static final String myName = "ID";
+
+	public IDCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);
 	}
 
@@ -28,6 +25,7 @@ public class PenColorCommand extends AbstractTurtleCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return getTurtle().getPenColor();
+		return getTurtle().getIndex();
 	}
+
 }

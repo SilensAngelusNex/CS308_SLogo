@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.util.Pair;
 
@@ -16,6 +17,8 @@ import Model.Commands.TurtleCommands.*;
 import Model.Commands.MathCommands.*;
 import Model.Commands.ControlCommands.*;
 import Model.Commands.DisplayCommands.*;
+import Model.Commands.MultiTurtleCommands.*;
+
 
 public class CommandFactory implements Observable<CommandObserver> {
 	private Map<String, Pair<List<String>, Command>> myUserDefinedCommands;
@@ -38,6 +41,10 @@ public class CommandFactory implements Observable<CommandObserver> {
 	
 	public Command newCommand(double val) {
 		return new ConstantCommand(myModel, myCommands, Double.toString(val));
+	}
+	
+	public Set<String> getUserCommands() {
+		return myUserDefinedCommands.keySet();
 	}
 
 	public Command newCommand(String command){
@@ -160,6 +167,18 @@ public class CommandFactory implements Observable<CommandObserver> {
 				return new PenColorCommand(myModel, myCommands);
 			case "GetShape":
 				return new ShapeCommand(myModel, myCommands);
+				
+			//Multiturtle Commands
+			case "Tell":
+				return new TellCommand(myModel, myCommands);
+			case "Ask":
+				return new AskCommand(myModel, myCommands);
+			case "AskWith":
+				return new AskWithCommand(myModel, myCommands);
+			case "ID":
+				return new IDCommand(myModel, myCommands);
+			case "Turtles":
+				return new TurtleNumberCommand(myModel, myCommands);
 			
 			//User Defined Commands
 			default:
@@ -191,7 +210,7 @@ public class CommandFactory implements Observable<CommandObserver> {
 	public MultiArgumentCommand newCommandGroup() {
 		return new MultiArgumentCommand(myModel, myCommands, this);
 	}
-// TODO: notifyListener
+
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
 		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase())) {
 			return 0;

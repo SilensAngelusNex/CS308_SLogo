@@ -14,8 +14,7 @@ public class SetHeadingCommand extends AbstractTurtleCommand{
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setHeading(childResult);
+		return getTurtle().setHeading(getChild(0));
 	}
 
 	@Override

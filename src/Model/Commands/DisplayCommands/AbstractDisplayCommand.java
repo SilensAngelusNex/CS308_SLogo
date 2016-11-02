@@ -18,11 +18,11 @@ abstract public class AbstractDisplayCommand extends AbstractCommand{
 		if(!isTurtleCommand()){
 			boolean childrenConstant = true;
 			for (int i = 0; i < getChildren().size(); i++){
-				getChild(i).execNonTurtle();
+				getChild(i).execNonTurtle(getTurtle());
 				childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 			}
 			if (childrenConstant){
-				double result = execute();
+				double result = execute(getTurtle());
 				
 				selfReplace(new ConstantCommand(this, result));
 			}

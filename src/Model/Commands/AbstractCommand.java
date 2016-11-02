@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
@@ -17,6 +18,7 @@ abstract public class AbstractCommand implements Command{
 	private Command myParent;
 	private CommandableModel myModel;
 	private ResourceBundle myLanguage;
+	private TurtleModel myTurtle;
 	
 	private String argErrorMessage;
 	
@@ -44,21 +46,23 @@ abstract public class AbstractCommand implements Command{
 		return myModel;
 	}
 	
-	
 	@Override
-	public double execute() throws InvalidCommandException {
+	public double execute(TurtleModel t) throws InvalidCommandException {
 		if (argsNotFull())
 			throw argError();
 		else {
+			myTurtle = t;
 			return execCommand();
 		}
 	}
+
 	
 	@Override
-	public void execNonTurtle() throws InvalidCommandException {
+	public void execNonTurtle(TurtleModel t) throws InvalidCommandException {
 		if (argsNotFull())
 			throw argError();
 		else {
+			myTurtle = t;
 			execNonTurtleCommand();			
 		}
 	}
@@ -146,7 +150,7 @@ abstract public class AbstractCommand implements Command{
 	
 	protected void execChildrenAndReplaceSelf() throws InvalidCommandException{
 		if (preExecChildren()){
-			double result = execute();	
+			double result = execute(myTurtle);	
 			selfReplace(new ConstantCommand(this, result));
 		}
 	}
@@ -154,10 +158,24 @@ abstract public class AbstractCommand implements Command{
 	protected boolean preExecChildren() throws InvalidCommandException{
 		boolean childrenConstant = true;
 		for (int i = 0; i < getChildren().size(); i++){
-			getChild(i).execNonTurtle();
+			getChild(i).execNonTurtle(myTurtle);
 			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 		}
 		return childrenConstant;
+	}
+	
+	public TurtleModel getTurtle(){
+		return myTurtle;
+	}
+	public void setTurtle(TurtleModel t){
+		System.out.println(t.toString());
+		myTurtle = t;
+	}
+	
+	public void setTurtleRecursive(TurtleModel t){
+		myTurtle = t;
+		if (myParent != null)
+			myParent.setTurtleRecursive(t);
 	}
 	
 	protected InvalidCommandException argError() {

@@ -13,8 +13,7 @@ public class RightCommand extends AbstractTurtleCommand{
 	}
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().right(childResult);
+		return getTurtle().right(getChild(0));
 	}
 	@Override
 	public int maxArgs() {

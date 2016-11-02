@@ -28,8 +28,7 @@ public class SetPenColorCommand extends AbstractTurtleCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setPenColor(childResult);
+		return getTurtle().setPenColor(getChild(0));
 	}
 
 }

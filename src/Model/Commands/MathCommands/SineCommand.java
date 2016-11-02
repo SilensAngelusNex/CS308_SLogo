@@ -13,7 +13,7 @@ public class SineCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return Math.sin(Math.toRadians(getChild(0).execute()));
+		return Math.sin(Math.toRadians(getChild(0).execute(getTurtle())));
 	}
 
 	@Override

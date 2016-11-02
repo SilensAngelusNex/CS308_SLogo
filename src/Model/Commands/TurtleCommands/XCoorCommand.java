@@ -14,7 +14,7 @@ public class XCoorCommand extends AbstractTurtleCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().xCor();
+		return getTurtle().getX();
 	}
 
 	@Override

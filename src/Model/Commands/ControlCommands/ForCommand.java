@@ -27,9 +27,9 @@ public class ForCommand extends AbstractNoVariablePreExecuteCommand {
 	protected double execCommand() throws InvalidCommandException {
 		
 		String varName = getChild(0).getChild(0).getName().replaceAll(":", "");
-		int start = (int) getChild(0).getChild(1).execute();
-		int end = (int) getChild(0).getChild(2).execute();
-		int jump = (int) getChild(0).getChild(3).execute();
+		int start = (int) getChild(0).getChild(1).execute(getTurtle());
+		int end = (int) getChild(0).getChild(2).execute(getTurtle());
+		int jump = (int) getChild(0).getChild(3).execute(getTurtle());
 		
 		Command toExec = getChild(1);
 		
@@ -37,7 +37,7 @@ public class ForCommand extends AbstractNoVariablePreExecuteCommand {
 		
 		double result = 0;
 		while (getModel().get(varName) < end){
-			result = toExec.execute();
+			result = toExec.execute(getTurtle());
 			getModel().set(varName, getModel().get(varName) + jump);
 		}
 		

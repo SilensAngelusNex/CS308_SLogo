@@ -21,7 +21,7 @@ public class MultiArgumentCommand extends AbstractCommandList{
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		throw new UnsupportedOperationException("This");
+		throw new UnsupportedOperationException("This shouldn't be reachable code. Congrats.");
 		/*
 		double startVal = getChild(1).execute();
 		
@@ -81,6 +81,6 @@ public class MultiArgumentCommand extends AbstractCommandList{
 		
 		selfReplace(root);
 		root.endList();
-		root.execNonTurtle();
+		root.execNonTurtle(getTurtle());
 	}
 }

@@ -14,7 +14,7 @@ public class ShowTurtleCommand extends AbstractTurtleCommand{
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().showTurtle();
+		return getTurtle().setVisibility(true);
 	}
 
 	@Override

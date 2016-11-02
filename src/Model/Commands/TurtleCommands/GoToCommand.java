@@ -13,7 +13,7 @@ public class GoToCommand extends AbstractTurtleCommand {
 	}
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().goTo(getChild(0).execute(), getChild(1).execute());			
+		return getTurtle().goTo(getChild(0), getChild(1));			
 	}
 
 	@Override

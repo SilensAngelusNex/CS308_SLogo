@@ -14,12 +14,12 @@ public class HeadingCommand extends AbstractTurtleCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().heading();
+		return getTurtle().getHeading();
 	}
 
 	@Override
 	public int maxArgs() {
-		return 1;
+		return 0;
 	}
 	
 	@Override

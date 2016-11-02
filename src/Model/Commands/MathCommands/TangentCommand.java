@@ -13,7 +13,7 @@ public class TangentCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return Math.tan(Math.toRadians(getChild(0).execute()));
+		return Math.tan(Math.toRadians(getChild(0).execute(getTurtle())));
 	}
 
 	@Override

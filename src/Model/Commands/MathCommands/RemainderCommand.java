@@ -23,7 +23,7 @@ public class RemainderCommand extends AbstractMathCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return getChild(0).execute() % getChild(1).execute();
+		return getChild(0).execute(getTurtle()) % getChild(1).execute(getTurtle());
 	}
 
 }

@@ -13,7 +13,7 @@ public class NotCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getChild(0).execute() == 0 ? 1 : 0;
+		return getChild(0).execute(getTurtle()) == 0 ? 1 : 0;
 	}
 
 	@Override

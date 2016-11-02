@@ -28,7 +28,7 @@ public class ShapeCommand extends AbstractTurtleCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return getModel().getShape();
+		return getTurtle().getShape();
 	}
 
 }

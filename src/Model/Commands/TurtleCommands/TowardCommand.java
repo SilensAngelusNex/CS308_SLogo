@@ -14,7 +14,7 @@ public class TowardCommand extends AbstractTurtleCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().towards(getChild(0).execute(), getChild(1).execute());
+		return getTurtle().towards(getChild(0), getChild(1));
 	}
 
 	@Override

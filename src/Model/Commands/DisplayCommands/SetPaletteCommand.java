@@ -27,10 +27,10 @@ public class SetPaletteCommand extends AbstractDisplayCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return getModel().setPallet(getChild(0).execute(), 
-									getChild(1).execute(),
-									getChild(2).execute(),
-									getChild(3).execute());
+		return getModel().setPallet(getChild(0).execute(getTurtle()), 
+									getChild(1).execute(getTurtle()),
+									getChild(2).execute(getTurtle()),
+									getChild(3).execute(getTurtle()));
 	}
 
 }

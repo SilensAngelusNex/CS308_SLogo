@@ -23,7 +23,7 @@ public class PowerCommand extends AbstractMathCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		return Math.log(getChild(0).execute());
+		return Math.log(getChild(0).execute(getTurtle()));
 	}
 
 }

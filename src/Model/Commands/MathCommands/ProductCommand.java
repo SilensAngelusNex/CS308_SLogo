@@ -13,7 +13,7 @@ public class ProductCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getChild(0).execute() * getChild(1).execute();
+		return getChild(0).execute(getTurtle()) * getChild(1).execute(getTurtle());
 	}
 
 	@Override

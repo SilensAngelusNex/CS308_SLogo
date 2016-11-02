@@ -14,7 +14,7 @@ public class PenUpCommand extends AbstractTurtleCommand{
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().penUp();
+		return getTurtle().setPen(false);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class GreaterCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getChild(0).execute() > getChild(1).execute() ? 1 : 0;
+		return getChild(0).execute(getTurtle()) > getChild(1).execute(getTurtle()) ? 1 : 0;
 	}
 
 	@Override

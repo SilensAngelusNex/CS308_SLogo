@@ -28,8 +28,7 @@ public class SetPenSizeCommand extends AbstractTurtleCommand {
 
 	@Override
 	protected double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setPenSize(childResult);
+		return getTurtle().setPenSize(getChild(0));
 	}
 
 }

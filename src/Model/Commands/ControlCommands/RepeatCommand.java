@@ -27,9 +27,9 @@ public class RepeatCommand extends AbstractCommand {
 	protected double execCommand() throws InvalidCommandException {
 		double result = 0;
 		
-		int repeatTimes = (int) getChild(0).execute(); 
+		int repeatTimes = (int) getChild(0).execute(getTurtle()); 
 		for (int i = 0; i < repeatTimes; i++){
-			result = getChild(1).execute();
+			result = getChild(1).execute(getTurtle());
 		}
 		
 		return result;

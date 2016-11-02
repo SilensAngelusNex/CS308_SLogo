@@ -27,14 +27,14 @@ public class DoTimesCommand extends AbstractNoVariablePreExecuteCommand {
 	protected double execCommand() throws InvalidCommandException {
 		
 		String varName = getChild(0).getChild(0).getName().replaceAll(":", "");
-		int times = (int) getChild(0).getChild(1).execute();
+		int times = (int) getChild(0).getChild(1).execute(getTurtle());
 
 		Command toExec = getChild(1);
 		
 		double result = 0;
 		for (int i = 0; i < times; i++){
 			getModel().set(varName, 0);
-			result = toExec.execute();
+			result = toExec.execute(getTurtle());
 		}
 		
 		return result;

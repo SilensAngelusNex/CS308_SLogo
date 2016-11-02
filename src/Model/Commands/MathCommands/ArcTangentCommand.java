@@ -13,7 +13,7 @@ public class ArcTangentCommand extends AbstractMathCommand {
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return Math.toDegrees(Math.atan(getChild(0).execute()));
+		return Math.toDegrees(Math.atan(getChild(0).execute(getTurtle())));
 	}
 
 	@Override

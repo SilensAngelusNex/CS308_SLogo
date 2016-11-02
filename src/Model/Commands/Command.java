@@ -2,12 +2,13 @@ package Model.Commands;
 
 import java.util.List;
 
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public interface Command {
 		
-	abstract public double execute() throws InvalidCommandException;
-	abstract public void execNonTurtle() throws InvalidCommandException;
+	abstract public double execute(TurtleModel t) throws InvalidCommandException;
+	abstract public void execNonTurtle(TurtleModel t) throws InvalidCommandException;
 	abstract public boolean isTurtleCommand();
 	abstract public boolean isVariableCommand();
 	abstract public void addChild(Command cmd);
@@ -20,4 +21,7 @@ public interface Command {
 	abstract public Command getChild(int index);
 	abstract public Command getParent();
 	abstract public void setParent(Command cmd);
+	abstract public void setTurtle(TurtleModel t);
+	abstract public TurtleModel getTurtle();
+	public abstract void setTurtleRecursive(TurtleModel value);
 }

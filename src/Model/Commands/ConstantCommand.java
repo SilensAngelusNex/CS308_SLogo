@@ -38,4 +38,5 @@ public class ConstantCommand extends AbstractCommand{
 		// Do nothing. (Already a constant)	
 	}
 
+
 }

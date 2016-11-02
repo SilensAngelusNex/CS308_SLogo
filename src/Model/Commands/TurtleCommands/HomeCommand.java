@@ -14,7 +14,7 @@ public class HomeCommand extends AbstractTurtleCommand{
 
 	@Override
 	public double execCommand() throws InvalidCommandException {
-		return getModel().home();
+		return getTurtle().goTo(0, 0);
 	}
 
 	@Override
