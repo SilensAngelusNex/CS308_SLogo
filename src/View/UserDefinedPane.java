@@ -8,7 +8,6 @@ import java.util.Map;
 import Model.CommandObserver;
 import Model.VariableObserver;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
