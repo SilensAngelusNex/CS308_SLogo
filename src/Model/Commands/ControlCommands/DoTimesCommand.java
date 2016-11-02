@@ -3,11 +3,10 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
 
-public class DoTimesCommand extends AbstractCommand {
+public class DoTimesCommand extends AbstractNoVariablePreExecuteCommand {
 	String myName = "DoTimes";
 	
 	public DoTimesCommand(CommandableModel model, ResourceBundle commands) {

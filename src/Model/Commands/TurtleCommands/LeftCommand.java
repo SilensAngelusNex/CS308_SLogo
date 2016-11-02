@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class LeftCommand extends AbstractCommand{
+public class LeftCommand extends AbstractTurtleCommand{
 	String myName = "Left";
 
 	public LeftCommand(CommandableModel model, ResourceBundle commands) {

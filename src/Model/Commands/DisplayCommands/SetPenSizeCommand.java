@@ -3,13 +3,13 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
+import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
 /**
  * @author Daniel Chai
  */
-public class SetPenSizeCommand extends AbstractCommand {
+public class SetPenSizeCommand extends AbstractTurtleCommand {
 	String myName = "SetPenSize";
 	
 	public SetPenSizeCommand(CommandableModel model, ResourceBundle language) {

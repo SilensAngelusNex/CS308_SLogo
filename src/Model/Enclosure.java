@@ -312,8 +312,9 @@ public class Enclosure implements Observable<EnclosureObserver>{
 	public int getShape() {
 		return getActiveTurtle().getShape();
 	}
-	public void setShape(int index) {
+	public double setShape(int index) {
 		getActiveTurtle().setShape(index);
 		notifyListenersMoveTurtle(getActiveTurtle());
+		return index;
 	}
 }

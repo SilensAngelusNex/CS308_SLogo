@@ -3,10 +3,9 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
-import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
-public class GoToCommand extends AbstractCommand {
+public class GoToCommand extends AbstractTurtleCommand {
 	String myName = "SetPosition";
 
 	public GoToCommand(CommandableModel model, ResourceBundle commands) {

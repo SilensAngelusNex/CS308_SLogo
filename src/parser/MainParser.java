@@ -46,6 +46,8 @@ public class MainParser {
 	 */
 	private Command createExpressionTree(CommandParser lang, String[] text) throws InvalidCommandException {
 		CommandList root = myFactory.newCommandList();
+		boolean parsingGroup = false;
+		boolean firstArgInGroup = false;
 
 		Stack<Command> currCommands = new Stack<Command>();
 		currCommands.push(root);
@@ -79,6 +81,8 @@ public class MainParser {
 						} else if (symbol.equals(GROUP_START_CODE)) {
 							next = myFactory.newCommandGroup();
 							currLists.push((AbstractCommandList) next);
+							parsingGroup = true;
+							
 
 						} else {
 							if (lang.tokenType(s).equals(COMMAND_CODE) && !symbol.equals(UNKNOWN_COMMAND_CODE))
@@ -89,8 +93,15 @@ public class MainParser {
 						currCommands.peek().addChild(next);
 						if (!currCommands.peek().argsNotFull())
 							currCommands.pop();
-						if (next.argsNotFull())
+						if (next.argsNotFull() && !firstArgInGroup){
 							currCommands.push(next);
+							firstArgInGroup = false;
+						}
+						if (parsingGroup){
+							firstArgInGroup = true;
+							parsingGroup = false;
+						}
+						
 					}
 
 				}
