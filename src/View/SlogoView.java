@@ -95,6 +95,7 @@ public class SlogoView extends BorderPane {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
 					String arg1, String arg2) {
+				System.out.println(arg2);
 				myTurtlePane.setStyle("-fx-background-color: " + arg2);
 			}
 
