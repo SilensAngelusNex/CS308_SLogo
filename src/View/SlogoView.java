@@ -1,22 +1,15 @@
 package View;
 
 import java.awt.Dimension;
-import java.io.File;
 import java.util.ResourceBundle;
 
 import Controller.MakeMultipleWorkspaceInterface;
 import Controller.ModelInViewInterface;
-import Model.SlogoModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import parser.InvalidCommandException;
 
 /**
