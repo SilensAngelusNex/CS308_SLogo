@@ -3,6 +3,7 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class HeadingCommand extends AbstractTurtleCommand {
@@ -13,13 +14,13 @@ public class HeadingCommand extends AbstractTurtleCommand {
 	}
 
 	@Override
-	public double execCommand() throws InvalidCommandException {
-		return getModel().heading();
+	public double execCommand(TurtleModel t) throws InvalidCommandException {
+		return t.getHeading();
 	}
 
 	@Override
 	public int maxArgs() {
-		return 1;
+		return 0;
 	}
 	
 	@Override

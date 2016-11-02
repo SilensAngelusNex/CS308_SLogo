@@ -2,6 +2,7 @@ package Model.Commands.MathCommands;
 
 import java.util.ResourceBundle;
 
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class ProductCommand extends AbstractMathCommand {
@@ -12,8 +13,8 @@ public class ProductCommand extends AbstractMathCommand {
 	}
 
 	@Override
-	public double execCommand() throws InvalidCommandException {
-		return getChild(0).execute() * getChild(1).execute();
+	public double execCommand(TurtleModel t) throws InvalidCommandException {
+		return getChild(0).execute(t) * getChild(1).execute(t);
 	}
 
 	@Override

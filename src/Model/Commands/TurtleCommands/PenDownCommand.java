@@ -3,6 +3,7 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class PenDownCommand extends AbstractTurtleCommand{
@@ -13,8 +14,8 @@ public class PenDownCommand extends AbstractTurtleCommand{
 	}
 
 	@Override
-	public double execCommand() throws InvalidCommandException {
-		return getModel().penDown();			
+	public double execCommand(TurtleModel t) throws InvalidCommandException {
+		return t.setPen(true);			
 	}
 
 	@Override

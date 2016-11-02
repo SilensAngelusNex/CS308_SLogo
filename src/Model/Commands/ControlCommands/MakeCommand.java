@@ -3,6 +3,7 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
@@ -24,10 +25,10 @@ public class MakeCommand extends AbstractCommand {
 	}
 
 	@Override
-	protected double execCommand() throws InvalidCommandException {
+	protected double execCommand(TurtleModel t) throws InvalidCommandException {
 		
 		String varName = getChild(0).getName().replaceAll(":", "");
-		double varValue = getChild(1).execute();
+		double varValue = getChild(1).execute(t);
 		
 		return getModel().set(varName, varValue);
 		

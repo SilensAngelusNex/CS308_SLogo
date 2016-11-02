@@ -3,6 +3,7 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
@@ -24,10 +25,10 @@ public class IfCommand extends AbstractCommand {
 	}
 
 	@Override
-	protected double execCommand() throws InvalidCommandException {
+	protected double execCommand(TurtleModel t) throws InvalidCommandException {
 		
-		if (getChild(0).execute() != 0){
-			return getChild(1).execute();
+		if (getChild(0).execute(t) != 0){
+			return getChild(1).execute(t);
 		} else {
 			return 0;
 		}

@@ -3,6 +3,7 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class BackCommand extends AbstractTurtleCommand{
@@ -13,9 +14,8 @@ public class BackCommand extends AbstractTurtleCommand{
 	}
 	
 	@Override
-	public double execCommand() throws InvalidCommandException{
-		double childResult = getChild(0).execute();
-		return getModel().back(childResult);
+	public double execCommand(TurtleModel t) throws InvalidCommandException{
+		return t.back(getChild(0));
 	}
 
 	@Override
