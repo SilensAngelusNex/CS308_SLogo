@@ -19,7 +19,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private List<VariableObserver> myObservers;
 	private FileHandler myFileHandler;
 	
-	public SlogoModel(EnclosureObserver e, ColorObserver c, double enclosureMaxX, double enclosureMaxY){
+	public SlogoModel(EnclosureObserver e, List<ColorObserver> c, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY, myColors);
 		myTurtleEnclosure.addListener(e);
 		
@@ -27,8 +27,10 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		myParser = new MainParser(Language.ENGLISH, this);
 		myObservers = new ArrayList<VariableObserver>();
 		myColors = new ColorPallet();
+		for (ColorObserver colorobs : c){
+			myColors.addListener(colorobs);
+		}
 		
-		myColors.addListener(c);
 	}
 	
 	/**

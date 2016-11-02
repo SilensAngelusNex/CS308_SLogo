@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 public class SidePane extends BorderPane {
 	private UserDefinedPane myUserDefinedPane;
 	private HistoryColorPane myHistoryColorPane;
+
 	private BorderPane myStatePane = new BorderPane();
 	public SidePane(UserDefinedPane udp){
 		myUserDefinedPane = udp;
@@ -27,5 +28,9 @@ public class SidePane extends BorderPane {
 	protected UserDefinedPane getUserDefinePane(){
 		return myUserDefinedPane;
 
+	}
+	
+	public HistoryColorPane getHistoryColorPane() {
+		return myHistoryColorPane;
 	}
 }

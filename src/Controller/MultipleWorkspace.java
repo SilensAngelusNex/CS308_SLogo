@@ -1,9 +1,12 @@
 package Controller;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Model.ColorObserver;
 import Model.SlogoModel;
 import View.SlogoView;
 import View.UserDefinedPane;
@@ -17,7 +20,10 @@ public class MultipleWorkspace implements MakeMultipleWorkspaceInterface{
 	
 	public MultipleWorkspace(String language){
 		myView = new SlogoView(language, new UserDefinedPane());
-		myModel = new SlogoModel(myView.getTurtlePane(), myView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
+		List<ColorObserver> colorobs = new ArrayList<ColorObserver>();
+		colorobs.add((ColorObserver)myView.getTurtlePane());
+		colorobs.add((ColorObserver) myView.getHistoryColorPane());
+		myModel = new SlogoModel(myView.getTurtlePane(), colorobs, DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		myView.setModelInViewInterface((ModelInViewInterface) myModel);
 		myView.setConsolePane();
 	}

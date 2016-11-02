@@ -27,6 +27,9 @@ public class SlogoView extends BorderPane {
 	private UserManualPopup myHelpPage;
 	private UIFactory myUIFactory;
 	private SidePane mySidePane;
+
+
+
 	private TurtlePane myTurtlePane;
 	private ConsolePane myConsolePane;
 	private ToolBar myToolBar;
@@ -111,6 +114,10 @@ public class SlogoView extends BorderPane {
 
 	public TurtlePane getTurtlePane() {
 		return myTurtlePane;
+	}
+	
+	public HistoryColorPane getHistoryColorPane() {
+		return mySidePane.getHistoryColorPane();
 	}
 
 }

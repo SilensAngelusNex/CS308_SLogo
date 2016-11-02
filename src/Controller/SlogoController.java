@@ -1,7 +1,10 @@
 package Controller;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
+import Model.ColorObserver;
 import Model.CommandObserver;
 import Model.SlogoModel;
 import Model.VariableObserver;
@@ -18,9 +21,11 @@ public class SlogoController {
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	
 	public SlogoController(){
-		
 		myView = new SlogoView("english", myUserDefinedPane);
-		myModel = new SlogoModel(myView.getTurtlePane(), myView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
+		List<ColorObserver> colorobs = new ArrayList<ColorObserver>();
+		colorobs.add((ColorObserver)myView.getTurtlePane());
+		colorobs.add((ColorObserver) myView.getHistoryColorPane());
+		myModel = new SlogoModel(myView.getTurtlePane(), colorobs, DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		myView.setModelInViewInterface((ModelInViewInterface) myModel);
 		myView.setMakeMultipleWorkspaceInterface(new MultipleWorkspace("english"));
 		myModel.addListener((VariableObserver)myUserDefinedPane);

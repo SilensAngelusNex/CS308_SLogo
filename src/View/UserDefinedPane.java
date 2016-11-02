@@ -103,7 +103,6 @@ public class UserDefinedPane extends BorderPane implements VariableObserver, Com
 
 	@Override
 	public void addCommand(String commandName, List<String> args, int numArgs) {
-		System.out.println("adding a command");
 		Command newcommand = new Command(commandName, numArgs);
 		if (myCommandMap.containsKey(commandName)){
 			Command oldcommand = new Command(commandName, myCommandMap.get(commandName));
