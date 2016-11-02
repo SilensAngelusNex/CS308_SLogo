@@ -72,6 +72,7 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 		double oldValue = myVariableMap.get(varVame);
 		Variable oldvar = new Variable(varVame, oldValue);
 		myAvailableVariables.getItems().remove(oldvar);
+		myVariableMap.put(varVame, newValue);
 		Variable newvar = new Variable(varVame, newValue);
 		myAvailableVariables.getItems().add(newvar);
 		
@@ -81,7 +82,7 @@ public class UserDefinedPane extends BorderPane implements VariableObserver{
 	public void deleteVariable(String varVame) {
 		double oldValue = myVariableMap.get(varVame);
 		Variable oldvar = new Variable(varVame, oldValue);
-		
+		myVariableMap.remove(oldvar);
 		myAvailableVariables.getItems().remove(oldvar);
 	}
 	
