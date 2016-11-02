@@ -3,6 +3,7 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 /**
@@ -26,15 +27,9 @@ public class SetBackgroundCommand extends AbstractDisplayCommand {
 	}
 
 	@Override
-	protected double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setBackground(childResult);
+	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+		return getModel().setBackground(getChild(0).execute(t));
 	}
 
-	@Override
-	protected void execNonTurtleCommand() throws InvalidCommandException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

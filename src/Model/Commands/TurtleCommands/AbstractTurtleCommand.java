@@ -3,6 +3,7 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.AbstractCommand;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
@@ -15,9 +16,9 @@ abstract public class AbstractTurtleCommand extends AbstractCommand{
 	}
 
 	@Override
-	protected void execNonTurtleCommand() throws InvalidCommandException {
+	public void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
 		for(Command c: getChildren()){
-			c.execNonTurtle();
+			c.execNonTurtle(t);
 		}
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.Command;
 import Model.Commands.CommandFactory;
 import Model.Commands.VariableCommand;
@@ -33,7 +34,7 @@ public class ToCommand extends AbstractNoVariablePreExecuteCommand{
 	}
 
 	@Override
-	protected double execCommand() throws InvalidCommandException {
+	protected double execCommand(TurtleModel t) throws InvalidCommandException {
 		Command ops = getChild(2);
 		
 		return myFactory.addUserCommand(myCommandName, myArgNames, ops);

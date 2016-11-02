@@ -3,6 +3,7 @@ package Model.Commands.TurtleCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class ClearScreenCommand extends AbstractTurtleCommand{
@@ -13,7 +14,7 @@ public class ClearScreenCommand extends AbstractTurtleCommand{
 	}
 
 	@Override
-	public double execCommand() throws InvalidCommandException {
+	public double execCommand(TurtleModel t) throws InvalidCommandException {
 		return getModel().clearScreen();			
 	}
 
