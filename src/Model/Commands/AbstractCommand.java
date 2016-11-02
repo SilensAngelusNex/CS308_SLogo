@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
@@ -44,22 +45,22 @@ abstract public class AbstractCommand implements Command{
 		return myModel;
 	}
 	
-	
 	@Override
-	public double execute() throws InvalidCommandException {
+	public double execute(TurtleModel t) throws InvalidCommandException {
 		if (argsNotFull())
 			throw argError();
 		else {
-			return execCommand();
+			return execCommand(t);
 		}
 	}
+
 	
 	@Override
-	public void execNonTurtle() throws InvalidCommandException {
+	public void execNonTurtle(TurtleModel t) throws InvalidCommandException {
 		if (argsNotFull())
 			throw argError();
 		else {
-			execNonTurtleCommand();			
+			execNonTurtleCommand(t);			
 		}
 	}
 	
@@ -133,28 +134,28 @@ abstract public class AbstractCommand implements Command{
 	}
 	
 	
-	abstract protected double execCommand() throws InvalidCommandException;
+	abstract protected double execCommand(TurtleModel t) throws InvalidCommandException;
 	
-	protected void execNonTurtleCommand() throws InvalidCommandException {
+	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
 		if(!isTurtleCommand()){
-			execChildrenAndReplaceSelf();
+			execChildrenAndReplaceSelf(t);
 		} else {
-			preExecChildren();
+			preExecChildren(t);
 		}
 		
 	}
 	
-	protected void execChildrenAndReplaceSelf() throws InvalidCommandException{
-		if (preExecChildren()){
-			double result = execute();	
+	protected void execChildrenAndReplaceSelf(TurtleModel t) throws InvalidCommandException{
+		if (preExecChildren(t)){
+			double result = execute(null);	
 			selfReplace(new ConstantCommand(this, result));
 		}
 	}
 	
-	protected boolean preExecChildren() throws InvalidCommandException{
+	protected boolean preExecChildren(TurtleModel t) throws InvalidCommandException{
 		boolean childrenConstant = true;
 		for (int i = 0; i < getChildren().size(); i++){
-			getChild(i).execNonTurtle();
+			getChild(i).execNonTurtle(t);
 			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 		}
 		return childrenConstant;

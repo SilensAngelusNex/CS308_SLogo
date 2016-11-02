@@ -2,6 +2,7 @@ package Model.Commands.MathCommands;
 
 import java.util.ResourceBundle;
 
+import Model.TurtleModel;
 import parser.InvalidCommandException;
 
 public class SineCommand extends AbstractMathCommand {
@@ -12,8 +13,8 @@ public class SineCommand extends AbstractMathCommand {
 	}
 
 	@Override
-	public double execCommand() throws InvalidCommandException {
-		return Math.sin(Math.toRadians(getChild(0).execute()));
+	public double execCommand(TurtleModel t) throws InvalidCommandException {
+		return Math.sin(Math.toRadians(getChild(0).execute(t)));
 	}
 
 	@Override

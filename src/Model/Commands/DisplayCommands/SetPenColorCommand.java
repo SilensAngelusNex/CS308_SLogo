@@ -3,6 +3,7 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
@@ -27,9 +28,8 @@ public class SetPenColorCommand extends AbstractTurtleCommand {
 	}
 
 	@Override
-	protected double execCommand() throws InvalidCommandException {
-		double childResult = getChild(0).execute();
-		return getModel().setPenColor(childResult);
+	protected double execCommand(TurtleModel t) throws InvalidCommandException {
+		return t.setPenColor(getChild(0));
 	}
 
 }

@@ -3,6 +3,7 @@ package Model.Commands.DisplayCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.AbstractCommand;
 import Model.Commands.ConstantCommand;
 import parser.InvalidCommandException;
@@ -14,15 +15,15 @@ abstract public class AbstractDisplayCommand extends AbstractCommand{
 	}
 	
 	@Override
-	protected void execNonTurtleCommand() throws InvalidCommandException {
+	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
 		if(!isTurtleCommand()){
 			boolean childrenConstant = true;
 			for (int i = 0; i < getChildren().size(); i++){
-				getChild(i).execNonTurtle();
+				getChild(i).execNonTurtle(t);
 				childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 			}
 			if (childrenConstant){
-				double result = execute();
+				double result = execute(t);
 				
 				selfReplace(new ConstantCommand(this, result));
 			}

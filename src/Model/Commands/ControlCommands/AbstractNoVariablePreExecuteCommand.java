@@ -3,6 +3,7 @@ package Model.Commands.ControlCommands;
 import java.util.ResourceBundle;
 
 import Model.CommandableModel;
+import Model.TurtleModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
@@ -13,9 +14,9 @@ abstract public class AbstractNoVariablePreExecuteCommand extends AbstractComman
 	}
 	
 	@Override
-	protected void execNonTurtleCommand() throws InvalidCommandException {
+	protected void execNonTurtleCommand(TurtleModel t) throws InvalidCommandException {
 		if (!(isVariableCommand() || isTurtleCommand())){
-			execChildrenAndReplaceSelf();
+			execChildrenAndReplaceSelf(t);
 		}
 	}
 

@@ -20,7 +20,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private FileHandler myFileHandler;
 	
 	public SlogoModel(EnclosureObserver e, ColorObserver c, double enclosureMaxX, double enclosureMaxY){
-		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
+		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY, myColors);
 		myTurtleEnclosure.addListener(e);
 		
 		myVariables = new VariableContainer();
@@ -40,12 +40,15 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	 */
 	public String parseAndExecute(String command) throws InvalidCommandException{
 		Command toExec = myParser.getExpressionTreeFromCommand(command);
-		toExec.execNonTurtle();
-		double result = toExec.execute();
+		toExec.execNonTurtle(myTurtleEnclosure.getActiveTurtle());
+		double result = toExec.execute(myTurtleEnclosure.getActiveTurtle());
 		
 		return Double.toString(result);
 	}
 	
+<<<<<<< src/Model/SlogoModel.java
+	//Turtle Commands
+=======
 	@Override
 	public void changeLanguage(String language) {
 		for (Language l : Language.values()) {
@@ -93,25 +96,9 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double home(){
 		return myTurtleEnclosure.home();
 	}
+>>>>>>> src/Model/SlogoModel.java
 	public double clearScreen(){
 		return myTurtleEnclosure.clearScreen();
-	}
-	
-	//Turtle Queries
-	public double xCor(){
-		return myTurtleEnclosure.xCor();
-	}
-	public double yCor(){
-		return myTurtleEnclosure.yCor();
-	}
-	public double heading(){
-		return myTurtleEnclosure.heading();
-	}
-	public double isPenDown(){
-		return myTurtleEnclosure.isPenDown();
-	}
-	public double isShowing(){
-		return myTurtleEnclosure.isShowing();
 	}
 	
 	//Variable Commands
@@ -142,25 +129,9 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double setBackground(double index){
 		return myColors.setBackground((int) index);
 	}
-	public double setPenColor(double index){
-		return myTurtleEnclosure.setPenColor(myColors.getColor((int) index));
-	}
-	public double setPenSize(double size){
-		return myTurtleEnclosure.setPenSize(size);
-	}
-	public double setShape(double index){
-		return myTurtleEnclosure.setShape((int) index);
-	}
-	public double getShape(){
-		return myTurtleEnclosure.getShape();
-	}
 	public double setPallet(double index, double r, double g, double b){
 		return myColors.setIndex((int) index, (int) r, (int) g, (int) b);
 	}
-	public double getPenColor(){
-		return myColors.getIndex(myTurtleEnclosure.getPenColor());
-	}
-	
 	
 	//Multiturtle Commands
 	public double ID() {
@@ -199,6 +170,20 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public void removeListener(VariableObserver v) {
 		myObservers.remove(v);
 	}
+<<<<<<< src/Model/SlogoModel.java
+
+	@Override
+	public void setTurtleImage(String image) {
+		myTurtleEnclosure.getActiveTurtle().toTurtleView().setTurtleImage(image);
+	}
+
+	@Override
+	public double turtleNumber() {
+		return myTurtleEnclosure.turtles();
+	}
+
+}
+=======
 	
 	public void addCommandListener(CommandObserver o) {
 		myParser.getCommandFactory().addListener(o);
@@ -208,3 +193,4 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return myFileHandler;
 	}
 }
+>>>>>>> src/Model/SlogoModel.java
