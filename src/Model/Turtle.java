@@ -37,6 +37,8 @@ public class Turtle implements TurtleModel, TurtleView{
 		myPenSize = 2;
 		myVisibility = true;
 		myShapeIndex = 1;
+		
+		notifyAdd();
 	}
 	
 	@Override

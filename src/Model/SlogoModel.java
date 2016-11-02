@@ -157,4 +157,9 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		return myTurtleEnclosure.newCompositeTurtle(list);
 	}
 
+	@Override
+	public void setActiveTurtle(TurtleModel t) {
+		myTurtleEnclosure.setActiveTurtle(t);
+	}
+
 }

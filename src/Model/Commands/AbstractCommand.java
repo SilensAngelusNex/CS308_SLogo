@@ -168,6 +168,7 @@ abstract public class AbstractCommand implements Command{
 		return myTurtle;
 	}
 	public void setTurtle(TurtleModel t){
+		System.out.println(t.toString());
 		myTurtle = t;
 	}
 	

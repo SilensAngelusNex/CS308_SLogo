@@ -53,11 +53,6 @@ public class CommandList extends AbstractCommandList{
 		return result;
 	}
 
-	@Override
-	public void setTurtle(TurtleModel t) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

@@ -7,7 +7,7 @@ import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
 public class TurtleNumberCommand extends AbstractTurtleCommand{
-	private static final String myName = "ID";
+	private static final String myName = "Turtles";
 
 	public TurtleNumberCommand(CommandableModel model, ResourceBundle language) {
 		super(model, language);

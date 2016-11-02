@@ -185,8 +185,9 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 	}
 
 	private TurtleModel getTurtle(double index) {
-		if (!myTurtles.containsKey((int) index))
+		if (!myTurtles.containsKey((int) index)){
 			myTurtles.put((int) index, new Turtle(myColors, this));
+		}
 		return myTurtles.get((int) index);
 	}
 
@@ -201,5 +202,9 @@ public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer
 		
 		return new Pair<Double, TurtleModel>((double) index, new CompositeTurtle(bale));
 		
+	}
+
+	public void setActiveTurtle(TurtleModel t) {
+		myActiveTurtle = t;
 	}
 }

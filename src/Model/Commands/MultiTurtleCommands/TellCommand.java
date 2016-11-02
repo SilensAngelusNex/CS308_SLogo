@@ -17,7 +17,7 @@ public class TellCommand extends AbstractTurtleCommand{
 
 	@Override
 	public int maxArgs() {
-		return 2;
+		return 1;
 	}
 
 	@Override
@@ -29,6 +29,7 @@ public class TellCommand extends AbstractTurtleCommand{
 	protected double execCommand() throws InvalidCommandException {
 		Pair<Double, TurtleModel> result = getModel().newCompositeTurtle(getChild(0));
 		getParent().setTurtleRecursive(result.getValue());
+		getModel().setActiveTurtle(result.getValue());
 		return result.getKey();
 	}
 
