@@ -16,4 +16,6 @@ public interface TurtleView {
 	
 	abstract public void setTurtleImage(String image);
 	
+	abstract public boolean getPenDown();
+	
 }

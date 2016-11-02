@@ -8,7 +8,7 @@ import Model.CommandableModel;
 import Model.Commands.Command;
 import Model.Commands.CommandFactory;
 import Model.Commands.VariableCommand;
-import parser.InvalidCommandException;;
+import parser.InvalidCommandException;
 
 public class ToCommand extends AbstractNoVariablePreExecuteCommand{
 	private static final String myName = "MakeUserInstruction";

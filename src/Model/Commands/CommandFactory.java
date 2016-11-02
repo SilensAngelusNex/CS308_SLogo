@@ -191,7 +191,7 @@ public class CommandFactory implements Observable<CommandObserver> {
 	public MultiArgumentCommand newCommandGroup() {
 		return new MultiArgumentCommand(myModel, myCommands, this);
 	}
-
+// TODO: notifyListener
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {
 		if (!myUserDefinedCommands.containsKey(commandName.toLowerCase())) {
 			return 0;

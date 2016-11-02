@@ -39,11 +39,11 @@ public class UIFactory {
 			
 		}
 		else if(Type.equals("Color")){
-			retBox.getSelectionModel().selectLast();
+			retBox.getSelectionModel().selectFirst();
 			retBox.setTooltip(new Tooltip("Select the color of the background"));
 		}
 		else if(Type.equals("LineColor")){
-			retBox.getSelectionModel().selectFirst();
+			retBox.getSelectionModel().select(1);
 			retBox.setTooltip(new Tooltip("Select the color of the pen"));
 		}
 		return retBox;
