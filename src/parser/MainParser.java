@@ -40,6 +40,10 @@ public class MainParser {
 		return createExpressionTree(myParser, command.split(NEWLINE));
 	}
 
+	public CommandFactory getCommandFactory() {
+		return myFactory;
+	}
+	
 	/**
 	 * Returns an ExpressionTree based off the input text
 	 * @throws InvalidCommandException 
