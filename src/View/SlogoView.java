@@ -35,6 +35,7 @@ public class SlogoView extends BorderPane {
 	private SidePane mySidePane;
 	private TurtlePane myTurtlePane;
 	private ConsolePane myConsolePane;
+	private ToolBar myToolBar;
 	
 	
     public SlogoView(String language, UserDefinedPane udp){
@@ -45,7 +46,8 @@ public class SlogoView extends BorderPane {
 		mySidePane = new SidePane(udp);
 		myTurtlePane = new TurtlePane();
 		setLeft(myTurtlePane);
-		setTop(makeToolbar());
+		initToolbar();
+		setTop(myToolBar);
 		setRight(mySidePane);
 	}
     public void setModelInViewInterface(ModelInViewInterface vm){
@@ -56,27 +58,14 @@ public class SlogoView extends BorderPane {
     	myConsolePane = new ConsolePane(mySidePane.getCommandHistory(), myModelInViewInterface, myUILabel);
 		setBottom(myConsolePane);
     }
-// TODO : REMOVE THIS AND CHANGE IT TO TOOLBAR CLASS
-	private Node makeToolbar() {
-		HBox functionHBox = new HBox();
-		ChoiceBox<String> languageCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"English", "Chinese", "French", "German", "Italian", "Portuguese",
-				"Russian", "Spanish"), "Language");
-		
-		ChoiceBox<String> colorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"Black", "Blue", "White"), "Color");
-		ChoiceBox<String> lineColorBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
-				"Black",  "Blue", "Red"), "LineColor");
-		setLanguageChangeListener(languageCBox);
-		setColorChangeListener(colorCBox);
-		setLineColorChangeListener(lineColorBox);
-		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
-		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
-		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
-		Button workspaceButton = myUIFactory.makeButton("NewWorkspaceLabel", e -> makeNewWorkspace());
-		functionHBox.getChildren().addAll(languageCBox, colorCBox, lineColorBox, BackgroundButton, 
-				TurtleDisplyButton, HelpButton, workspaceButton);
-		return functionHBox;
+    
+	private void initToolbar() {
+		myToolBar = new ToolBar(myUILabel, myHelpPage, myModelInViewInterface, myTurtlePane);
+		setLanguageChangeListener(myToolBar.getLanguageCBox());
+		setColorChangeListener(myToolBar.getColorCBox());
+		setLineColorChangeListener(myToolBar.getLineColorCBox());
+		//TODO : adding workspace 
+		//Button workspaceButton = myUIFactory.makeButton("NewWorkspaceLabel", e -> makeNewWorkspace());
 	}
 	
 	private void setLineColorChangeListener(ChoiceBox<String> lineColorBox){
@@ -88,8 +77,7 @@ public class SlogoView extends BorderPane {
 					myModelInViewInterface.parseAndExecute(myLanguageResources.getString("SetPenColor") 
 											+ " " + lineColorBox.getSelectionModel().getSelectedIndex());
 				} catch (InvalidCommandException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					myUIFactory.promptAlert("Command Error", e);
 				}
 			}
 		});
@@ -116,23 +104,8 @@ public class SlogoView extends BorderPane {
 
 		});
 	}
-
-	private void promptHelpPage() {
-		Stage newstage = new Stage();
-		myHelpPage.start(newstage);
-	}
-
-	private void displayTurtle() {
-		ChooseFile fileChooser = new ChooseFile();
-		File myImage = fileChooser.chooseFile();
-		if (myImage != null){
-			myTurtlePane.changeTurtleImage(myImage.getName());;
-			myModelInViewInterface.setTurtleImage(myImage.getName());
-		}
-	}
-	
-	private void makeNewWorkspace(){
-		// TODO : I don't think this will work because we need to add listener in controller class
+	// TODO : I don't think this will work because we need to add listener in controller class
+	private void makeNewWorkspace()
 		SlogoView workspaceView = new SlogoView("english", new UserDefinedPane());
 		SlogoModel workspaceModel = new SlogoModel(workspaceView.getTurtlePane(), DEFAULT_SIZE.getWidth() * 0.7 / 2, DEFAULT_SIZE.getHeight() / 1.5 / 2);
 		workspaceView.setModelInViewInterface((ModelInViewInterface) workspaceModel);
@@ -143,14 +116,7 @@ public class SlogoView extends BorderPane {
 		newWorkspace.show();
 	}
 
-	private void setBackground() {
-		ChooseFile fileChooser = new ChooseFile();
-		File myImage = fileChooser.chooseFile();
-		if(myImage !=null){
-			myTurtlePane.setStyle("-fx-background-image: url('" + myImage.getName() + "')");
-		}
 
-	}
 	public TurtlePane getTurtlePane() {
 		return myTurtlePane;
 	}

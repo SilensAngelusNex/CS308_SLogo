@@ -61,8 +61,7 @@ public class ConsolePane extends BorderPane {
 			myCommandHistory.getItems().add(command);
 			
 		}catch(Exception e){
-			e.printStackTrace();
-			promptAlert("Command Error", e);
+			myUIFactory.promptAlert("Command Error", e);
 
 		}
 	}
@@ -78,12 +77,6 @@ public class ConsolePane extends BorderPane {
 		myOutputBox.getChildren().add(t);
 	}
 	
-	private void promptAlert(String s, Exception e){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(s);
-		alert.setHeaderText(s);
-		alert.setContentText(e.toString());
-		alert.show();
-	}
+
 	
 }
