@@ -197,7 +197,7 @@ public class CommandFactory implements Observable<CommandObserver> {
 			return 0;
 		}
 		if (executable(ops)) {
-			notifyListenersAddCommand(commandName.toLowerCase(), argNames.size());
+			notifyListenersAddCommand(commandName.toLowerCase(), argNames, argNames.size());
 			myUserDefinedCommands.put(commandName.toLowerCase(), new Pair<List<String>, Command>(argNames, ops));
 			return 1;
 		} else {
@@ -241,9 +241,9 @@ public class CommandFactory implements Observable<CommandObserver> {
 		myObservers.remove(v);
 	}
 	
-	private void notifyListenersAddCommand(String commandName, int numArgs) {
+	private void notifyListenersAddCommand(String commandName, List<String> args, int numArgs) {
 		for (CommandObserver o : myObservers) {
-			o.addCommand(commandName, numArgs);
+			o.addCommand(commandName, args, numArgs);
 		}
 	}
 }

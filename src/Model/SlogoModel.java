@@ -6,6 +6,7 @@ import java.util.Map;
 
 import Controller.ModelInViewInterface;
 import Model.Commands.Command;
+import parser.FileHandler;
 import parser.InvalidCommandException;
 import parser.Language;
 import parser.MainParser;
@@ -16,7 +17,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	private MainParser myParser;
 	private ColorPallet myColors;
 	private List<VariableObserver> myObservers;
-	private Map<String, Language> languageMap;
+	private FileHandler myFileHandler;
 	
 	public SlogoModel(EnclosureObserver e, ColorObserver c, double enclosureMaxX, double enclosureMaxY){
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY);
@@ -188,18 +189,22 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 	public double get(String name){
 		return myVariables.get(name);
 	}
-	
-	
 
 	@Override
 	public void addListener(VariableObserver v) {
-		myObservers.add(v);
-		
+		myObservers.add(v);	
 	}
 
 	@Override
 	public void removeListener(VariableObserver v) {
 		myObservers.remove(v);
-		
+	}
+	
+	public void addCommandListener(CommandObserver o) {
+		myParser.getCommandFactory().addListener(o);
+	}
+	
+	public FileHandler getFileHandler() {
+		return myFileHandler;
 	}
 }
