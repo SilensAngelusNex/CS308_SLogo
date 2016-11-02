@@ -186,7 +186,7 @@ public class CommandFactory {
 		return new CommandList(myModel, myCommands);
 	}
 	public MultiArgumentCommand newCommandGroup() {
-		return new MultiArgumentCommand(myModel, myCommands);
+		return new MultiArgumentCommand(myModel, myCommands, this);
 	}
 
 	public double addUserCommand(String commandName, List<String> argNames, Command ops) {

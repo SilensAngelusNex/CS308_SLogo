@@ -6,7 +6,7 @@ import Model.CommandableModel;
 import parser.InvalidCommandException;
 
 public class BackCommand extends AbstractTurtleCommand{
-	String myName = "Back";
+	String myName = "Backward";
 
 	public BackCommand(CommandableModel model, ResourceBundle commands) {
 		super(model, commands);

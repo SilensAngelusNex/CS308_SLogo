@@ -38,9 +38,9 @@ abstract public class AbstractCommand implements Command{
 	public double execute() throws InvalidCommandException {
 		if (argsNotFull())
 			//TODO: Use resource file for error message.
-			throw new InvalidCommandException(argErrorMessage + myLanguage.getString(getName()));
+			throw argError();
 		else {
-			return execCommand();			
+			return execCommand();
 		}
 	}
 	
@@ -48,7 +48,7 @@ abstract public class AbstractCommand implements Command{
 	public void execNonTurtle() throws InvalidCommandException {
 		if (argsNotFull())
 			//TODO: Use resource file for error message.
-			throw new InvalidCommandException(argErrorMessage + myLanguage.getString(getName()));
+			throw argError();
 		else {
 			execNonTurtleCommand();			
 		}
@@ -83,6 +83,8 @@ abstract public class AbstractCommand implements Command{
 	@Override
 	public void selfReplace(Command replacement) {
 		myParent.getChildren().set(myParent.getChildren().indexOf(this), replacement);
+		replacement.setParent(myParent);
+		myParent = null;
 	}
 	
 	@Override
@@ -147,6 +149,10 @@ abstract public class AbstractCommand implements Command{
 			childrenConstant = childrenConstant && (getChild(i) instanceof ConstantCommand);
 		}
 		return childrenConstant;
+	}
+	
+	protected InvalidCommandException argError() {
+		return new InvalidCommandException(argErrorMessage + getName());
 	}
 	
 

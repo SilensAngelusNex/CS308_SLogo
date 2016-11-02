@@ -30,8 +30,7 @@ public class VariableCommand extends AbstractCommand{
 
 	@Override
 	protected void execNonTurtleCommand() throws InvalidCommandException {
-		
-		
+		//Do nothing.
 	}
 
 }
