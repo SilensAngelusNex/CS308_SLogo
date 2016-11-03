@@ -81,7 +81,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		return myColors.getIndex(myPenColor);
 	}
 
-	public double setPenColor(int index) {
+	public double setPenColor(int index) {		
 		myPenColor = myColors.getColor(index);
 		return 1;
 	}
