@@ -19,7 +19,7 @@ import parser.Language;
 public class ToolBar extends HBox{
 	private UIFactory myUIFactory;
 	private TurtlePane myTurtlePane;
-	private ModelInViewInterface myModelInViewInterface;
+	//private ModelInViewInterface myModelInViewInterface;
 	private ChoiceBox<String> myLanguageCBox;
 	
 	private ChoiceBox<String> myColorCBox;
@@ -33,7 +33,7 @@ public class ToolBar extends HBox{
 		myUIFactory = new UIFactory(uilabel);
 		myHelpPage = helppage;
 		myTurtlePane = turtlepane;
-		myModelInViewInterface = MVI;
+		//myModelInViewInterface = MVI;
 		
 		ObservableList<String> languages = FXCollections.observableArrayList();
 		for (Language lang : Language.values()) {
