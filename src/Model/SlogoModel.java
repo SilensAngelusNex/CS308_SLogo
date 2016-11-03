@@ -42,7 +42,7 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		toExec.execNonTurtle(myTurtleEnclosure.getActiveTurtle());
 		double result = toExec.execute(myTurtleEnclosure.getActiveTurtle());
 		
-		return Double.toString(result);
+		return Double.toString(result) + "\n";
 	}
 	
 	@Override
