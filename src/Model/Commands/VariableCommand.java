@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * A class to represent calls to variables.
+ * @author Weston
+ *
+ */
 public class VariableCommand extends AbstractCommand{
 	private String myName;
 	

@@ -11,16 +11,23 @@ import parser.InvalidCommandException;
 import parser.Language;
 import parser.MainParser;
 
+/**
+ * This class holds instances of all the back end classes needed to parse and execute commands. It implements 
+ * ModelInViewInterface and CommandableModel, as well as Observable<VariableObserver>, so that it can tell the
+ * view when values of variables change.
+ * @author Weston
+ *
+ */
 public class SlogoModel implements ModelInViewInterface, Observable<VariableObserver>, CommandableModel{
 	private Enclosure myTurtleEnclosure;
 	private VariableContainer myVariables;
 	private MainParser myParser;
-	private ColorPallet myColors;
+	private ColorPalette myColors;
 	private List<VariableObserver> myObservers;
 	private FileHandler myFileHandler;
 	
 	public SlogoModel(EnclosureObserver e, List<ColorObserver> c, double enclosureMaxX, double enclosureMaxY){
-		myColors = new ColorPallet();
+		myColors = new ColorPalette();
 		myTurtleEnclosure = new Enclosure(enclosureMaxX, enclosureMaxY, myColors);
 		myTurtleEnclosure.addListener(e);
 		
@@ -33,10 +40,6 @@ public class SlogoModel implements ModelInViewInterface, Observable<VariableObse
 		
 	}
 	
-	/**
-	 * @throws InvalidCommandException 
-	 * 
-	 */
 	public String parseAndExecute(String command) throws InvalidCommandException{
 		Command toExec = myParser.getExpressionTreeFromCommand(command);
 		toExec.execNonTurtle(myTurtleEnclosure.getActiveTurtle());

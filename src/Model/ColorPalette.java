@@ -7,12 +7,17 @@ import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-public class ColorPallet implements Observable<ColorObserver> {
+/**
+ * A class used to store colors by index. Observable by Color Observers.
+ * @author Weston
+ *
+ */
+public class ColorPalette implements Observable<ColorObserver> {
 	List<ColorObserver> myObservers;
 	Color myBackground;
 	Map<Integer, Color> myColors;
 
-	public ColorPallet() {
+	public ColorPalette() {
 		myColors = new HashMap<Integer, Color>();
 		myColors.put(0, Color.color(1, 1, 1));
 		myColors.put(1, Color.color(0, 0, 0));
@@ -26,16 +31,25 @@ public class ColorPallet implements Observable<ColorObserver> {
 		myObservers = new ArrayList<ColorObserver>();
 	}
 
-	public void addColor(int r, int g, int b) {
-		myColors.put(myColors.size(), Color.color(r, g, b));
-	}
-
+	/**
+	 * Sets index's color to be a color with rgb value of (r, g, b)
+	 * @param index
+	 * @param r
+	 * @param g
+	 * @param b
+	 * @return index
+	 */
 	public double setIndex(int index, int r, int g, int b) {
 		myColors.put(index, Color.color(r, g, b));
 		notifyListenersColorChange(index);
 		return index;
 	}
 
+	/**
+	 * Finds the index of the given color toFind
+	 * @param toFind
+	 * @return index, or -1, if toFind can't be found.
+	 */
 	public double getIndex(Color toFind) {
 		for (Integer index : myColors.keySet()) {
 			if (myColors.get(index).equals(toFind)) {
@@ -45,10 +59,20 @@ public class ColorPallet implements Observable<ColorObserver> {
 		return -1;
 	}
 
+	/**
+	 * Gets the color given by index
+	 * @param index
+	 * @return the color given by index
+	 */
 	public Color getColor(int index) {
 		return myColors.get(index);
 	}
 
+	/**
+	 * Sets the background color to the color of index
+	 * @param index
+	 * @return index
+	 */
 	public double setBackground(int index) {
 		myBackground = myColors.get(index);
 		notifyListenersBackgroundChange();

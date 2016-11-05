@@ -6,6 +6,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * A class represent calls to a user defined command
+ * @author Weston
+ *
+ */
 public class UserDefinedCommand extends AbstractCommand {
 	String myName;
 	CommandFactory myFactory;

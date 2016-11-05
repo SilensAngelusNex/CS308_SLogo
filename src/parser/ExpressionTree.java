@@ -5,7 +5,7 @@ import java.util.Queue;
 
 /**
  * This is a wrapper class for an expression tree.
- * 
+ * @deprecated
  * @author Daniel Chai
  */
 public class ExpressionTree {

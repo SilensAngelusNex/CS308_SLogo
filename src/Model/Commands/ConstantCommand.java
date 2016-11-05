@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * A class for commands that are simply a constant, double value
+ * @author Weston
+ *
+ */
 public class ConstantCommand extends AbstractCommand{
 	private String myName;
 	

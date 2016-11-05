@@ -112,14 +112,6 @@ public class CompositeTurtle implements TurtleModel{
 	}
 
 	@Override
-	public boolean isDrawing() {
-		boolean result = false;
-		for (TurtleModel t: myTurtles)
-			result = result && t.isDrawing();
-		return result;
-	}
-
-	@Override
 	public double setPen(boolean b) {
 		for (TurtleModel t: myTurtles)
 			t.setPen(b);
@@ -128,7 +120,10 @@ public class CompositeTurtle implements TurtleModel{
 
 	@Override
 	public boolean getPenDown() {
-		return isDrawing();
+		boolean result = false;
+		for (TurtleModel t: myTurtles)
+			result = result && t.getPenDown();
+		return result;
 	}
 
 	@Override
@@ -185,7 +180,7 @@ public class CompositeTurtle implements TurtleModel{
 	public boolean getVisibility() {
 		boolean result = false;
 		for (TurtleModel t: myTurtles)
-			result = result && t.isDrawing();
+			result = result && t.getVisibility();
 		return result;
 	}
 

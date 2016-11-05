@@ -9,7 +9,11 @@ import Model.TurtleModel;
 import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
-
+/**
+ * An abstract class that implements may of the methods from Command to avoid duplicated code in the command subclasses
+ * @author Weston
+ *
+ */
 abstract public class AbstractCommand implements Command{
 	public static final String ERROR_RESOURCE = "resources/CommandError";
 	public static final String ERROR_KEY = "NotEnoughArgs";
@@ -164,13 +168,15 @@ abstract public class AbstractCommand implements Command{
 		return childrenConstant;
 	}
 	
+	@Override
 	public TurtleModel getTurtle(){
 		return myTurtle;
 	}
+	@Override
 	public void setTurtle(TurtleModel t){
 		myTurtle = t;
 	}
-	
+	@Override
 	public void setTurtleRecursive(TurtleModel t){
 		myTurtle = t;
 		if (myParent != null)

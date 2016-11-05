@@ -15,6 +15,10 @@ abstract public class AbstractCommandList extends AbstractCommand {
 		myName = openParen;
 	}
 
+	/**
+	 * Closes the this by adding closeParen to it.
+	 * @param closeParen
+	 */
 	public void endList(String closeParen) {
 		String newName = String.format("%s%s", myName, closeParen);
 		if (!newName.matches("[\\[\\(][\\]\\)]"))

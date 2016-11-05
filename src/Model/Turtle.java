@@ -5,6 +5,11 @@ import parser.InvalidCommandException;
 import Model.Commands.Command;
 import View.TurtleView;
 
+/**
+ * A class to hold a concrete representation of a turtle. Implements both TurtleView and TurtleModel.
+ * @author Weston
+ *
+ */
 public class Turtle implements TurtleModel, TurtleView{
 	private Point myPosition;
 	private Point myLastPosition;
@@ -19,9 +24,9 @@ public class Turtle implements TurtleModel, TurtleView{
 	private boolean myVisibility;
 	private int myShapeIndex;
 	private TurtleContainer myContainer;
-	private ColorPallet myColors;
+	private ColorPalette myColors;
 	
-	public Turtle(ColorPallet colors, TurtleContainer container){
+	public Turtle(ColorPalette colors, TurtleContainer container){
 		//TODO: put in resource file.
 		myTurtleImage = "turtle.png";
 		
@@ -69,11 +74,6 @@ public class Turtle implements TurtleModel, TurtleView{
 	@Override
 	public double getY(){
 		return myPosition.getY();
-	}
-
-	@Override
-	public boolean isDrawing() {
-		return myPenDown;
 	}
 
 	@Override
@@ -259,7 +259,7 @@ public class Turtle implements TurtleModel, TurtleView{
 		
 		notifyMove();
 		
-		if (isDrawing()){
+		if (getPenDown()){
 			LineModel toAdd = new LineModel(myLastPosition, myPosition, myPenColor, myPenSize);
 			myContainer.addLine(toAdd);
 		}

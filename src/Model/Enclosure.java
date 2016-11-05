@@ -9,18 +9,24 @@ import Model.Commands.Command;
 import javafx.util.Pair;
 import parser.InvalidCommandException;
 
-
+/**
+ * A class that holds all the created Turtles and Lines. It notifies the EnclosureObserver whenever
+ * Turtles or Lines are created, move, or are removed. It listens to the turtles it contains to know
+ * when they are moved, or removed.
+ * @author Weston
+ *
+ */
 public class Enclosure implements Observable<EnclosureObserver>, TurtleContainer{
 	private List<EnclosureObserver> myObservers;
 	private Map<Integer, TurtleModel> myTurtles;
 	private List<LineModel> myLines;
 	private TurtleModel myActiveTurtle;
-	private ColorPallet myColors;
+	private ColorPalette myColors;
 	
 	private double myMaximumX;
 	private double myMaximumY;
 	
-	public Enclosure(double maxX, double maxY, ColorPallet colors){
+	public Enclosure(double maxX, double maxY, ColorPalette colors){
 		myColors = colors;
 		myMaximumX = maxX;
 		myMaximumY = maxY;

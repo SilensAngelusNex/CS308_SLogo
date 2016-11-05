@@ -4,9 +4,18 @@ import Model.Commands.Command;
 import javafx.util.Pair;
 import parser.InvalidCommandException;
 
+/**
+ * The Command objects use this interface to manipulate the SlogoModel.
+ * @author Weston
+ *
+ */
 public interface CommandableModel {
 	
 	//Turtle Cammands
+	/**
+	 * Deletes all lines, all but one turtle, and moves the remaining turtle to the middle of the screen.
+	 * @return the distance the active turtle moved
+	 */
 	public double clearScreen();
 	
 	//Variable Commands

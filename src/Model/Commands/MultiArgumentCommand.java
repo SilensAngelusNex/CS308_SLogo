@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * A command that holds one command to run and its arguments
+ * @author Weston
+ *
+ */
 public class MultiArgumentCommand extends AbstractCommandList{	
 	private CommandFactory myFactory;
 

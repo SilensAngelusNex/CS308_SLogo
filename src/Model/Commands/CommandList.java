@@ -7,6 +7,11 @@ import Model.TurtleModel;
 import Model.Commands.ControlCommands.ToCommand;
 import parser.InvalidCommandException;
 
+/**
+ * A command that contains a list of children to be executed one by one.
+ * @author Weston
+ *
+ */
 public class CommandList extends AbstractCommandList{
 	
 	public CommandList(CommandableModel model, ResourceBundle language) {
@@ -43,7 +48,7 @@ public class CommandList extends AbstractCommandList{
 	}
 
 
-	
+	@Override
 	protected double execCommand() throws InvalidCommandException {
 		double result = 0;
 		

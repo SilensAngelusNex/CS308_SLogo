@@ -1,5 +1,10 @@
 package Model;
 
+/**
+ * An interface to allow the turtles to interact with the space they live in.
+ * @author Weston
+ *
+ */
 public interface TurtleContainer {
 
 

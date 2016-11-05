@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This class represents a node in an expression tree.
- * 
+ * @deprecated
  * @author Daniel Chai
  */
 public class ExpressionNode {
