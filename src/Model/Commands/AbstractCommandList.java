@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * An abstract class for commands with no set number of arguments.
+ * @author Weston
+ *
+ */
 abstract public class AbstractCommandList extends AbstractCommand {
 	private String myName;
 
