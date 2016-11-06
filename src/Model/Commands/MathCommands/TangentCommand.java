@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Tangent" command.
+ * @author Weston
+ *
+ */
 public class TangentCommand extends AbstractMathCommand {
 	String myName = "Tangent";
 

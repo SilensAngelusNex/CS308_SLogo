@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "IsShowing" command.
+ * @author Weston
+ *
+ */
 public class IsShowingCommand extends AbstractTurtleCommand {
 	String myName = "IsShowing";
 

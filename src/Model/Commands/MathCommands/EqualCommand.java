@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Equal" command.
+ * @author Weston
+ *
+ */
 public class EqualCommand extends AbstractMathCommand {
 	String myName = "Equal";
 	

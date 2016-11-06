@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Product" command.
+ * @author Weston
+ *
+ */
 public class ProductCommand extends AbstractMathCommand {
 	String myName = "Product";
 

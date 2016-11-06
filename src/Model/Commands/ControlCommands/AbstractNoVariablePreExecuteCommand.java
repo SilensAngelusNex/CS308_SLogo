@@ -6,6 +6,12 @@ import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command that cannot pre-execute its children if they contain any variable commands or turtle commands.
+ * Subclasses would include loops and function definitions.
+ * @author Weston
+ *
+ */
 abstract public class AbstractNoVariablePreExecuteCommand extends AbstractCommand{
 
 	public AbstractNoVariablePreExecuteCommand(CommandableModel model, ResourceBundle language) {

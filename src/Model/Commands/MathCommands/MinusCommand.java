@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Minus" command.
+ * @author Weston
+ *
+ */
 public class MinusCommand extends AbstractMathCommand {
 	String myName = "Minus";
 	

@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Cosine" command.
+ * @author Weston
+ *
+ */
 public class CosineCommand extends AbstractMathCommand {
 	String myName = "Cosine";
 	

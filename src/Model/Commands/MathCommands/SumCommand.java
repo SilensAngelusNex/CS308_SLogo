@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Sum" command.
+ * @author Weston
+ *
+ */
 public class SumCommand extends AbstractMathCommand {
 	String myName = "Sum";
 

@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Or" command.
+ * @author Weston
+ *
+ */
 public class OrCommand extends AbstractMathCommand {
 	String myName = "Or";
 	

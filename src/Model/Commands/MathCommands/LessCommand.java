@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Less" command.
+ * @author Weston
+ *
+ */
 public class LessCommand extends AbstractMathCommand {
 	String myName = "LessThan";
 	

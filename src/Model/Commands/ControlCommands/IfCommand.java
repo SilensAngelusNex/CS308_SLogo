@@ -6,6 +6,11 @@ import Model.CommandableModel;
 import Model.Commands.AbstractCommand;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "If" command 
+ * @author Weston
+ *
+ */
 public class IfCommand extends AbstractCommand {
 	String myName = "If";
 	

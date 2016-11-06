@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "And" command.
+ * @author Weston
+ *
+ */
 public class AndCommand extends AbstractMathCommand {
 
 	String myName = "And";

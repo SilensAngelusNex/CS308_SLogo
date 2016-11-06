@@ -7,6 +7,7 @@ import Model.Commands.TurtleCommands.AbstractTurtleCommand;
 import parser.InvalidCommandException;
 
 /**
+ * This class is a command object whose execution completes the "GetPenColor" command 
  * @author Daniel Chai
  */
 public class PenColorCommand extends AbstractTurtleCommand {

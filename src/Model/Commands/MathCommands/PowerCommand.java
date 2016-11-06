@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Power" command.
+ * @author Weston
+ *
+ */
 public class PowerCommand extends AbstractMathCommand {
 	private static final String myName = "Power";
 

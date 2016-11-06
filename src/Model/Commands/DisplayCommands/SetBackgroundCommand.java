@@ -6,6 +6,7 @@ import Model.CommandableModel;
 import parser.InvalidCommandException;
 
 /**
+ * This class is a command object whose execution completes the "SetBackground" command 
  * @author Daniel Chai
  */
 public class SetBackgroundCommand extends AbstractDisplayCommand {

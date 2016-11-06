@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Random" command.
+ * @author Weston
+ *
+ */
 public class RandomCommand extends AbstractMathCommand {
 	private static final String myName = "Random";
 	private static final Random myRandom = new Random();

@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Right" command.
+ * @author Weston
+ *
+ */
 public class RightCommand extends AbstractTurtleCommand{
 	String myName = "Right";
 

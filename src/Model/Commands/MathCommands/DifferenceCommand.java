@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Difference" command.
+ * @author Weston
+ *
+ */
 public class DifferenceCommand extends AbstractMathCommand {
 	String myName = "Difference";
 	

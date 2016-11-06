@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Quotient" command.
+ * @author Weston
+ *
+ */
 public class QuotientCommand extends AbstractMathCommand {
 	String myName = "Quotient";
 

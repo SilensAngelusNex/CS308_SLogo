@@ -6,6 +6,11 @@ import Model.CommandableModel;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "For" command 
+ * @author Weston
+ *
+ */
 public class ForCommand extends AbstractNoVariablePreExecuteCommand {
 	String myName = "For";
 	

@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Greater" command.
+ * @author Weston
+ *
+ */
 public class GreaterCommand extends AbstractMathCommand {
 	String myName = "GreaterThan";
 

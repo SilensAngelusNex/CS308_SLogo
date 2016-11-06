@@ -6,6 +6,11 @@ import Model.CommandableModel;
 import Model.Commands.Command;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "DoTimes" command 
+ * @author Weston
+ *
+ */
 public class DoTimesCommand extends AbstractNoVariablePreExecuteCommand {
 	String myName = "DoTimes";
 	

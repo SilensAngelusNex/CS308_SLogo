@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import Model.CommandableModel;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Back" command.
+ * @author Weston
+ *
+ */
 public class BackCommand extends AbstractTurtleCommand{
 	String myName = "Backward";
 

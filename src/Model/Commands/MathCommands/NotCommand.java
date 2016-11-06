@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "Not" command.
+ * @author Weston
+ *
+ */
 public class NotCommand extends AbstractMathCommand {
 	String myName = "Not";
 	

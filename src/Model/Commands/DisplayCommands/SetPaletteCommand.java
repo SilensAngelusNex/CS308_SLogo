@@ -6,6 +6,7 @@ import Model.CommandableModel;
 import parser.InvalidCommandException;
 
 /**
+ * This class is a command object whose execution completes the "SetPalette" command
  * @author Daniel Chai
  */
 public class SetPaletteCommand extends AbstractDisplayCommand {

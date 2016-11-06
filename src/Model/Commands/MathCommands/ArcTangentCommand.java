@@ -4,6 +4,11 @@ import java.util.ResourceBundle;
 
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "ArcTangent" command.
+ * @author Weston
+ *
+ */
 public class ArcTangentCommand extends AbstractMathCommand {
 	String myName = "ArcTangent";
 	

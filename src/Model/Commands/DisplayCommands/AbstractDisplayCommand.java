@@ -7,6 +7,12 @@ import Model.Commands.AbstractCommand;
 import Model.Commands.ConstantCommand;
 import parser.InvalidCommandException;
 
+/**
+ * This class is used as the superclass for display commands, to remove the need to override the
+ * execNonTurtleCommand method in each display command.
+ * @author Weston
+ *
+ */
 abstract public class AbstractDisplayCommand extends AbstractCommand{
 	
 	public AbstractDisplayCommand(CommandableModel model,ResourceBundle commands){

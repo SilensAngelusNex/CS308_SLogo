@@ -10,6 +10,11 @@ import Model.Commands.CommandFactory;
 import Model.Commands.VariableCommand;
 import parser.InvalidCommandException;
 
+/**
+ * This class is a command object whose execution completes the "To" command 
+ * @author Weston
+ *
+ */
 public class ToCommand extends AbstractNoVariablePreExecuteCommand{
 	private static final String myName = "MakeUserInstruction";
 	
