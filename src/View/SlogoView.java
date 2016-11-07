@@ -47,14 +47,26 @@ public class SlogoView extends BorderPane {
 		setTop(myToolBar);
 		setRight(mySidePane);
 	}
+    
+    /**
+     * Purpose: Set the ModelInViewInterace 
+     * @param vm
+     */
     public void setModelInViewInterface(ModelInViewInterface vm){
     	myModelInViewInterface = vm;
     }
     
+    /**
+     * Purpose: Set the multiple workspace interface
+     * @param mw
+     */
     public void setMakeMultipleWorkspaceInterface(MakeMultipleWorkspaceInterface mw){
     	myMultipleWorkspaceInterface = mw;
     }
     
+    /**
+     * Makes the console pane to be displayed
+     */
     public void setConsolePane(){
     	myConsolePane = new ConsolePane(mySidePane.getCommandHistory(), myModelInViewInterface, myUILabel);
 		setBottom(myConsolePane);
@@ -70,7 +82,6 @@ public class SlogoView extends BorderPane {
 	}
 	
 	private void setLineColorChangeListener(ChoiceBox<String> lineColorBox){
-
 		lineColorBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 			@Override
 			public void changed(ObservableValue<? extends String> arg0,
@@ -111,11 +122,18 @@ public class SlogoView extends BorderPane {
 		myMultipleWorkspaceInterface.makeWorkspace();
 	}
 
-
+	/**
+	 * Purpose: Get the TurtlePane for the display
+	 * @return
+	 */
 	public TurtlePane getTurtlePane() {
 		return myTurtlePane;
 	}
 	
+	/**
+	 * Purpose : Gets History color pane for display
+	 * @return
+	 */
 	public HistoryColorPane getHistoryColorPane() {
 		return mySidePane.getHistoryColorPane();
 	}

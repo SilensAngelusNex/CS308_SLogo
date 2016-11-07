@@ -13,7 +13,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * @author Owen Chung
+ * @author Owen Chung and Blake Becerra
  */
 
 public class UIFactory {
@@ -52,6 +52,7 @@ public class UIFactory {
 	protected Label makeLabel(String labeltext){
 		return new Label();
 	}
+	
 	protected void promptAlert(String s, Exception e){
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(s);
@@ -59,8 +60,4 @@ public class UIFactory {
 		alert.setContentText(e.toString());
 		alert.show();
 	}
-
-
-	
-
 }

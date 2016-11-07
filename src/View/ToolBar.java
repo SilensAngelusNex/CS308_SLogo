@@ -10,8 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 /**
- * @author Owen Chung
+ * @author Owen Chung and Blake Becerra
  */
 
 import parser.Language;
@@ -19,7 +20,7 @@ import parser.Language;
 public class ToolBar extends HBox{
 	private UIFactory myUIFactory;
 	private TurtlePane myTurtlePane;
-	//private ModelInViewInterface myModelInViewInterface;
+
 	private ChoiceBox<String> myLanguageCBox;
 	
 	private ChoiceBox<String> myColorCBox;
@@ -32,22 +33,17 @@ public class ToolBar extends HBox{
 	public ToolBar(ResourceBundle uilabel, UserManualPopup helppage, ModelInViewInterface MVI, 	TurtlePane turtlepane){
 		myUIFactory = new UIFactory(uilabel);
 		myHelpPage = helppage;
-		myTurtlePane = turtlepane;
-		//myModelInViewInterface = MVI;
-		
+		myTurtlePane = turtlepane;		
 		ObservableList<String> languages = FXCollections.observableArrayList();
 		for (Language lang : Language.values()) {
 			languages.add(lang.getLangName());
 		}
-		
-		myLanguageCBox = myUIFactory.makeChoiceBox(languages, "Language");
-		
+		myLanguageCBox = myUIFactory.makeChoiceBox(languages, "Language");	
 		myColorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
 				"White",  "Black", "Red", "Blue", "Green", "Aqua", 	"Fuchsia", "Yellow"), "Color");
 		
 		myLineColorCBox = myUIFactory.makeChoiceBox(FXCollections.observableArrayList(
 				"White",  "Black", "Red", "Green", "Blue", "Aqua", 	"Fuchsia", "Yellow"), "LineColor");
-		
 		Button BackgroundButton = myUIFactory.makeButton("BackgroundLabel", event -> setBackground());
 		Button TurtleDisplyButton = myUIFactory.makeButton("TurtleLabel", event -> displayTurtle());
 		Button HelpButton = myUIFactory.makeButton("HelpLabel", event -> promptHelpPage());
@@ -59,14 +55,15 @@ public class ToolBar extends HBox{
 		File ret = fileChooser.chooseFile();
 		return ret;
 	}
+	
 	private void setBackground() {
 		File file = chooseFiletoRead();
 		if(file != null){
-			//TODO : call backend instead
 		myTurtlePane.setStyle("-fx-background-image: url('" + file.getName() + "')");
 		}
 
 	}
+	
 	private void displayTurtle() {
 		File file = chooseFiletoRead();
 		if (file != null){
@@ -90,5 +87,4 @@ public class ToolBar extends HBox{
 	public ChoiceBox<String> getLineColorCBox() {
 		return myLineColorCBox;
 	}
-	
 }
