@@ -73,7 +73,6 @@ public class HistoryColorPane extends BorderPane implements ColorObserver{
 
 	@Override
 	public void backgroundChange(Color newColor) {
-
 		
 	}
 }

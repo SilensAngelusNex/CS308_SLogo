@@ -13,7 +13,11 @@ public class UserManualPopup extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-//TODO property files and numbers
+
+    /**
+     *Starts the screen with the help page link
+     * @param primaryState
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("User Manual");
