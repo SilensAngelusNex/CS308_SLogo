@@ -31,11 +31,6 @@ public class SlogoController {
 		myModel.addListener((VariableObserver)myUserDefinedPane);
 		myModel.addCommandListener((CommandObserver)myUserDefinedPane);
 		myView.setConsolePane();
-		
-		/*
-		myView = new StartScreen();
-		myView.init();
-		*/
 	}
 	
 	public SlogoView getView() {
