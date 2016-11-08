@@ -39,6 +39,4 @@ public class MultipleWorkspace implements MakeMultipleWorkspaceInterface{
 		workspace.setScene(workspaceScene);
 		workspace.show();
 	}
-
-	
 }

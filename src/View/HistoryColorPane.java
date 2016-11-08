@@ -64,15 +64,9 @@ public class HistoryColorPane extends BorderPane implements ColorObserver{
 		ColorElement newcolor = new ColorElement(newColor, index);
 		myColorMap.put(newColor, index);
 		myColorPalette.getItems().add(newcolor);
-//		if (myColorMap.containsKey(newColor)){
-//		ColorElement oldcolor = new ColorElement(newColor, myColorMap.get(newColor));
-//		myColorPalette.getItems().remove(oldcolor);
-//	}
-
 	}
 
 	@Override
-	public void backgroundChange(Color newColor) {
-		
+	public void backgroundChange(Color newColor) {	
 	}
 }

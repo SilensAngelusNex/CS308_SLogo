@@ -20,7 +20,7 @@ public class TurtlePane extends Pane implements EnclosureObserver, ColorObserver
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	private Map<TurtleView, ImageView> myTurtleImages;
 	private Map<LineModel, Line> myLines;
-//TODO: IMAGEVIEW ALLOWED?
+	
 	protected TurtlePane(){
 		myTurtleImages = new HashMap<TurtleView, ImageView>();
 		myLines = new HashMap<LineModel, Line>();
